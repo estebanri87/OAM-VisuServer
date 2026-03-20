@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0A0A0C" />
+  <title>OpenKNX Visu</title>
+  <base href="/visu/" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="auth-overlay" class="overlay hidden">
+    <div class="auth-box">
+      <svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true">
+        <use href="icons.svg#icon-lock" />
+      </svg>
+      <p id="auth-title">PIN eingeben</p>
+      <div class="pin-dots">
+        <span class="pin-dot" id="d0"></span>
+        <span class="pin-dot" id="d1"></span>
+        <span class="pin-dot" id="d2"></span>
+        <span class="pin-dot" id="d3"></span>
+      </div>
+      <p id="auth-error" class="auth-error hidden"></p>
+      <div class="pin-pad">
+        <button class="pin-key" data-key="1">1</button>
+        <button class="pin-key" data-key="2">2</button>
+        <button class="pin-key" data-key="3">3</button>
+        <button class="pin-key" data-key="4">4</button>
+        <button class="pin-key" data-key="5">5</button>
+        <button class="pin-key" data-key="6">6</button>
+        <button class="pin-key" data-key="7">7</button>
+        <button class="pin-key" data-key="8">8</button>
+        <button class="pin-key" data-key="9">9</button>
+        <button class="pin-key pin-key--clear" data-key="C">⌫</button>
+        <button class="pin-key" data-key="0">0</button>
+        <button class="pin-key pin-key--ok" data-key="OK">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="saver-overlay" class="overlay hidden">
+    <div class="saver-content">
+      <p id="saver-time"></p>
+      <p id="saver-date"></p>
+    </div>
+  </div>
+
+  <header id="app-header">
+    <button id="btn-back" class="header-btn hidden" aria-label="Zurück">
+      <svg viewBox="0 0 24 24"><use href="icons.svg#icon-back" /></svg>
+    </button>
+    <span id="header-title">OpenKNX Visu</span>
+    <div class="header-right">
+      <span id="ws-indicator" class="ws-dot ws-dot--off" title="Verbindung"></span>
+      <button id="btn-home" class="header-btn" aria-label="Startseite">
+        <svg viewBox="0 0 24 24"><use href="icons.svg#icon-home" /></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav id="floor-nav" class="hidden"></nav>
+
+  <main id="app">
+    <div id="view-floors"  class="view"></div>
+    <div id="view-rooms"   class="view hidden"></div>
+    <div id="view-room"    class="view hidden"></div>
+    <div id="view-dash"    class="view hidden"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

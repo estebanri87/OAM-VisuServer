@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+  <!-- Enable IPTool of ETS. This hide ip settings in network tab -->
+  <op:config name="%NET_IPConfigTool%" value="0" />
+  <op:config name="%NET_WifiTool%" value="0" />
+  <op:config name="%NET_LanMode%" value="0" />
+  <op:config name="%NET_ServiceNTP%" value="1" />
+  <op:config name="%NET_ServiceOTA%" value="1" />
+  <op:config name="%NET_ShowMediumInfo%" value="0" />
+
+  <!-- Prepare: Not ready to use -->
+  <op:config name="%NET_ServiceHTTP%" value="0" />
+
+
+  <ManufacturerData>
+    <Manufacturer>
+      <ApplicationPrograms>
+        <ApplicationProgram>
+          <Static>
+            <ParameterTypes>
+              <ParameterType Id="%AID%_PT-CustomHostname" Name="CustomHostname">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Standard" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Anpassen" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-HostAddress" Name="HostAddress">
+                <TypeIPAddress AddressType="HostAddress" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SubnetMask" Name="SubnetMask">
+                <TypeIPAddress AddressType="SubnetMask" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-GatewayAddress" Name="GatewayAddress">
+                <TypeIPAddress AddressType="GatewayAddress" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Hostname" Name="Hostname" ValidationErrorRef="%AID%_M-%TT%00001">
+                <TypeText SizeInBit="192" Pattern="^([A-Za-z](?:[A-Za-z0-9\-]*[A-Za-z0-9])*|)$"/>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-WifiSSID" Name="WifiSSID">
+                <TypeText SizeInBit="256" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-WifiPassword" Name="WifiPassword">
+                <TypeText SizeInBit="504" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OTAUpdate" Name="OTAUpdate">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Im Prog-Modus" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Immer aktiv" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Abgeschaltet" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-LanMode" Name="LanMode">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Automatisch" Value="0" Id="%ENID%" />
+                  <Enumeration Text="10 MBit/s (Stromsparender)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="100 MBit/s" Value="1" Id="%ENID%" />
+                  <!-- <Enumeration Text="100 MBit/s Halb-Duplex" Value="2" Id="%ENID%" /> -->
+                  <!-- <Enumeration Text="10 MBit/s Halb-Duplex" Value="4" Id="%ENID%" /> -->
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-NTPServer" Name="NTPServer">
+                <TypeText SizeInBit="400" /> <!-- 50 bytes -->
+              </ParameterType>
+              <!-- Status LEDs-->
+              <ParameterType Id="%AID%_PT-SLEDFunc" Name="SLEDFunc">
+                <TypeRestriction Base="Value" SizeInBit="16" UIHint="DropDown">
+                  <Enumeration Text="Netzwerkstatus" Value="10" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+            </ParameterTypes>
+            <Parameters>
+              <!-- helper to check against a certain value in the case of a choose -->
+              <Parameter Id="%AID%_P-%TT%01000" Name="SelectHelper"          ParameterType="%AID%_PT-ValueDpt5"         Text=""        Value="0" Access="None" />
+              <Parameter Id="%AID%_P-%TT%01001" Name="WifiSSID"              ParameterType="%AID%_PT-WifiSSID"          Text="SSID"    Value="" />
+              <Parameter Id="%AID%_P-%TT%01002" Name="WifiPassword"          ParameterType="%AID%_PT-WifiPassword"      Text="PSK"     Value=""/>
+            
+              <!-- IP Config -->
+              <Union SizeInBit="128"><!-- 16bytes-->
+                <Memory CodeSegment="%MID%" Offset="0" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00011" Name="HostAddress"        ParameterType="%AID%_PT-HostAddress"        Offset="0"  BitOffset="0" Text="IP-Adresse" Value="192.168.178.2" />
+                <Parameter Id="%AID%_UP-%TT%00012" Name="SubnetMask"         ParameterType="%AID%_PT-SubnetMask"         Offset="4"  BitOffset="0" Text="Subnetzsmaske" Value="255.255.255.0" />
+                <Parameter Id="%AID%_UP-%TT%00013" Name="GatewayAddress"     ParameterType="%AID%_PT-GatewayAddress"     Offset="8"  BitOffset="0" Text="Standardgateway" Value="192.168.178.1" />
+                <Parameter Id="%AID%_UP-%TT%00021" Name="NameserverAddress"  ParameterType="%AID%_PT-HostAddress"        Offset="12" BitOffset="0" Text="Nameserver" Value="192.168.178.1" />
+                <!-- Reserved for Nameserver 2 -->
+              </Union>
+
+              <!-- 1bit options -->
+              <Union SizeInBit="8">
+                <Memory CodeSegment="%MID%" Offset="16" BitOffset="0" />
+               
+                <Parameter Id="%AID%_UP-%TT%00001" Name="CustomHostname"     ParameterType="%AID%_PT-OnOffYesNo"         Offset="0" BitOffset="0" Text="Hostname anpassen" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00002" Name="StaticIP"           ParameterType="%AID%_PT-OnOffYesNoInverted" Offset="0" BitOffset="1" Text="DHCP" Value="0" />
+                <!-- 6 bits free -->
+              </Union>
+
+              <!-- Services -->
+              <Union SizeInBit="8">
+                <Memory CodeSegment="%MID%" Offset="17" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00031" Name="mDNS"               ParameterType="%AID%_PT-OnOffYesNo"         Offset="0" BitOffset="0" Text="mDNS" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00032" Name="HTTP"               ParameterType="%AID%_PT-OnOffYesNo"         Offset="0" BitOffset="1" Text="Weberver" Value="1" /> 
+                <Parameter Id="%AID%_UP-%TT%00033" Name="NTP"                ParameterType="%AID%_PT-OnOffYesNo"         Offset="0" BitOffset="2" Text="NTP-Client" Value="0" /> 
+                <Parameter Id="%AID%_UP-%TT%00034" Name="OTAUpdate"          ParameterType="%AID%_PT-OTAUpdate"          Offset="0" BitOffset="3" Text="OTA-Update" Value="0" />
+                <!-- 5 bits free -->
+              </Union>
+
+              <!-- Hostname -->
+              <Parameter Id="%AID%_P-%TT%00010" Name="HostName"              ParameterType="%AID%_PT-Hostname"           Text="Hostname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="18" BitOffset="0" />
+                <!-- 192bits / 24bytes-->
+              </Parameter>
+
+              <!-- Type & Mode -->
+              <Union SizeInBit="8">
+                <Memory CodeSegment="%MID%" Offset="59" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00052" Name="LanMode"            ParameterType="%AID%_PT-LanMode"       Offset="0" BitOffset="0" Text="LAN-Modus" Value="0" />
+              </Union>
+
+              <!-- NTP -->
+              <Union SizeInBit="408">
+                <Memory CodeSegment="%MID%" Offset="60" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00061" Name="NTPServer"        ParameterType="%AID%_PT-NTPServer"     Offset="0"  BitOffset="0" Text="Zeitserver" Value="pool.ntp.org" />
+                <!-- 50 characters + 0 terminator = 51 bytes used -->
+              </Union>
+
+            </Parameters>
+            <ParameterRefs>
+              <ParameterRef Id="%AID%_P-%TT%01000_R-%TT%0100000" RefId="%AID%_P-%TT%01000" />
+              <ParameterRef Id="%AID%_P-%TT%01001_R-%TT%0100100" RefId="%AID%_P-%TT%01001" />
+              <ParameterRef Id="%AID%_P-%TT%01002_R-%TT%0100200" RefId="%AID%_P-%TT%01002" />
+              <ParameterRef Id="%AID%_UP-%TT%00001_R-%TT%0000101" RefId="%AID%_UP-%TT%00001" />
+              <ParameterRef Id="%AID%_UP-%TT%00002_R-%TT%0000201" RefId="%AID%_UP-%TT%00002" />
+              <ParameterRef Id="%AID%_UP-%TT%00034_R-%TT%0003401" RefId="%AID%_UP-%TT%00034" />
+              <ParameterRef Id="%AID%_P-%TT%00010_R-%TT%0001001" RefId="%AID%_P-%TT%00010" />
+              <ParameterRef Id="%AID%_UP-%TT%00011_R-%TT%0001101" RefId="%AID%_UP-%TT%00011" />
+              <ParameterRef Id="%AID%_UP-%TT%00012_R-%TT%0001201" RefId="%AID%_UP-%TT%00012" />
+              <ParameterRef Id="%AID%_UP-%TT%00013_R-%TT%0001301" RefId="%AID%_UP-%TT%00013" />
+              <ParameterRef Id="%AID%_UP-%TT%00021_R-%TT%0002101" RefId="%AID%_UP-%TT%00021" />
+              <ParameterRef Id="%AID%_UP-%TT%00031_R-%TT%0003101" RefId="%AID%_UP-%TT%00031" />
+              <ParameterRef Id="%AID%_UP-%TT%00032_R-%TT%0003201" RefId="%AID%_UP-%TT%00032" />
+              <ParameterRef Id="%AID%_UP-%TT%00033_R-%TT%0003301" RefId="%AID%_UP-%TT%00033" />
+              <ParameterRef Id="%AID%_UP-%TT%00052_R-%TT%0005201" RefId="%AID%_UP-%TT%00052" />
+              <!-- NTPServer -->
+              <ParameterRef Id="%AID%_UP-%TT%00061_R-%TT%0006101" RefId="%AID%_UP-%TT%00061" />
+            </ParameterRefs>
+            <ComObjectTable>
+            </ComObjectTable>
+            <ComObjectRefs>
+            </ComObjectRefs>
+            <Messages>
+              <Message Id="%AID%_M-%TT%00001" Name="InvalidHostName" Text="Darf nur 24 Zeichen lang sein und muss aus Buchstaben, Zahlen und Bindestriche bestehen." />
+            </Messages>
+            <Script>
+              <op:include href="Network.script.js" prefix="NET" type="script" />
+            </Script>  
+          </Static>
+          <Dynamic>
+            <Channel Id="%AID%_CH-%PREFIX%" Number="%PREFIX%" Name="Main" Text="Netzwerk" Icon="ethernet" HelpContext="NET-Dokumentation">
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Basic" Text="Allgemein" Icon="cog-outline" HelpContext="NET-Dokumentation">
+                <!-- Hidden -->
+                <ParameterRefRef RefId="%AID%_P-%TT%01000_R-%TT%0100000" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Netzwerk" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Version: %ModuleVersion%" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000"><!-- Static 0 -->
+                  <when test="!=%NET_ShowMediumInfo%">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Diese Einstellungen sind lediglich für Geräte mit IP-Schnittstelle vorgesehen.
+Geräte, die ausschließlich per TP angebunden sind, benötigen hier keine Konfiguration" UIHint="Information" />
+                  </when>
+                </choose>
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="IP-Adresse" UIHint="Headline" />
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000"><!-- Static 0 -->
+                  <when test="%NET_IPConfigTool%"> <!-- default -->
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00002_R-%TT%0000201" IndentLevel="1" HelpContext="NET-IP-Adresse" />
+                    <choose ParamRefId="%AID%_UP-%TT%00002_R-%TT%0000201">
+                      <when test="1">
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00011_R-%TT%0001101" IndentLevel="1" HelpContext="NET-IP-Adresse" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00012_R-%TT%0001201" IndentLevel="1" HelpContext="NET-IP-Adresse" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00013_R-%TT%0001301" IndentLevel="1" HelpContext="NET-IP-Adresse" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00021_R-%TT%0002101" IndentLevel="1" HelpContext="NET-IP-Adresse" />
+                      </when>
+                    </choose>
+                  </when>
+                  <when test="!=%NET_IPConfigTool%"> <!-- router -->
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="IP-Einstellungen können im Eigenschaften Feld der ETS, Tab IP gesetzt werden." UIHint="Information" />
+                  </when>
+                </choose>
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Services" UIHint="Headline" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00031_R-%TT%0003101" IndentLevel="1" HelpContext="NET-MDNS" />
+                
+                <!-- HTTP -->
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000">
+                  <when test="!=%NET_ServiceHTTP%">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00032_R-%TT%0003201" IndentLevel="1" HelpContext="NET-HTTP" />
+                  </when>
+                </choose>
+
+                <!-- NTP -->
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000">
+                  <when test="!=%NET_ServiceNTP%">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00033_R-%TT%0003301" IndentLevel="1" HelpContext="NET-NTP" />
+                    <choose ParamRefId="%AID%_UP-%TT%00033_R-%TT%0003301">
+                      <when test="0">
+                        <Assign TargetParamRefRef="%AID%_UP-1000006_R-100000601" Value="0" />
+                      </when>
+                      <when test="1">
+                        <Assign TargetParamRefRef="%AID%_UP-1000006_R-100000601" Value="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00061_R-%TT%0006101" IndentLevel="1" HelpContext="NET-NTP" />
+                      </when>
+                    </choose>
+                  </when>
+                  <when test="%NET_ServiceNTP%">
+                    <Assign TargetParamRefRef="%AID%_UP-1000006_R-100000601" Value="0" />
+                  </when>
+                </choose>
+
+                <!-- OTA -->
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000">
+                  <when test="!=%NET_ServiceOTA%">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00034_R-%TT%0003401" IndentLevel="1" HelpContext="NET-OTA" />
+                  </when>
+                </choose>
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Erweiterte Einstellung" UIHint="Headline" />
+                <!-- Hostname -->
+                <ParameterRefRef RefId="%AID%_UP-%TT%00001_R-%TT%0000101" IndentLevel="1" HelpContext="NET-Hostname" />
+                <choose ParamRefId="%AID%_UP-%TT%00001_R-%TT%0000101">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00010_R-%TT%0001001" IndentLevel="1" HelpContext="NET-Hostname" />
+                  </when>
+                </choose>
+
+                <!-- LanMode -->
+                <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000">
+                  <when test="!=%NET_LanMode%">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00052_R-%TT%0005201" IndentLevel="1" HelpContext="%DOC%" />
+                  </when>
+                </choose>
+
+              </ParameterBlock>
+
+              <!-- HTTP -->
+              <choose ParamRefId="%AID%_UP-%TT%00032_R-%TT%0003201">
+                <when test="1">
+                  <ParameterBlock Id="%AID%_PB-nnn" Name="HTTP" Text="Webserver" Icon="web" HelpContext="NET-Webserver">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Webserver" UIHint="Headline" />
+                  </ParameterBlock>
+                </when>
+              </choose>
+
+              <!-- WiFi -->
+              <choose ParamRefId="%AID%_P-%TT%01000_R-%TT%0100000"><!-- Static 0 -->
+                <when test="!=%NET_WifiTool%"> <!-- default -->
+                  <ParameterBlock Id="%AID%_PB-nnn" Name="WiFi" Text="WiFi-Assistent" Icon="wifi" HelpContext="NET-WiFi-Assistent">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Dieser WiFi-Assistent ermöglicht das Übertragen von WiFi-Zugangsdaten auf das Gerät.
+Diese Einstellungen sind lediglich für Geräte mit WiFi-Schnittstelle vorgesehen." UIHint="Information" />
+                    
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="WiFi-Zugangsdaten" UIHint="Headline" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%01001_R-%TT%0100100" IndentLevel="1" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%01002_R-%TT%0100200" IndentLevel="1" />
+
+                    <ParameterBlock Id="%AID%_PB-nnn" Name="A" Inline="true" Layout="Grid">
+                      <Rows>
+                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                      </Rows>
+                      <Columns>
+                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="53%" />
+                      </Columns>
+                      <Button Id="%AID%_MD-%TT%000100_B-%TT%00000" Text="Übertragen" EventHandlerOnline="ConnectionOriented" EventHandler="sendWifiSettings" EventHandlerParameters="{ &quot;Module&quot;: %TT% }" Cell="1,2" />
+                    </ParameterBlock>
+
+                  </ParameterBlock>
+                </when>
+              </choose>
+
+            </Channel>
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="" Name="Help_de.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

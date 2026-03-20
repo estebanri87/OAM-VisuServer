@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer"
+     xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+  <ManufacturerData>
+    <Manufacturer>
+      <ApplicationPrograms>
+        <ApplicationProgram>
+          <Static>
+
+            <!-- ====================================================
+                 Parameter Types (VIS-specific)
+                 ==================================================== -->
+            <ParameterTypes>
+
+              <!-- 20-byte name field (rooms, floors, widgets, device) -->
+              <ParameterType Id="%AID%_PT-VISText20" Name="VISText20">
+                <TypeText SizeInBit="160" />
+              </ParameterType>
+
+              <!-- 15-byte camera URL field -->
+              <ParameterType Id="%AID%_PT-VISText15" Name="VISText15">
+                <TypeText SizeInBit="120" />
+              </ParameterType>
+
+              <!-- CheckBox (1 bit) — reused from Common if available, defined here as fallback -->
+              <ParameterType Id="%AID%_PT-VISCheckBox" Name="VISCheckBox">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Deaktiviert" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Aktiviert"   Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+
+              <!-- Number 1-8 for visible floors count -->
+              <ParameterType Id="%AID%_PT-VISFloorCount" Name="VISFloorCount">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="8" />
+              </ParameterType>
+
+              <!-- Number 1-8 for visible rooms count -->
+              <ParameterType Id="%AID%_PT-VISRoomCount" Name="VISRoomCount">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="8" />
+              </ParameterType>
+
+              <!-- Screensaver minutes (0=off, 1..120) -->
+              <ParameterType Id="%AID%_PT-VISScreensaverMin" Name="VISScreensaverMin">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="120" />
+              </ParameterType>
+
+              <!-- Heartbeat interval in seconds (5..120) -->
+              <ParameterType Id="%AID%_PT-VISHeartbeatSec" Name="VISHeartbeatSec">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="5" maxInclusive="120" />
+              </ParameterType>
+
+              <!-- Auth max attempts (1..10) -->
+              <ParameterType Id="%AID%_PT-VISAuthMaxAttempts" Name="VISAuthMaxAttempts">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="10" />
+              </ParameterType>
+
+              <!-- Auth lockout minutes (1..60) -->
+              <ParameterType Id="%AID%_PT-VISAuthLockoutMin" Name="VISAuthLockoutMin">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="60" />
+              </ParameterType>
+
+              <!-- Auth PIN (0..999999) -->
+              <ParameterType Id="%AID%_PT-VISAuthPIN" Name="VISAuthPIN">
+                <TypeNumber SizeInBit="32" Type="unsignedInt" minInclusive="0" maxInclusive="999999" />
+              </ParameterType>
+
+              <!-- Theme selection -->
+              <ParameterType Id="%AID%_PT-VISTheme" Name="VISTheme">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Dunkel"     Value="0" Id="%ENID%" />
+                  <Enumeration Text="Hell"       Value="1" Id="%ENID%" />
+                  <Enumeration Text="Systemvorgabe" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+
+              <!-- Screensaver mode -->
+              <ParameterType Id="%AID%_PT-VISScreensaverMode" Name="VISScreensaverMode">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Abdunkeln"  Value="0" Id="%ENID%" />
+                  <Enumeration Text="Uhr"        Value="1" Id="%ENID%" />
+                  <Enumeration Text="Aus"        Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+
+              <!-- Floor order / room order (0-99) -->
+              <ParameterType Id="%AID%_PT-VISOrder" Name="VISOrder">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="99" />
+              </ParameterType>
+
+              <!-- Favorite room index (0..7, 255=deactivated) -->
+              <ParameterType Id="%AID%_PT-VISFavRoom" Name="VISFavRoom">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Deaktiviert" Value="255" Id="%ENID%" />
+                  <Enumeration Text="Raum 1" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Raum 2" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Raum 3" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Raum 4" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Raum 5" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Raum 6" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Raum 7" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Raum 8" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+
+              <!-- Favorite widget index (0..15) -->
+              <ParameterType Id="%AID%_PT-VISFavWidget" Name="VISFavWidget">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="15" />
+              </ParameterType>
+
+            </ParameterTypes>
+
+            <!-- ====================================================
+                 Parameters (Global, Floors, Favorites)
+                 ==================================================== -->
+            <Parameters>
+
+              <!-- Global: Device Name (20 bytes) -->
+              <Parameter Id="%AID%_P-%TT%00000" Name="VISDeviceName"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Gerätename" Value="VisuServer" >
+                <Memory CodeSegment="%MID%" Offset="0" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Flags byte (Auth+Dashboard+Theme+SaverMode) -->
+              <Union SizeInBit="8">
+                <Memory CodeSegment="%MID%" Offset="20" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00060" Name="VISAuthEnabled"
+                           ParameterType="%AID%_PT-VISCheckBox"
+                           Offset="0" BitOffset="0"
+                           Text="PIN-Authentifizierung aktivieren" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00061" Name="VISDashboardEnabled"
+                           ParameterType="%AID%_PT-VISCheckBox"
+                           Offset="0" BitOffset="1"
+                           Text="Dashboard-Seite aktivieren" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00062" Name="VISTheme"
+                           ParameterType="%AID%_PT-VISTheme"
+                           Offset="0" BitOffset="2"
+                           Text="Erscheinungsbild" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00063" Name="VISScreensaverMode"
+                           ParameterType="%AID%_PT-VISScreensaverMode"
+                           Offset="0" BitOffset="4"
+                           Text="Bildschirmschoner-Modus" Value="0" />
+              </Union>
+
+              <!-- Global: Auth PIN (4 bytes, uint32) -->
+              <Parameter Id="%AID%_P-%TT%00021" Name="VISAuthPIN"
+                         ParameterType="%AID%_PT-VISAuthPIN"
+                         Text="PIN-Code" Value="1234" >
+                <Memory CodeSegment="%MID%" Offset="21" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Auth max attempts (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00025" Name="VISAuthMaxAttempts"
+                         ParameterType="%AID%_PT-VISAuthMaxAttempts"
+                         Text="Max. Fehlversuche" Value="5" >
+                <Memory CodeSegment="%MID%" Offset="25" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Auth lockout minutes (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00026" Name="VISAuthLockoutMin"
+                         ParameterType="%AID%_PT-VISAuthLockoutMin"
+                         Text="Sperrzeit nach Fehlversuchen (Min)" Value="10" >
+                <Memory CodeSegment="%MID%" Offset="26" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Heartbeat seconds (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00027" Name="VISHeartbeatSec"
+                         ParameterType="%AID%_PT-VISHeartbeatSec"
+                         Text="Heartbeat-Intervall (Sek)" Value="30" >
+                <Memory CodeSegment="%MID%" Offset="27" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Visible floors count (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00028" Name="VISVisibleFloors"
+                         ParameterType="%AID%_PT-VISFloorCount"
+                         Text="Anzahl Etagen" Value="1" >
+                <Memory CodeSegment="%MID%" Offset="28" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Screensaver minutes (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00029" Name="VISScreensaverMin"
+                         ParameterType="%AID%_PT-VISScreensaverMin"
+                         Text="Bildschirmschoner nach (Min, 0=aus)" Value="5" >
+                <Memory CodeSegment="%MID%" Offset="29" BitOffset="0" />
+              </Parameter>
+
+              <!-- Global: Number of visible rooms (1 byte) -->
+              <Parameter Id="%AID%_P-%TT%00230" Name="VISVisibleRooms"
+                         ParameterType="%AID%_PT-VISRoomCount"
+                         Text="Anzahl Räume" Value="1" >
+                <Memory CodeSegment="%MID%" Offset="230" BitOffset="0" />
+              </Parameter>
+
+              <!-- ============ Floor 0..7 (each: Name 20B + Order 1B = 21B) ============ -->
+              <!-- Floor 0 -->
+              <Parameter Id="%AID%_P-%TT%00030" Name="VISFL0Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="Erdgeschoss" >
+                <Memory CodeSegment="%MID%" Offset="30" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00050" Name="VISFL0Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="50" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 1 -->
+              <Parameter Id="%AID%_P-%TT%00051" Name="VISFL1Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="Obergeschoss" >
+                <Memory CodeSegment="%MID%" Offset="51" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00071" Name="VISFL1Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="1" >
+                <Memory CodeSegment="%MID%" Offset="71" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 2 -->
+              <Parameter Id="%AID%_P-%TT%00072" Name="VISFL2Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="72" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00092" Name="VISFL2Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="2" >
+                <Memory CodeSegment="%MID%" Offset="92" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 3 -->
+              <Parameter Id="%AID%_P-%TT%00093" Name="VISFL3Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="93" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00113" Name="VISFL3Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="3" >
+                <Memory CodeSegment="%MID%" Offset="113" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 4 -->
+              <Parameter Id="%AID%_P-%TT%00114" Name="VISFL4Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="114" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00134" Name="VISFL4Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="4" >
+                <Memory CodeSegment="%MID%" Offset="134" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 5 -->
+              <Parameter Id="%AID%_P-%TT%00135" Name="VISFL5Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="135" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00155" Name="VISFL5Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="5" >
+                <Memory CodeSegment="%MID%" Offset="155" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 6 -->
+              <Parameter Id="%AID%_P-%TT%00156" Name="VISFL6Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="156" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00176" Name="VISFL6Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="6" >
+                <Memory CodeSegment="%MID%" Offset="176" BitOffset="0" />
+              </Parameter>
+              <!-- Floor 7 -->
+              <Parameter Id="%AID%_P-%TT%00177" Name="VISFL7Name"
+                         ParameterType="%AID%_PT-VISText20"
+                         Text="Etagenname" Value="" >
+                <Memory CodeSegment="%MID%" Offset="177" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00197" Name="VISFL7Order"
+                         ParameterType="%AID%_PT-VISOrder"
+                         Text="Reihenfolge" Value="7" >
+                <Memory CodeSegment="%MID%" Offset="197" BitOffset="0" />
+              </Parameter>
+
+              <!-- ============ Favorites 0..15 (each: Room 1B + Widget 1B = 2B) ============ -->
+              <Parameter Id="%AID%_P-%TT%00198" Name="VISFAV0Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="198" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00199" Name="VISFAV0Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="199" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00200" Name="VISFAV1Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="200" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00201" Name="VISFAV1Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="201" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00202" Name="VISFAV2Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="202" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00203" Name="VISFAV2Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="203" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00204" Name="VISFAV3Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="204" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00205" Name="VISFAV3Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="205" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00206" Name="VISFAV4Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="206" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00207" Name="VISFAV4Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="207" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00208" Name="VISFAV5Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="208" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00209" Name="VISFAV5Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="209" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00210" Name="VISFAV6Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="210" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00211" Name="VISFAV6Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="211" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00212" Name="VISFAV7Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="212" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00213" Name="VISFAV7Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="213" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00214" Name="VISFAV8Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="214" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00215" Name="VISFAV8Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="215" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00216" Name="VISFAV9Room"   ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="216" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00217" Name="VISFAV9Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="217" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00218" Name="VISFAV10Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="218" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00219" Name="VISFAV10Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="219" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00220" Name="VISFAV11Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="220" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00221" Name="VISFAV11Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="221" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00222" Name="VISFAV12Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="222" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00223" Name="VISFAV12Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="223" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00224" Name="VISFAV13Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="224" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00225" Name="VISFAV13Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="225" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00226" Name="VISFAV14Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="226" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00227" Name="VISFAV14Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="227" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00228" Name="VISFAV15Room"  ParameterType="%AID%_PT-VISFavRoom"   Text="Raum"   Value="255" >
+                <Memory CodeSegment="%MID%" Offset="228" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="%AID%_P-%TT%00229" Name="VISFAV15Widget" ParameterType="%AID%_PT-VISFavWidget" Text="Kachel" Value="0" >
+                <Memory CodeSegment="%MID%" Offset="229" BitOffset="0" />
+              </Parameter>
+
+            </Parameters>
+
+            <!-- ====================================================
+                 ParameterRefs
+                 ==================================================== -->
+            <ParameterRefs>
+              <ParameterRef Id="%AID%_P-%TT%00000_R-%TT%0000001"  RefId="%AID%_P-%TT%00000" />
+              <ParameterRef Id="%AID%_UP-%TT%00060_R-%TT%0006001" RefId="%AID%_UP-%TT%00060" />
+              <ParameterRef Id="%AID%_UP-%TT%00061_R-%TT%0006101" RefId="%AID%_UP-%TT%00061" />
+              <ParameterRef Id="%AID%_UP-%TT%00062_R-%TT%0006201" RefId="%AID%_UP-%TT%00062" />
+              <ParameterRef Id="%AID%_UP-%TT%00063_R-%TT%0006301" RefId="%AID%_UP-%TT%00063" />
+              <ParameterRef Id="%AID%_P-%TT%00021_R-%TT%0002101"  RefId="%AID%_P-%TT%00021" />
+              <ParameterRef Id="%AID%_P-%TT%00025_R-%TT%0002501"  RefId="%AID%_P-%TT%00025" />
+              <ParameterRef Id="%AID%_P-%TT%00026_R-%TT%0002601"  RefId="%AID%_P-%TT%00026" />
+              <ParameterRef Id="%AID%_P-%TT%00027_R-%TT%0002701"  RefId="%AID%_P-%TT%00027" />
+              <ParameterRef Id="%AID%_P-%TT%00028_R-%TT%0002801"  RefId="%AID%_P-%TT%00028" />
+              <ParameterRef Id="%AID%_P-%TT%00029_R-%TT%0002901"  RefId="%AID%_P-%TT%00029" />
+              <ParameterRef Id="%AID%_P-%TT%00230_R-%TT%0023001"  RefId="%AID%_P-%TT%00230" />
+              <!-- Floor refs -->
+              <ParameterRef Id="%AID%_P-%TT%00030_R-%TT%0003001"  RefId="%AID%_P-%TT%00030" />
+              <ParameterRef Id="%AID%_P-%TT%00050_R-%TT%0005001" RefId="%AID%_P-%TT%00050" />
+              <ParameterRef Id="%AID%_P-%TT%00051_R-%TT%0005101"  RefId="%AID%_P-%TT%00051" />
+              <ParameterRef Id="%AID%_P-%TT%00071_R-%TT%0007101" RefId="%AID%_P-%TT%00071" />
+              <ParameterRef Id="%AID%_P-%TT%00072_R-%TT%0007201"  RefId="%AID%_P-%TT%00072" />
+              <ParameterRef Id="%AID%_P-%TT%00092_R-%TT%0009201" RefId="%AID%_P-%TT%00092" />
+              <ParameterRef Id="%AID%_P-%TT%00093_R-%TT%0009301"  RefId="%AID%_P-%TT%00093" />
+              <ParameterRef Id="%AID%_P-%TT%00113_R-%TT%0011301" RefId="%AID%_P-%TT%00113" />
+              <ParameterRef Id="%AID%_P-%TT%00114_R-%TT%0011401"  RefId="%AID%_P-%TT%00114" />
+              <ParameterRef Id="%AID%_P-%TT%00134_R-%TT%0013401" RefId="%AID%_P-%TT%00134" />
+              <ParameterRef Id="%AID%_P-%TT%00135_R-%TT%0013501"  RefId="%AID%_P-%TT%00135" />
+              <ParameterRef Id="%AID%_P-%TT%00155_R-%TT%0015501" RefId="%AID%_P-%TT%00155" />
+              <ParameterRef Id="%AID%_P-%TT%00156_R-%TT%0015601"  RefId="%AID%_P-%TT%00156" />
+              <ParameterRef Id="%AID%_P-%TT%00176_R-%TT%0017601" RefId="%AID%_P-%TT%00176" />
+              <ParameterRef Id="%AID%_P-%TT%00177_R-%TT%0017701"  RefId="%AID%_P-%TT%00177" />
+              <ParameterRef Id="%AID%_P-%TT%00197_R-%TT%0019701" RefId="%AID%_P-%TT%00197" />
+              <!-- Favorite refs -->
+              <ParameterRef Id="%AID%_P-%TT%00198_R-%TT%0019801"    RefId="%AID%_P-%TT%00198" />
+              <ParameterRef Id="%AID%_P-%TT%00199_R-%TT%0019901"  RefId="%AID%_P-%TT%00199" />
+              <ParameterRef Id="%AID%_P-%TT%00200_R-%TT%0020001"    RefId="%AID%_P-%TT%00200" />
+              <ParameterRef Id="%AID%_P-%TT%00201_R-%TT%0020101"  RefId="%AID%_P-%TT%00201" />
+              <ParameterRef Id="%AID%_P-%TT%00202_R-%TT%0020201"    RefId="%AID%_P-%TT%00202" />
+              <ParameterRef Id="%AID%_P-%TT%00203_R-%TT%0020301"  RefId="%AID%_P-%TT%00203" />
+              <ParameterRef Id="%AID%_P-%TT%00204_R-%TT%0020401"    RefId="%AID%_P-%TT%00204" />
+              <ParameterRef Id="%AID%_P-%TT%00205_R-%TT%0020501"  RefId="%AID%_P-%TT%00205" />
+              <ParameterRef Id="%AID%_P-%TT%00206_R-%TT%0020601"    RefId="%AID%_P-%TT%00206" />
+              <ParameterRef Id="%AID%_P-%TT%00207_R-%TT%0020701"  RefId="%AID%_P-%TT%00207" />
+              <ParameterRef Id="%AID%_P-%TT%00208_R-%TT%0020801"    RefId="%AID%_P-%TT%00208" />
+              <ParameterRef Id="%AID%_P-%TT%00209_R-%TT%0020901"  RefId="%AID%_P-%TT%00209" />
+              <ParameterRef Id="%AID%_P-%TT%00210_R-%TT%0021001"    RefId="%AID%_P-%TT%00210" />
+              <ParameterRef Id="%AID%_P-%TT%00211_R-%TT%0021101"  RefId="%AID%_P-%TT%00211" />
+              <ParameterRef Id="%AID%_P-%TT%00212_R-%TT%0021201"    RefId="%AID%_P-%TT%00212" />
+              <ParameterRef Id="%AID%_P-%TT%00213_R-%TT%0021301"  RefId="%AID%_P-%TT%00213" />
+              <ParameterRef Id="%AID%_P-%TT%00214_R-%TT%0021401"    RefId="%AID%_P-%TT%00214" />
+              <ParameterRef Id="%AID%_P-%TT%00215_R-%TT%0021501"  RefId="%AID%_P-%TT%00215" />
+              <ParameterRef Id="%AID%_P-%TT%00216_R-%TT%0021601"    RefId="%AID%_P-%TT%00216" />
+              <ParameterRef Id="%AID%_P-%TT%00217_R-%TT%0021701"  RefId="%AID%_P-%TT%00217" />
+              <ParameterRef Id="%AID%_P-%TT%00218_R-%TT%0021801"   RefId="%AID%_P-%TT%00218" />
+              <ParameterRef Id="%AID%_P-%TT%00219_R-%TT%0021901" RefId="%AID%_P-%TT%00219" />
+              <ParameterRef Id="%AID%_P-%TT%00220_R-%TT%0022001"   RefId="%AID%_P-%TT%00220" />
+              <ParameterRef Id="%AID%_P-%TT%00221_R-%TT%0022101" RefId="%AID%_P-%TT%00221" />
+              <ParameterRef Id="%AID%_P-%TT%00222_R-%TT%0022201"   RefId="%AID%_P-%TT%00222" />
+              <ParameterRef Id="%AID%_P-%TT%00223_R-%TT%0022301" RefId="%AID%_P-%TT%00223" />
+              <ParameterRef Id="%AID%_P-%TT%00224_R-%TT%0022401"   RefId="%AID%_P-%TT%00224" />
+              <ParameterRef Id="%AID%_P-%TT%00225_R-%TT%0022501" RefId="%AID%_P-%TT%00225" />
+              <ParameterRef Id="%AID%_P-%TT%00226_R-%TT%0022601"   RefId="%AID%_P-%TT%00226" />
+              <ParameterRef Id="%AID%_P-%TT%00227_R-%TT%0022701" RefId="%AID%_P-%TT%00227" />
+              <ParameterRef Id="%AID%_P-%TT%00228_R-%TT%0022801"   RefId="%AID%_P-%TT%00228" />
+              <ParameterRef Id="%AID%_P-%TT%00229_R-%TT%0022901" RefId="%AID%_P-%TT%00229" />
+            </ParameterRefs>
+
+            <ComObjectTable />
+            <ComObjectRefs />
+
+          </Static>
+
+          <!-- ======================================================
+               Dynamic — ETS UI for the VisuServer global tab
+               ====================================================== -->
+          <Dynamic>
+            <Channel Id="%AID%_CH-VIS" Name="Main" Text="Visualisierungs-Server" Number="%PREFIX%" Default="true">
+
+              <!-- General settings -->
+              <ParameterBlock Id="%AID%_PB-VISGeneral" Name="General" Text="Allgemein" Access="ReadWrite" IconId="" >
+                <ParameterRefRef RefId="%AID%_P-%TT%00000_R-%TT%0000001" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00062_R-%TT%0006201" />
+                <ParameterRefRef RefId="%AID%_P-%TT%00027_R-%TT%0002701" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00063_R-%TT%0006301" />
+                <ParameterRefRef RefId="%AID%_P-%TT%00029_R-%TT%0002901" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00061_R-%TT%0006101" />
+                <ParameterRefRef RefId="%AID%_P-%TT%00230_R-%TT%0023001" />
+              </ParameterBlock>
+
+              <!-- Auth settings (shown when auth is enabled) -->
+              <ParameterBlock Id="%AID%_PB-VISAuth" Name="Auth" Text="Authentifizierung" Access="ReadWrite">
+                <ParameterRefRef RefId="%AID%_UP-%TT%00060_R-%TT%0006001" />
+                <choose ParamRefId="%AID%_UP-%TT%00060_R-%TT%0006001">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00021_R-%TT%0002101" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00025_R-%TT%0002501" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00026_R-%TT%0002601" />
+                  </when>
+                </choose>
+              </ParameterBlock>
+
+              <!-- Floors (shown based on visibleFloors count) -->
+              <ParameterBlock Id="%AID%_PB-VISFloors" Name="Floors" Text="Etagen" Access="ReadWrite">
+                <ParameterRefRef RefId="%AID%_P-%TT%00028_R-%TT%0002801" />
+                <!-- Floor 0 always visible -->
+                <ParameterRefRef RefId="%AID%_P-%TT%00030_R-%TT%0003001" />
+                <ParameterRefRef RefId="%AID%_P-%TT%00050_R-%TT%0005001" />
+                <!-- Floor 1..7 shown conditionally -->
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="2 3 4 5 6 7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00051_R-%TT%0005101" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00071_R-%TT%0007101" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="3 4 5 6 7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00072_R-%TT%0007201" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00092_R-%TT%0009201" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="4 5 6 7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00093_R-%TT%0009301" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00113_R-%TT%0011301" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="5 6 7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00114_R-%TT%0011401" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00134_R-%TT%0013401" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="6 7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00135_R-%TT%0013501" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00155_R-%TT%0015501" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="7 8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00156_R-%TT%0015601" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00176_R-%TT%0017601" />
+                  </when>
+                </choose>
+                <choose ParamRefId="%AID%_P-%TT%00028_R-%TT%0002801">
+                  <when test="8">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00177_R-%TT%0017701" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00197_R-%TT%0019701" />
+                  </when>
+                </choose>
+              </ParameterBlock>
+
+              <!-- Favorites (only shown when dashboard is enabled) -->
+              <ParameterBlock Id="%AID%_PB-VISFavs" Name="Favs" Text="Favoriten" Access="ReadWrite">
+                <choose ParamRefId="%AID%_UP-%TT%00061_R-%TT%0006101">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00198_R-%TT%0019801" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00199_R-%TT%0019901" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00200_R-%TT%0020001" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00201_R-%TT%0020101" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00202_R-%TT%0020201" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00203_R-%TT%0020301" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00204_R-%TT%0020401" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00205_R-%TT%0020501" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00206_R-%TT%0020601" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00207_R-%TT%0020701" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00208_R-%TT%0020801" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00209_R-%TT%0020901" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00210_R-%TT%0021001" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00211_R-%TT%0021101" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00212_R-%TT%0021201" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00213_R-%TT%0021301" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00214_R-%TT%0021401" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00215_R-%TT%0021501" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00216_R-%TT%0021601" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00217_R-%TT%0021701" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00218_R-%TT%0021801" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00219_R-%TT%0021901" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00220_R-%TT%0022001" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00221_R-%TT%0022101" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00222_R-%TT%0022201" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00223_R-%TT%0022301" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00224_R-%TT%0022401" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00225_R-%TT%0022501" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00226_R-%TT%0022601" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00227_R-%TT%0022701" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00228_R-%TT%0022801" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%00229_R-%TT%0022901" />
+                  </when>
+                </choose>
+              </ParameterBlock>
+
+              <!-- Room channels (1 ParameterBlock per room, from templ.xml) -->
+              <op:include href="VisuServer.templ.xml" xpath="//ApplicationProgram/Dynamic/ChannelIndependentBlock/*" type="template" prefix="VIS" IsInner="true" />
+
+            </Channel>
+          </Dynamic>
+
+        </ApplicationProgram>
+      </ApplicationPrograms>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

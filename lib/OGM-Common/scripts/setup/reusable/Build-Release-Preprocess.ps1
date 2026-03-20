@@ -1,0 +1,155 @@
+# This script is responsible for all common tasks before a release build is executed
+
+$moduleName = 'Microsoft.PowerShell.Archive'
+$minVersion = [version]'1.2.3.0'
+
+$module = Get-Module -ListAvailable -Name $moduleName |
+           Sort-Object Version -Descending |
+           Select-Object -First 1
+
+if ($null -eq $module -or $module.Version -lt $minVersion) {
+    Write-Host ""
+    Write-Host "❌ The module '$moduleName' is missing or outdated." -ForegroundColor Red
+    if ($module) {
+        Write-Host "   Found version: $($module.Version)"
+    } else {
+        Write-Host "   Module not found."
+    }
+    Write-Host "   Required minimum version: $minVersion"
+    Write-Host ""
+    Write-Host "➡️  You can install or update (as admin) the module using:"
+    Write-Host "Install-Module $moduleName -MinimumVersion $minVersion -Repository PSGallery -Force -AllowClobber"
+    Write-Host ""
+    timeout /T 20
+    exit 1
+}
+
+# get all definitions for this project
+$settings = scripts/OpenKNX-Build-Settings.ps1 $args[0] $args[1] $args[2] $args[3]
+
+# Output current setting
+Write-Host "Provided OpenKNX-Build-Settings:"
+$settings
+Write-Host "--------------------------------"
+
+# check and cleanup working dir
+if (Test-Path -Path release) {
+  # clean working dir
+  Remove-Item -Recurse release\*
+}
+else {
+  New-Item -Path release -ItemType Directory | Out-Null
+}
+
+# create required directories
+Copy-Item -Recurse lib/OGM-Common/scripts/setup/reusable/data release
+
+if($settings.compileWith -eq "openknxproducer")
+{
+  # check for existance of OpenKNXProducer
+  $OpenKNXproducer = "~/bin/OpenKNXproducer.exe"
+
+  if ($IsMacOS -or $IsLinux) {
+    $OpenKNXproducer = "/usr/local/bin/OpenKNXproducer"
+  }
+
+  if (Test-Path $OpenKNXproducer -PathType Leaf) {
+    Write-Host "OpenKNXproducer found at $OpenKNXproducer"
+  }
+  else {
+    $OpenKNXproducer = $null
+    Write-Host "OpenKNXproducer not found at $OpenKNXproducer"
+    Write-Host -ForegroundColor Yellow "
+    OpenKNX-Tools are not Installed. Please install OpenKNX-Tools to Build KNX production file. 
+    For more Informations visit: https://github.com/OpenKNX/OpenKNX/wiki/Installation-of-OpenKNX-toolscl
+    
+    "
+    Start-Sleep -Seconds 2
+  }
+
+  if (-not ([string]::IsNullOrEmpty($OpenKNXproducer))) {
+    $expr = "$OpenKNXproducer create --Debug --Output=""release/$($settings.targetName).knxprod"" --HeaderFileName=""include/knxprod.h"" ""src/$($settings.releaseName).xml"""
+    $expr += '; $success=$?'
+    Invoke-Expression $expr
+    if (!$success) {
+        exit 1
+    }
+    Write-Host "Created release/$($settings.targetName).knxprod" -ForegroundColor Blue
+  }
+  else {
+    Write-Host "OpenKNXproducer is not Installed. Skipping knxprod file creation." -ForegroundColor Yellow
+  }
+  if (Test-Path -Path "src/$($settings.releaseName).debug.xml") {
+    Copy-Item "src/$($settings.releaseName).debug.xml" "release/data/$($settings.targetName).xml"
+  }
+  if (Test-Path -Path "src/$($settings.releaseName).baggages") {
+    Move-Item "src/$($settings.releaseName).baggages" "release/data/$($settings.targetName).baggages"
+  }
+}
+elseif($settings.compileWith -eq "kaenxcreator")
+{
+  Write-Host "Using Kaenx-Creator!"
+  $KaenxCreator = "~/bin/Kaenx.Creator.Console.exe"
+
+  if ($IsMacOS -or $IsLinux) {
+    $KaenxCreator = "/usr/local/bin/Kaenx.Creator.Console"
+  }
+
+  if (Test-Path $KaenxCreator -PathType Leaf) {
+    Write-Host "KaenxCreatorConsole found at $KaenxCreator"
+  }
+  else {
+    $KaenxCreator = $null
+    Write-Host "KaenxCreator not found at $KaenxCreator"
+    Write-Host -ForegroundColor Red "
+    KaenxCreator not Installed. Please install KaenxCreator to Build KNX production file. 
+    You can find the latest release here: https://github.com/OpenKNX/Kaenx-Creator-Console/releases/"
+    Start-Sleep -Seconds 2
+    exit 1
+  }
+  if (-not ([string]::IsNullOrEmpty($KaenxCreator))) {
+    $currentDirectory = (Get-Location).Path
+    $expr = "$KaenxCreator release $($currentDirectory)\$($settings.targetName).ae-manu"
+    $expr += '; $success=$?'
+    Invoke-Expression $expr
+    if (!$success) {
+        exit 1
+    }
+    Write-Host "Created release/data/$($settings.targetName).xml" -ForegroundColor Blue
+  }
+}
+else {
+  Write-Host "No KNX-Tool selected. Skipping knxprod file creation." -ForegroundColor Yellow
+}
+
+
+
+
+# write content.xml header
+$releaseTarget = "release/data/content.xml"
+if (![string]::IsNullOrEmpty($ProjectDir)) {
+  $releaseTarget = Join-Path $ProjectDir $releaseTarget
+}
+
+# Create the directory structure if it doesn't exist
+$directory = [System.IO.Path]::GetDirectoryName($releaseTarget)
+if (-not (Test-Path -Path $directory)) {
+  New-Item -ItemType Directory -Path $directory -Force
+}
+if (-not (Test-Path -Path $releaseTarget -PathType Leaf)) {
+  New-Item -Path $releaseTarget -ItemType File | Out-Null
+} 
+
+if (Test-Path -Path $releaseTarget -PathType Leaf) {
+  # write content.xml header
+  Add-Content -Path $releaseTarget "<?xml version=""1.0"" encoding=""UTF-8""?>"
+  Add-Content -Path $releaseTarget "<Content>"
+  Add-Content -Path $releaseTarget "    <ETSapp Name=""$($settings.targetName)"" XmlFile=""$($settings.targetName).xml"" />"
+  Add-Content -Path $releaseTarget "    <Products>"
+  Write-Host "Created $releaseTarget" -ForegroundColor Blue 
+}
+else {
+  Write-Host "Pre - ERROR: $releaseTarget could not be found!" -ForegroundColor Red
+  exit 1
+}
+exit 0

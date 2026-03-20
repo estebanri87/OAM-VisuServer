@@ -1,0 +1,39 @@
+@startebnf
+
+title OpenKNX Universal Config Transfer Serialization Format (Version 1.1)
+
+UCT_STRING = UCT_HEADER, ("§" (*Single-Line:\nRequired for Import *), {CONFIG_ENTRY, "§"} | "\n" (*Multi-Line:\nFor Humans *), {CONFIG_ENTRY, "\n"}), UCT_END;
+
+UCT_HEADER = "OpenKNX", ",", VERSION_DEF, ",", CONFIG_PATH;
+
+VERSION_DEF = "cv1", [ ":", GENERATOR];
+
+CONFIG_PATH = APP_DEF, "/", MODULE_DEF, "/", CHANNEL_DEF;
+
+
+' APP_DEF = ( "*" | APP_ID, [":", [VERSION] , [ ":" , APP_NAME ](* Not yet included *)] );
+APP_DEF = ( "*" | APP_ID, [":", VERSION] );
+
+MODULE_DEF = MODULE_KEY (* The OpenKNX module prefix, e.g. 'LOG' *), [":", VERSION];
+
+CHANNEL_DEF = ("0" (* Base-Config outside of Channel *) | "*" (* Unspecified Channel *) | ?1-99?);
+
+APP_ID  = HEXNUM;
+
+' VERSION = ( SEMVER | DECVER | HEXNUM);
+VERSION = HEXNUM;
+
+
+
+HEXNUM = "0x" , {(?0-9? | ?A-F?)}-;
+
+CONFIG_ENTRY = ( '#', (COMMENT_TEXT | '!','#','!','#','!', ANNOTATION (*Reserved since Config-Transfer v0.5 *)) | '>', MESSAGE_TEXT | '!', 'merge' (*Allowed as first entry only!*) | PARAM_NAME, [":", PARAM_REF_ID], "=", PARAM_VALUE );
+
+UCT_END = ";OpenKNX";
+
+/'
+digit-excluding-zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+digit                = "0" | digit-excluding-zero;
+'/
+
+@endyaml

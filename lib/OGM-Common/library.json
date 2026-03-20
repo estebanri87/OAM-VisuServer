@@ -1,0 +1,22 @@
+{
+    "name": "OGM-Common",
+    "version": "1.7.2",
+    "dependencies": {
+        "TimerInterrupt_Generic": "https://github.com/khoih-prog/TimerInterrupt_Generic.git#v1.13.0",
+        "Regexp": "https://github.com/nickgammon/Regexp.git",
+        "ANSI": "https://github.com/RobTillaart/ANSI.git",
+        "RTTStream": "https://github.com/koendv/RTTStream#1.4.0"
+    },
+    "description": "Common routines and helpers, used in OpenKNX projects",
+    "homepage": "https://openknx.de",
+    "authors": {
+        "name": "OpenKNX",
+        "email": "info@openknx.de",
+        "url": "https://openknx.de",
+        "maintainer": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OpenKNX/OGM-Common"
+    }
+}

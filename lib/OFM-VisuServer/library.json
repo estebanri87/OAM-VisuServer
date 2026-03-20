@@ -1,0 +1,18 @@
+{
+  "name": "OFM-VisuServer",
+  "version": "0.1.0",
+  "description": "WebUI Visualization for KNX — OpenKNX module providing a modern responsive web UI for KNX control",
+  "keywords": ["openknx", "knx", "webui", "visualization"],
+  "homepage": "https://github.com/estebanri87/OFM-VisuServer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estebanri87/OFM-VisuServer.git"
+  },
+  "license": "GPL-3.0",
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "dependencies": {
+    "OFM-WebUI": "*",
+    "OGM-Common": "*"
+  }
+}

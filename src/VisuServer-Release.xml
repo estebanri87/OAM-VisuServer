@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
+
+  <op:config href="VisuServer.conf.xml" />
+  
+  <op:ETS
+    OpenKnxId="0xAF"
+    ApplicationNumber="0x2A" 
+    ApplicationVersion="%ReleaseApplicationVersion%"
+    ReplacesVersions="%ReleaseReplacesVersions%"
+    ApplicationRevision="0"
+    ProductName="Visu Server"
+    BusCurrent="10"
+    BuildSuffix=""
+    BuildSuffixText=""
+    MediumTypes="MT-0 MT-5"
+    OrderNumber="OpenKNX-SR-VIS" />  
+
+  <op:define prefix="BASE" ModuleType="10"
+    share="../lib/OGM-Common/src/Common.share.xml">
+    <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="%BASE_VerifyVersion%" />
+  </op:define>
+
+  <op:define prefix="NET" ModuleType="12"
+    share="../lib/OFM-Network/src/Network.share.xml">
+    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="%NET_VerifyVersion%" />
+  </op:define>
+
+  <op:define prefix="UCT"  ModuleType="13"
+    share="../lib/OFM-ConfigTransfer/src/ConfigTransfer.share.xml">
+  <op:verify File="../lib/OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
+  </op:define>
+
+  <!-- VIS KoOffset=400: directly after FCB (250+15*10=400). LOG(100-249), FCB(250-399), VIS(400-911).
+       VIS_KoBase in VisuConfig.h and KO_OFFSET in app.js must stay in sync with this value. -->
+  <op:define prefix="VIS" ModuleType="16"
+    share="../lib/OFM-VisuServer/src/VisuServer.share.xml"
+    template="../lib/OFM-VisuServer/src/VisuServer.templ.xml"
+    NumChannels="8"
+    KoOffset="400"
+    KoBlockSize="64">
+    <op:verify File="../lib/OFM-VisuServer/library.json" ModuleVersion="%VIS_VerifyVersion%" />
+  </op:define>
+
+  <op:define prefix="LOG" ModuleType="10" 
+  share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
+  template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml" 
+  NumChannels="50" 
+  KoOffset="100">
+  <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" />
+  </op:define>
+
+  <op:define prefix="FCB" ModuleType="11" 
+    share="../lib/OFM-FunctionBlocks/src/FunctionBlocks.share.xml" 
+    template="../lib/OFM-FunctionBlocks/src/FunctionBlocks.templ.xml" 
+    NumChannels="15" 
+    KoOffset="250">
+    <op:verify File="../lib/OFM-FunctionBlocks/library.json" ModuleVersion="%FCB_VerifyVersion%" />
+  </op:define>
+
+  <generate />
+</KNX>

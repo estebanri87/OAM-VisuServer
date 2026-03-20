@@ -1,0 +1,24 @@
+{
+    "name": "knx",
+    "version": "2.3.1",
+    "description": "knx stack",
+    "homepage": "https://openknx.de",
+    "authors": [
+        {
+            "name": "Thomas Kunze"
+        },
+        {
+            "name": "OpenKNX",
+            "email": "info@openknx.de",
+            "url": "https://openknx.de",
+            "maintainer": true
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OpenKNX/knx"
+    },
+    "dependencies": {
+        "TPUart": "https://github.com/OpenKNX/tpuart#1.0.4"
+    }
+}

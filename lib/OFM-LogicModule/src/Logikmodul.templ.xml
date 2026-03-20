@@ -1,0 +1,1916 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+  <ManufacturerData>
+    <Manufacturer RefId="M-00FA">
+      <ApplicationPrograms>
+        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Presence-Logic-Develop" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
+          <!-- We use the following part here -->
+          <op:part name="INPUT" href="Logikmodul.input-e1-e2.part.xml" instances="2">
+            <op:param name="%En%" value="1" increment="1" />
+            <op:param name="%OtherEn%" value="2" increment="-1" />
+            <op:param name="%ParamOffset%" value="0" increment="15" />
+            <op:param name="%TorText%" list=" " values="Dateneingang Toreingang" />
+            <op:param name="%EinAusText%" list=" " values="EIN AUS" />
+
+            <op:param name="%KKK%" value="0" increment="1" digits="3" />
+            <op:param name="%PPP1%" value="0" increment="1" digits="3" />
+            <op:param name="%PPP-1%" value="1" increment="-1" digits="3" />
+            <op:param name="%PPP2%" value="0" increment="2" digits="3" />
+            <op:param name="%PPP-3%" value="0" increment="-3" digits="3" />
+            <op:param name="%PPP7%" value="0" increment="7" digits="3" />
+            <op:param name="%PPP8%" value="0" increment="8" digits="3" />
+            <op:param name="%PPP9%" value="0" increment="9" digits="3" />
+            <op:param name="%PPP20%" value="0" increment="20" digits="3" />
+            <op:param name="%PPP27%" value="0" increment="27" digits="3" />
+            <op:param name="%PPP44%" value="0" increment="44" digits="3" />
+          </op:part>
+          <op:part name="INTERNAL" href="Logikmodul.input-i3-i4.part.xml" instances="2">
+            <op:param name="%In%" value="1" increment="1" />
+            <op:param name="%ParamOffset%" value="36" increment="3" />
+            <op:param name="%PPP1%" value="0" increment="1" digits="3" />
+            <op:param name="%PPP2%" value="0" increment="2" digits="3" />
+          </op:part>
+          <Static>
+            <Parameters>
+              <Parameter Id="%AID%_P-%TT%%CC%001" Name="f%C%Name" ParameterType="%AID%_PT-Text40Byte" Text="Beschreibung des Kanals" Value="" />
+              <Parameter Id="%AID%_P-%TT%%CC%439" Name="f%C%Kommentar" ParameterType="%AID%_PT-Text512Byte" Text="" Value="" />
+              <!-- <Parameter Id="%AID%_P-%TT%%CC%002" Name="f%C%ChannelDelay" ParameterType="%AID%_PT-DelaySeconds" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" SuffixText="Sekunden" Value="1">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="0" BitOffset="0" />
+              </Parameter> -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="0" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%381" Name="f%C%ChannelDelayBase" ParameterType="%AID%_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%382" Name="f%C%ChannelDelayTime" ParameterType="%AID%_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" Value="1" />
+              </Union>
+              <Union SizeInBit="32">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="2" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%003" Name="f%C%Logic" ParameterType="%AID%_PT-Logic" Offset="0" BitOffset="0" Text="Logik-Operation" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%004" Name="f%C%Calculate" ParameterType="%AID%_PT-Calculate" Offset="1" BitOffset="6" Text="Logik auswerten" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%166" Name="f%C%Disable" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="5" Text="Kanal deaktivieren (zu Testzwecken)" Value="0" />
+                <!-- <Parameter Id="%AID%_UP-%TT%%CC%277" Name="f%C%Alarm" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="4" Text="Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?" Value="0" /> -->
+                <Parameter Id="%AID%_UP-%TT%%CC%396" Name="f%C%TGate" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="3" Text="Tor geht sofort wieder zu" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%397" Name="f%C%OInternalOn" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="2" Text="Wert EIN intern weiterleiten" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%398" Name="f%C%OInternalOff" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="1" Text="Wert AUS intern weiterleiten" Value="1" />
+                <!-- 1 Bit frei -->
+                <Parameter Id="%AID%_UP-%TT%%CC%005" Name="f%C%Trigger" ParameterType="%AID%_PT-Trigger" Offset="2" BitOffset="0" Text="Logik sendet ihren Wert weiter" Value="15" />
+                <Parameter Id="%AID%_UP-%TT%%CC%089" Name="f%C%TriggerE1" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="7" Text="          Eingang 1" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%090" Name="f%C%TriggerE2" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="6" Text="          Eingang 2" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%091" Name="f%C%TriggerI1" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="5" Text="          Interner Eingang 3" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%092" Name="f%C%TriggerI2" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="4" Text="          Interner Eingang 4" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%167" Name="f%C%TriggerTime" ParameterType="%AID%_PT-TriggerTime" Offset="2" BitOffset="0" Text="Logik sendet ihren Wert weiter" Value="15" />
+                <Parameter Id="%AID%_UP-%TT%%CC%006" Name="f%C%TriggerGateClose" ParameterType="%AID%_PT-GateTrigger" Offset="3" BitOffset="0" Text="Beim schließen vom Tor wird" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%007" Name="f%C%TriggerGateOpen" ParameterType="%AID%_PT-GateTrigger" Offset="3" BitOffset="2" Text="Beim öffnen vom Tor wird" Value="0" />
+                <!-- 4 Bit frei -->
+              </Union>
+              <!-- the following memory areas work as overlay -->
+              <!-- Conceptually the memory areas of E1 and E2 are overlayed by timer definition -->
+              <!-- In detail: Timer common definitions (horus/minutes/switch value) overlay E1 parameters -->
+              <!-- Timer week definitions overlay E2 parameters -->
+              <!-- Timer year definitions overlay E2 parameters -->
+              <!-- So there are only 3 possible alternatives: Inputs (E1+E2) or year timer or week timer -->
+              <!-- Input E1 and E2 -->
+              <op:usePart name="INPUT" xpath="//Parameters/*" />
+              <!-- Timer setup -->
+              <!-- Timer name -->
+              <Parameter Id="%AID%_P-%TT%%CC%275" Name="f%C%TimerName" ParameterType="%AID%_PT-Text80Byte" Text="Beschreibung der Zeitschaltuhr" Value="" />
+              <Union SizeInBit="40">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="6" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%171" Name="f%C%Td1DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="0" BitOffset="0" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%179" Name="f%C%Td2DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="0" BitOffset="4" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%187" Name="f%C%Td3DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="1" BitOffset="0" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%195" Name="f%C%Td4DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="1" BitOffset="4" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%203" Name="f%C%Td5DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="2" BitOffset="0" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%211" Name="f%C%Td6DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="2" BitOffset="4" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%219" Name="f%C%Td7DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="3" BitOffset="0" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%227" Name="f%C%Td8DuskDawn" ParameterType="%AID%_PT-DuskDawn" Offset="3" BitOffset="4" Text="Zeitbezug" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%272" Name="f%C%TYearDay" ParameterType="%AID%_PT-YearDay" Offset="4" BitOffset="0" Text="Typ der Zeitschaltuhr" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%273" Name="f%C%THoliday" ParameterType="%AID%_PT-Holiday" Offset="4" BitOffset="2" Text="Feiertagsbehandlung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%274" Name="f%C%TRestoreState" ParameterType="%AID%_PT-RestoreState" Offset="4" BitOffset="4" Text="Bei Neustart letzte Schaltzeit nachholen" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%276" Name="f%C%TVacation" ParameterType="%AID%_PT-Vacation" Offset="4" BitOffset="6" Text="Urlaubsbehandlung" Value="0" />
+              </Union>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="11" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%482" Name="f%C%Td1ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="0" BitOffset="0" Text="Zahlenwert" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%483" Name="f%C%Td2ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="1" BitOffset="0" Text="Zahlenwert" Value="2" />
+                <Parameter Id="%AID%_UP-%TT%%CC%484" Name="f%C%Td3ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="2" BitOffset="0" Text="Zahlenwert" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%485" Name="f%C%Td4ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="3" BitOffset="0" Text="Zahlenwert" Value="4" />
+                <Parameter Id="%AID%_UP-%TT%%CC%486" Name="f%C%Td5ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="4" BitOffset="0" Text="Zahlenwert" Value="5" />
+                <Parameter Id="%AID%_UP-%TT%%CC%487" Name="f%C%Td6ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="5" BitOffset="0" Text="Zahlenwert" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%488" Name="f%C%Td7ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="6" BitOffset="0" Text="Zahlenwert" Value="7" />
+                <Parameter Id="%AID%_UP-%TT%%CC%489" Name="f%C%Td8ValueNum" ParameterType="%AID%_PT-ValueDpt5" Offset="7" BitOffset="0" Text="Zahlenwert" Value="8" />
+              </Union>
+              <!-- 1 Byte free (19) -->
+              <!-- Parameter for timer daily -->
+              <Union SizeInBit="128" op:nowarn="true" >
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="20" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%168" Name="f%C%Td1Value" ParameterType="%AID%_PT-OnOff" Offset="0" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%427" Name="f%C%Td1Degree" ParameterType="%AID%_PT-Degree" Offset="0" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%170" Name="f%C%Td1HourAbs" ParameterType="%AID%_PT-Hour" Offset="0" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%172" Name="f%C%Td1HourRel" ParameterType="%AID%_PT-HourRel" Offset="0" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%448" Name="f%C%Td1HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="0" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%173" Name="f%C%Td1MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="0" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%174" Name="f%C%Td1MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="0" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%175" Name="f%C%Td1Weekday" ParameterType="%AID%_PT-Weekday" Offset="1" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%176" Name="f%C%Td2Value" ParameterType="%AID%_PT-OnOff" Offset="2" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%428" Name="f%C%Td2Degree" ParameterType="%AID%_PT-Degree" Offset="2" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%178" Name="f%C%Td2HourAbs" ParameterType="%AID%_PT-Hour" Offset="2" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%180" Name="f%C%Td2HourRel" ParameterType="%AID%_PT-HourRel" Offset="2" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%449" Name="f%C%Td2HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="2" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%181" Name="f%C%Td2MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="2" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%182" Name="f%C%Td2MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="2" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%183" Name="f%C%Td2Weekday" ParameterType="%AID%_PT-Weekday" Offset="3" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%184" Name="f%C%Td3Value" ParameterType="%AID%_PT-OnOff" Offset="4" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%429" Name="f%C%Td3Degree" ParameterType="%AID%_PT-Degree" Offset="4" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%186" Name="f%C%Td3HourAbs" ParameterType="%AID%_PT-Hour" Offset="4" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%188" Name="f%C%Td3HourRel" ParameterType="%AID%_PT-HourRel" Offset="4" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%450" Name="f%C%Td3HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="4" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%189" Name="f%C%Td3MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="4" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%190" Name="f%C%Td3MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="4" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%191" Name="f%C%Td3Weekday" ParameterType="%AID%_PT-Weekday" Offset="5" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%192" Name="f%C%Td4Value" ParameterType="%AID%_PT-OnOff" Offset="6" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%430" Name="f%C%Td4Degree" ParameterType="%AID%_PT-Degree" Offset="6" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%194" Name="f%C%Td4HourAbs" ParameterType="%AID%_PT-Hour" Offset="6" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%196" Name="f%C%Td4HourRel" ParameterType="%AID%_PT-HourRel" Offset="6" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%451" Name="f%C%Td4HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="6" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%197" Name="f%C%Td4MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="6" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%198" Name="f%C%Td4MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="6" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%199" Name="f%C%Td4Weekday" ParameterType="%AID%_PT-Weekday" Offset="7" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%200" Name="f%C%Td5Value" ParameterType="%AID%_PT-OnOff" Offset="8" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%431" Name="f%C%Td5Degree" ParameterType="%AID%_PT-Degree" Offset="8" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%202" Name="f%C%Td5HourAbs" ParameterType="%AID%_PT-Hour" Offset="8" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%204" Name="f%C%Td5HourRel" ParameterType="%AID%_PT-HourRel" Offset="8" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%452" Name="f%C%Td5HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="8" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%205" Name="f%C%Td5MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="8" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%206" Name="f%C%Td5MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="8" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%207" Name="f%C%Td5Weekday" ParameterType="%AID%_PT-Weekday" Offset="9" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%208" Name="f%C%Td6Value" ParameterType="%AID%_PT-OnOff" Offset="10" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%432" Name="f%C%Td6Degree" ParameterType="%AID%_PT-Degree" Offset="10" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%210" Name="f%C%Td6HourAbs" ParameterType="%AID%_PT-Hour" Offset="10" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%212" Name="f%C%Td6HourRel" ParameterType="%AID%_PT-HourRel" Offset="10" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%453" Name="f%C%Td6HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="10" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%213" Name="f%C%Td6MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="10" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%214" Name="f%C%Td6MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="10" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%215" Name="f%C%Td6Weekday" ParameterType="%AID%_PT-Weekday" Offset="11" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%216" Name="f%C%Td7Value" ParameterType="%AID%_PT-OnOff" Offset="12" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%433" Name="f%C%Td7Degree" ParameterType="%AID%_PT-Degree" Offset="12" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%218" Name="f%C%Td7HourAbs" ParameterType="%AID%_PT-Hour" Offset="12" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%220" Name="f%C%Td7HourRel" ParameterType="%AID%_PT-HourRel" Offset="12" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%454" Name="f%C%Td7HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="12" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%221" Name="f%C%Td7MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="12" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%222" Name="f%C%Td7MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="12" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%223" Name="f%C%Td7Weekday" ParameterType="%AID%_PT-Weekday" Offset="13" BitOffset="5" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%224" Name="f%C%Td8Value" ParameterType="%AID%_PT-OnOff" Offset="14" BitOffset="0" Text="Schaltwert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%434" Name="f%C%Td8Degree" ParameterType="%AID%_PT-Degree" Offset="14" BitOffset="1" Text="Grad" Value="6" />
+                <Parameter Id="%AID%_UP-%TT%%CC%226" Name="f%C%Td8HourAbs" ParameterType="%AID%_PT-Hour" Offset="14" BitOffset="2" Text="Stunde" Value="31" />
+                <Parameter Id="%AID%_UP-%TT%%CC%228" Name="f%C%Td8HourRel" ParameterType="%AID%_PT-HourRel" Offset="14" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%455" Name="f%C%Td8HourRelShort" ParameterType="%AID%_PT-HourRelShort" Offset="14" BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%229" Name="f%C%Td8MinuteAbs" ParameterType="%AID%_PT-Minute" Offset="14" BitOffset="7" Text="Minute" Value="63" />
+                <Parameter Id="%AID%_UP-%TT%%CC%230" Name="f%C%Td8MinuteRel" ParameterType="%AID%_PT-MinuteRel" Offset="14" BitOffset="7" Text="Minute" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%231" Name="f%C%Td8Weekday" ParameterType="%AID%_PT-Weekday" Offset="15" BitOffset="5" Text="Wochentag" Value="0" />
+              </Union>
+              <!-- Parameter for Timer Yearly -->
+              <Union SizeInBit="64">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="28" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%232" Name="f%C%Ty1Weekday1" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="0" Text="Mo" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%233" Name="f%C%Ty1Weekday2" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="Di" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%234" Name="f%C%Ty1Weekday3" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="Mi" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%235" Name="f%C%Ty1Weekday4" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="3" Text="Do" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%236" Name="f%C%Ty1Weekday5" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="4" Text="Fr" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%237" Name="f%C%Ty1Weekday6" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="5" Text="Sa" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%238" Name="f%C%Ty1Weekday7" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="6" Text="So" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%239" Name="f%C%Ty1Day" ParameterType="%AID%_PT-Day" Offset="0" BitOffset="0" Text="Tag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%240" Name="f%C%Ty1IsWeekday" ParameterType="%AID%_PT-IsWeekday" Offset="0" BitOffset="7" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%241" Name="f%C%Ty1Month" ParameterType="%AID%_PT-Month" Offset="1" BitOffset="0" Text="Monat" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%242" Name="f%C%Ty2Weekday1" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="0" Text="Mo" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%243" Name="f%C%Ty2Weekday2" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="1" Text="Di" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%244" Name="f%C%Ty2Weekday3" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="2" Text="Mi" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%245" Name="f%C%Ty2Weekday4" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="3" Text="Do" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%246" Name="f%C%Ty2Weekday5" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="4" Text="Fr" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%247" Name="f%C%Ty2Weekday6" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="5" Text="Sa" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%248" Name="f%C%Ty2Weekday7" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="6" Text="So" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%249" Name="f%C%Ty2Day" ParameterType="%AID%_PT-Day" Offset="2" BitOffset="0" Text="Tag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%250" Name="f%C%Ty2IsWeekday" ParameterType="%AID%_PT-IsWeekday" Offset="2" BitOffset="7" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%251" Name="f%C%Ty2Month" ParameterType="%AID%_PT-Month" Offset="3" BitOffset="0" Text="Monat" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%252" Name="f%C%Ty3Weekday1" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="0" Text="Mo" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%253" Name="f%C%Ty3Weekday2" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="1" Text="Di" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%254" Name="f%C%Ty3Weekday3" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="2" Text="Mi" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%255" Name="f%C%Ty3Weekday4" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="3" Text="Do" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%256" Name="f%C%Ty3Weekday5" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="4" Text="Fr" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%257" Name="f%C%Ty3Weekday6" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="5" Text="Sa" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%258" Name="f%C%Ty3Weekday7" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="6" Text="So" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%259" Name="f%C%Ty3Day" ParameterType="%AID%_PT-Day" Offset="4" BitOffset="0" Text="Tag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%260" Name="f%C%Ty3IsWeekday" ParameterType="%AID%_PT-IsWeekday" Offset="4" BitOffset="7" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%261" Name="f%C%Ty3Month" ParameterType="%AID%_PT-Month" Offset="5" BitOffset="0" Text="Monat" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%262" Name="f%C%Ty4Weekday1" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="0" Text="Mo" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%263" Name="f%C%Ty4Weekday2" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="1" Text="Di" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%264" Name="f%C%Ty4Weekday3" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="2" Text="Mi" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%265" Name="f%C%Ty4Weekday4" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="3" Text="Do" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%266" Name="f%C%Ty4Weekday5" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="4" Text="Fr" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%267" Name="f%C%Ty4Weekday6" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="5" Text="Sa" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%268" Name="f%C%Ty4Weekday7" ParameterType="%AID%_PT-CheckBox" Offset="6" BitOffset="6" Text="So" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%269" Name="f%C%Ty4Day" ParameterType="%AID%_PT-Day" Offset="6" BitOffset="0" Text="Tag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%270" Name="f%C%Ty4IsWeekday" ParameterType="%AID%_PT-IsWeekday" Offset="6" BitOffset="7" Text="Wochentag" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%271" Name="f%C%Ty4Month" ParameterType="%AID%_PT-Month" Offset="7" BitOffset="0" Text="Monat" Value="0" />
+              </Union>
+              <!-- Internal Inputs -->
+              <op:usePart name="INTERNAL" xpath="//Parameters/*" />
+              <!-- Output definition -->
+              <Parameter Id="%AID%_P-%TT%%CC%132" Name="f%C%NameOutput" ParameterType="%AID%_PT-Text80Byte" Text="Beschreibung Ausgang" Value="" />
+              <Union SizeInBit="96">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="42" BitOffset="0" />
+                <!-- Stair delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%053" Name="f%C%OStairtimeBase" ParameterType="%AID%_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeit für Treppenlicht" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%054" Name="f%C%OStairtimeTime" ParameterType="%AID%_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit für Treppenlicht" Value="30" />
+                <!-- Blink delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%387" Name="f%C%OBlinkBase" ParameterType="%AID%_PT-DelayBase10" Offset="2" BitOffset="0" Text="Treppenlicht blinkt im Rhythmus" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%388" Name="f%C%OBlinkTime" ParameterType="%AID%_PT-DelayTime" Offset="2" BitOffset="2" Text="Treppenlicht blinkt im Rhythmus" Value="0" />
+                <!-- On delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%059" Name="f%C%ODelayOnBase" ParameterType="%AID%_PT-DelayBase10" Offset="4" BitOffset="0" Text="EINschalten wird verzögert um" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%060" Name="f%C%ODelayOnTime" ParameterType="%AID%_PT-DelayTime" Offset="4" BitOffset="2" Text="EINschalten wird verzögert um" Value="0" />
+                <!-- Off delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%062" Name="f%C%ODelayOffBase" ParameterType="%AID%_PT-DelayBase10" Offset="6" BitOffset="0" Text="AUSschalten wird verzögert um" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%063" Name="f%C%ODelayOffTime" ParameterType="%AID%_PT-DelayTime" Offset="6" BitOffset="2" Text="AUSschalten wird verzögert um" Value="0" />
+                <!-- RepeatOn delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%389" Name="f%C%ORepeatOnBase" ParameterType="%AID%_PT-DelayBase10" Offset="8" BitOffset="0" Text="EIN-Telegramm wird wiederholt alle" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%390" Name="f%C%ORepeatOnTime" ParameterType="%AID%_PT-DelayTime" Offset="8" BitOffset="2" Text="EIN-Telegramm wird wiederholt alle" Value="0" />
+                <!-- RepeatOff delay pattern-->
+                <Parameter Id="%AID%_UP-%TT%%CC%391" Name="f%C%ORepeatOffBase" ParameterType="%AID%_PT-DelayBase10" Offset="10" BitOffset="0" Text="AUS-Telegramm wird wiederholt alle" Value="3" />
+                <Parameter Id="%AID%_UP-%TT%%CC%392" Name="f%C%ORepeatOffTime" ParameterType="%AID%_PT-DelayTime" Offset="10" BitOffset="2" Text="AUS-Telegramm wird wiederholt alle" Value="0" />
+              </Union>
+              <Union SizeInBit="24">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="54" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%058" Name="f%C%ODelay" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="0" Text="Ausgang schaltet zeitverzögert" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%117" Name="f%C%ODelayOnRepeat" ParameterType="%AID%_PT-OnOffRepeat" Offset="0" BitOffset="1" Text="Erneutes EIN führt zu" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%118" Name="f%C%ODelayOnReset" ParameterType="%AID%_PT-OnOffReset" Offset="0" BitOffset="3" Text="Darauffolgendes AUS führt zu" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%119" Name="f%C%ODelayOffRepeat" ParameterType="%AID%_PT-OnOffRepeat" Offset="0" BitOffset="4" Text="Erneutes AUS führt zu" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%120" Name="f%C%ODelayOffReset" ParameterType="%AID%_PT-OnOffReset" Offset="0" BitOffset="6" Text="Darauffolgendes EIN führt zu" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%052" Name="f%C%OStair" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="7" Text="Ausgang hat eine Treppenlichtfunktion" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%055" Name="f%C%ORetrigger" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="0" Text="Treppenlicht kann verlängert werden" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%056" Name="f%C%OStairOff" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="1" Text="Treppenlicht kann ausgeschaltet werden" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%061" Name="f%C%ORepeat" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="2" Text="Ausgang wiederholt zyklisch" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%127" Name="f%C%OOutputFilter" ParameterType="%AID%_PT-OutputFilter" Offset="1" BitOffset="3" Text="Wiederholungsfilter" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%479" Name="f%C%OSendOnChange" ParameterType="%AID%_PT-SendOnChange" Offset="1" BitOffset="5" Text="Sendeverhalten für Ausgang" Value="0" />
+                <!-- 2 Bit free -->
+                <Parameter Id="%AID%_UP-%TT%%CC%064" Name="f%C%ODpt" ParameterType="%AID%_PT-OutputDpt" Offset="2" BitOffset="0" Text="DPT für Ausgang" Value="0" />
+              </Union>
+              <Union SizeInBit="120">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="57" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%136" Name="f%C%OOnAll" ParameterType="%AID%_PT-OutputSendAll" Offset="0" BitOffset="0" Text="Wert für EIN senden?" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%066" Name="f%C%OOnDpt1" ParameterType="%AID%_PT-ValueDpt1" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%067" Name="f%C%OOnDpt2" ParameterType="%AID%_PT-ValueDpt2Out" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%511" Name="f%C%OOnDpt3Dir" ParameterType="%AID%_PT-ValueDpt3Dir" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%512" Name="f%C%OOnDpt3Dim" ParameterType="%AID%_PT-ValueDpt3Dim" Offset="1" BitOffset="5" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%068" Name="f%C%OOnDpt5" ParameterType="%AID%_PT-ValueDpt5" Offset="1" BitOffset="0" Text="    Wert für EIN senden als " Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%069" Name="f%C%OOnDpt5001" ParameterType="%AID%_PT-ValueDpt5001" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="100" />
+                <Parameter Id="%AID%_UP-%TT%%CC%070" Name="f%C%OOnDpt6" ParameterType="%AID%_PT-ValueDpt6" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%071" Name="f%C%OOnDpt7" ParameterType="%AID%_PT-ValueDpt7" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%072" Name="f%C%OOnDpt8" ParameterType="%AID%_PT-ValueDpt8" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%073" Name="f%C%OOnDpt9" ParameterType="%AID%_PT-ValueDpt9" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%399" Name="f%C%OOnDpt12" ParameterType="%AID%_PT-ValueDpt12" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%400" Name="f%C%OOnDpt13" ParameterType="%AID%_PT-ValueDpt13" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%401" Name="f%C%OOnDpt14" ParameterType="%AID%_PT-ValueDpt14" Offset="1" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%074" Name="f%C%OOnDpt16" ParameterType="%AID%_PT-ValueText" Offset="1" BitOffset="0" Text="    Wert für EIN senden als " Value="Ein" />
+                <Parameter Id="%AID%_UP-%TT%%CC%075" Name="f%C%OOnDpt17" ParameterType="%AID%_PT-ValueSceneOut" Offset="1" BitOffset="0" Text="    Wert für EIN senden als " Value="2" />
+                <Parameter Id="%AID%_UP-%TT%%CC%076" Name="f%C%OOnRGB" ParameterType="%AID%_PT-ValueColor" Offset="1" BitOffset="0" Text="    Wert für EIN senden als (3-Byte-RGB)" Value="#FFFFFF" />
+                <Parameter Id="%AID%_UP-%TT%%CC%516" Name="f%C%OOnLedProvider" ParameterType="%AID%_PT-StatusLedProvider" Offset="5" BitOffset="5" Text="    Status-LED Kanal" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%518" Name="f%C%OOnLedEffect" ParameterType="%AID%_PT-StatusLedEffect" Offset="6" BitOffset="5" Text="    Status-LED Effekt" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%520" Name="f%C%OOnLedDuration" ParameterType="%AID%_PT-StatusLedEffectDuration" Offset="7" BitOffset="0" Text="    Status-LED Effektdauer" Value="1000" />
+
+                <Parameter Id="%AID%_UP-%TT%%CC%121" Name="f%C%OOnPAArea" ParameterType="%AID%_PT-PALine" Offset="1" BitOffset="0" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%122" Name="f%C%OOnPALine" ParameterType="%AID%_PT-PALine" Offset="1" BitOffset="4" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%123" Name="f%C%OOnPADevice" ParameterType="%AID%_PT-PADevice" Offset="2" BitOffset="0" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%279" Name="f%C%OOnFunction" ParameterType="%AID%_PT-ValueFunction" Offset="1" BitOffset="0" Text="    Wert für EIN ermitteln als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%471" Name="f%C%OOnKOKind" ParameterType="%AID%_PT-KORelInput2" Offset="6" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%435" Name="f%C%OOnKONumber" ParameterType="%AID%_PT-KOAbsNumber" Offset="1" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="%K2%" />
+                <Parameter Id="%AID%_UP-%TT%%CC%467" Name="f%C%OOnKONumberRel" ParameterType="%AID%_PT-KORelNumber" Offset="1" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%437" Name="f%C%OOnKODpt" ParameterType="%AID%_PT-InputDpt" Offset="3" BitOffset="0" Text="    DPT des Kommunikationsobjekts" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%440" Name="f%C%OOnKOSend" ParameterType="%AID%_PT-KORelInput" Offset="6" BitOffset="2" Text="    Wert für EIN an ein zusätzliches&#10;    KO senden?" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%442" Name="f%C%OOnKOSendNumber" ParameterType="%AID%_PT-KOAbsNumber" Offset="7" BitOffset="0" Text="        Nummer des zusätzlichen KO" Value="%K2%" />
+                <Parameter Id="%AID%_UP-%TT%%CC%463" Name="f%C%OOnKOSendNumberRel" ParameterType="%AID%_PT-KORelNumber" Offset="7" BitOffset="0" Text="        Nummer des zusätzlichen KO" Value="0" />
+              </Union>
+              <Union SizeInBit="120">
+                <Memory CodeSegment="%AID%_RS-04-00000" Offset="72" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%139" Name="f%C%OOffAll" ParameterType="%AID%_PT-OutputSendAll" Offset="0" BitOffset="0" Text="Wert für AUS senden?" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%078" Name="f%C%OOffDpt1" ParameterType="%AID%_PT-ValueDpt1" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%079" Name="f%C%OOffDpt2" ParameterType="%AID%_PT-ValueDpt2Out" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%513" Name="f%C%OOffDpt3Dir" ParameterType="%AID%_PT-ValueDpt3Dir" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%514" Name="f%C%OOffDpt3Dim" ParameterType="%AID%_PT-ValueDpt3Dim" Offset="1" BitOffset="5" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%080" Name="f%C%OOffDpt5" ParameterType="%AID%_PT-ValueDpt5" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%081" Name="f%C%OOffDpt5001" ParameterType="%AID%_PT-ValueDpt5001" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%082" Name="f%C%OOffDpt6" ParameterType="%AID%_PT-ValueDpt6" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%083" Name="f%C%OOffDpt7" ParameterType="%AID%_PT-ValueDpt7" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%084" Name="f%C%OOffDpt8" ParameterType="%AID%_PT-ValueDpt8" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%085" Name="f%C%OOffDpt9" ParameterType="%AID%_PT-ValueDpt9" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%402" Name="f%C%OOffDpt12" ParameterType="%AID%_PT-ValueDpt12" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%403" Name="f%C%OOffDpt13" ParameterType="%AID%_PT-ValueDpt13" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%404" Name="f%C%OOffDpt14" ParameterType="%AID%_PT-ValueDpt14" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%086" Name="f%C%OOffDpt16" ParameterType="%AID%_PT-ValueText" Offset="1" BitOffset="0" Text="    Wert für AUS senden als" Value="Aus" />
+                <Parameter Id="%AID%_UP-%TT%%CC%087" Name="f%C%OOffDpt17" ParameterType="%AID%_PT-ValueSceneOut" Offset="1" BitOffset="0" Text="    Wert für AUS senden als " Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%088" Name="f%C%OOffRGB" ParameterType="%AID%_PT-ValueColor" Offset="1" BitOffset="0" Text="    Wert für AUS senden als (3-Byte-RGB)" Value="#000000" />
+                <Parameter Id="%AID%_UP-%TT%%CC%517" Name="f%C%OOffLedProvider" ParameterType="%AID%_PT-StatusLedProvider" Offset="5" BitOffset="5" Text="    Status-LED-Kanal" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%519" Name="f%C%OOffLedEffect" ParameterType="%AID%_PT-StatusLedEffect" Offset="6" BitOffset="5" Text="    Status-LED Effekt" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%521" Name="f%C%OOffLedDuration" ParameterType="%AID%_PT-StatusLedEffectDuration" Offset="7" BitOffset="0" Text="    Status-LED Effektdauer" Value="1000" />
+
+                <Parameter Id="%AID%_UP-%TT%%CC%124" Name="f%C%OOffPAArea" ParameterType="%AID%_PT-PALine" Offset="1" BitOffset="0" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%125" Name="f%C%OOffPALine" ParameterType="%AID%_PT-PALine" Offset="1" BitOffset="4" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%126" Name="f%C%OOffPADevice" ParameterType="%AID%_PT-PADevice" Offset="2" BitOffset="0" Text="" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%280" Name="f%C%OOffFunction" ParameterType="%AID%_PT-ValueFunction" Offset="1" BitOffset="0" Text="    Wert für AUS ermitteln als" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%472" Name="f%C%OOffKOKind" ParameterType="%AID%_PT-KORelInput2" Offset="6" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%%CC%436" Name="f%C%OOffKONumber" ParameterType="%AID%_PT-KOAbsNumber" Offset="1" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="%K2%" />
+                <Parameter Id="%AID%_UP-%TT%%CC%468" Name="f%C%OOffKONumberRel" ParameterType="%AID%_PT-KORelNumber" Offset="1" BitOffset="0" Text="    Nummer des Kommunikationsobjekts" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%438" Name="f%C%OOffKODpt" ParameterType="%AID%_PT-InputDpt" Offset="3" BitOffset="0" Text="    DPT des Kommunikationsobjekts" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%441" Name="f%C%OOffKOSend" ParameterType="%AID%_PT-KORelInput" Offset="6" BitOffset="2" Text="    Wert für AUS an ein zusätzliches&#10;    KO senden?" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%%CC%443" Name="f%C%OOffKOSendNumber" ParameterType="%AID%_PT-KOAbsNumber" Offset="7" BitOffset="0" Text="        Nummer des zusätzlichen KO" Value="%K2%" />
+                <Parameter Id="%AID%_UP-%TT%%CC%464" Name="f%C%OOffKOSendNumberRel" ParameterType="%AID%_PT-KORelNumber" Offset="7" BitOffset="0" Text="        Nummer des zusätzlichen KO" Value="0" />
+              </Union>
+              <Parameter Id="%AID%_P-%TT%%CC%465" Name="f%C%OOnKOSendNumberRead" ParameterType="%AID%_PT-KOAbsNumber" Text="    Nummer des zusätzlichen KO" Value="%K2%" Access="Read" />
+              <Parameter Id="%AID%_P-%TT%%CC%466" Name="f%C%OOffKOSendNumberRead" ParameterType="%AID%_PT-KOAbsNumber" Text="    Nummer des zusätzlichen KO" Value="%K2%" Access="Read" />
+              <Parameter Id="%AID%_P-%TT%%CC%469" Name="f%C%OOnKONumberRead" ParameterType="%AID%_PT-KOAbsNumber" Text="    Nummer des Kommunikationsobjekts" Value="%K2%" Access="Read" />
+              <Parameter Id="%AID%_P-%TT%%CC%470" Name="f%C%OOffKONumberRead" ParameterType="%AID%_PT-KOAbsNumber" Text="    Nummer des Kommunikationsobjekts" Value="%K2%" Access="Read" />
+              <Parameter Id="%AID%_P-%TT%%CC%515" Name="f%C%ODisplayOwnKO" ParameterType="%AID%_PT-OnOffYesNo" Text="Eigenes KO anzeigen?" Value="1" />
+              <!-- <Parameter Id="%AID%_P-%TT%%CC%144" Name="f%C%E1AnySceneChosen" ParameterType="%AID%_PT-ValueDpt5" Text="Eingang1: Welches Szenenfeld wird benutzt (interner Wert)" Access="None" Value="0" /> -->
+              <!-- <Parameter Id="%AID%_P-%TT%%CC%145" Name="f%C%E2AnySceneChosen" ParameterType="%AID%_PT-ValueDpt5" Text="Eingang2: Welches Szenenfeld wird benutzt (interner Wert)" Access="None" Value="0" /> -->
+              <!-- <Parameter Id="%AID%_P-%TT%%CC%278" Name="f%C%AskForAlarm" ParameterType="%AID%_PT-OnOffYesNo" Text="LED oder Buzzer aktiv (interner Wert)" Access="None" Value="0" /> -->
+              <!-- <Parameter Id="%AID%_P-%TT%%CC%395" Name="f%C%OKONumber" ParameterType="%AID%_PT-KONumber" Text="Kommunikationsobjekt für Ausgang" Access="Read" Value="%K2%" /> -->
+              <Parameter Id="%AID%_P-%TT%%CC%456" Name="f%C%E1InputDeltaOrAll" ParameterType="%AID%_PT-OnOffYesNo" Text="E1 Delta oder Full (interner Wert)" Access="None" Value="0" />
+              <Parameter Id="%AID%_P-%TT%%CC%457" Name="f%C%E2InputDeltaOrAll" ParameterType="%AID%_PT-OnOffYesNo" Text="E2 Delta oder Full (interner Wert)" Access="None" Value="0" />
+              <Parameter Id="%AID%_P-%TT%%CC%458" Name="f%C%OverviewDisplay" ParameterType="%AID%_PT-OnOffYesNo" Text="Kanal anzeigen im Overview (interner Wert)" Access="None" Value="0" />
+              <Parameter Id="%AID%_P-%TT%%CC%490" Name="f%C%ODisplay" ParameterType="%AID%_PT-OnOffYesNo" Text="Ausgang anzeigen" Access="None" Value="0" />
+            </Parameters>
+            <ParameterRefs>
+              <op:usePart name="INPUT" xpath="//ParameterRefs/*" />
+              <op:usePart name="INTERNAL" xpath="//ParameterRefs/*" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%001_R-%TT%%CC%00101" RefId="%AID%_P-%TT%%CC%001" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%002_R-%TT%%CC%00201" RefId="%AID%_P-%TT%%CC%002" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301" RefId="%AID%_UP-%TT%%CC%003" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" RefId="%AID%_UP-%TT%%CC%004" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" RefId="%AID%_UP-%TT%%CC%005" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%006_R-%TT%%CC%00601" RefId="%AID%_UP-%TT%%CC%006" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" RefId="%AID%_UP-%TT%%CC%007" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%027_R-%TT%%CC%02701" RefId="%AID%_UP-%TT%%CC%027" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%047_R-%TT%%CC%04701" RefId="%AID%_UP-%TT%%CC%047" /> -->
+
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%048_R-%TT%%CC%04801" RefId="%AID%_UP-%TT%%CC%048" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%049_R-%TT%%CC%04901" RefId="%AID%_UP-%TT%%CC%049" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%050_R-%TT%%CC%05001" RefId="%AID%_UP-%TT%%CC%050" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%051_R-%TT%%CC%05101" RefId="%AID%_UP-%TT%%CC%051" /> -->
+
+              <ParameterRef Id="%AID%_UP-%TT%%CC%052_R-%TT%%CC%05201" RefId="%AID%_UP-%TT%%CC%052" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%053_R-%TT%%CC%05301" RefId="%AID%_UP-%TT%%CC%053" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%054_R-%TT%%CC%05401" RefId="%AID%_UP-%TT%%CC%054" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%055_R-%TT%%CC%05501" RefId="%AID%_UP-%TT%%CC%055" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%056_R-%TT%%CC%05601" RefId="%AID%_UP-%TT%%CC%056" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%057_R-%TT%%CC%05701" RefId="%AID%_P-%TT%%CC%057" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%058_R-%TT%%CC%05801" RefId="%AID%_UP-%TT%%CC%058" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%059_R-%TT%%CC%05901" RefId="%AID%_UP-%TT%%CC%059" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%060_R-%TT%%CC%06001" RefId="%AID%_UP-%TT%%CC%060" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%061_R-%TT%%CC%06101" RefId="%AID%_UP-%TT%%CC%061" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%062_R-%TT%%CC%06201" RefId="%AID%_UP-%TT%%CC%062" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%063_R-%TT%%CC%06301" RefId="%AID%_UP-%TT%%CC%063" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401" RefId="%AID%_UP-%TT%%CC%064" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%065_R-%TT%%CC%06501" RefId="%AID%_P-%TT%%CC%065" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%066_R-%TT%%CC%06601" RefId="%AID%_UP-%TT%%CC%066" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%067_R-%TT%%CC%06701" RefId="%AID%_UP-%TT%%CC%067" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%068_R-%TT%%CC%06801" RefId="%AID%_UP-%TT%%CC%068" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%069_R-%TT%%CC%06901" RefId="%AID%_UP-%TT%%CC%069" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%070_R-%TT%%CC%07001" RefId="%AID%_UP-%TT%%CC%070" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%071_R-%TT%%CC%07101" RefId="%AID%_UP-%TT%%CC%071" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%072_R-%TT%%CC%07201" RefId="%AID%_UP-%TT%%CC%072" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%073_R-%TT%%CC%07301" RefId="%AID%_UP-%TT%%CC%073" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%074_R-%TT%%CC%07401" RefId="%AID%_UP-%TT%%CC%074" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%075_R-%TT%%CC%07501" RefId="%AID%_UP-%TT%%CC%075" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%076_R-%TT%%CC%07601" RefId="%AID%_UP-%TT%%CC%076" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%076_R-%TT%%CC%07602" RefId="%AID%_UP-%TT%%CC%076" Text="    Status-LED Farbe" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%077_R-%TT%%CC%07701" RefId="%AID%_P-%TT%%CC%077" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%078_R-%TT%%CC%07801" RefId="%AID%_UP-%TT%%CC%078" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%079_R-%TT%%CC%07901" RefId="%AID%_UP-%TT%%CC%079" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%080_R-%TT%%CC%08001" RefId="%AID%_UP-%TT%%CC%080" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%081_R-%TT%%CC%08101" RefId="%AID%_UP-%TT%%CC%081" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%082_R-%TT%%CC%08201" RefId="%AID%_UP-%TT%%CC%082" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%083_R-%TT%%CC%08301" RefId="%AID%_UP-%TT%%CC%083" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%084_R-%TT%%CC%08401" RefId="%AID%_UP-%TT%%CC%084" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%085_R-%TT%%CC%08501" RefId="%AID%_UP-%TT%%CC%085" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%086_R-%TT%%CC%08601" RefId="%AID%_UP-%TT%%CC%086" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%087_R-%TT%%CC%08701" RefId="%AID%_UP-%TT%%CC%087" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%088_R-%TT%%CC%08801" RefId="%AID%_UP-%TT%%CC%088" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%088_R-%TT%%CC%08802" RefId="%AID%_UP-%TT%%CC%088" Text="    LED-Farbe festlegen (Schwarz=aus)" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%089_R-%TT%%CC%08901" RefId="%AID%_UP-%TT%%CC%089" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%090_R-%TT%%CC%09001" RefId="%AID%_UP-%TT%%CC%090" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%091_R-%TT%%CC%09101" RefId="%AID%_UP-%TT%%CC%091" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%092_R-%TT%%CC%09201" RefId="%AID%_UP-%TT%%CC%092" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%117_R-%TT%%CC%11701" RefId="%AID%_UP-%TT%%CC%117" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%118_R-%TT%%CC%11801" RefId="%AID%_UP-%TT%%CC%118" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%119_R-%TT%%CC%11901" RefId="%AID%_UP-%TT%%CC%119" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%120_R-%TT%%CC%12001" RefId="%AID%_UP-%TT%%CC%120" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%121_R-%TT%%CC%12101" RefId="%AID%_UP-%TT%%CC%121" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%122_R-%TT%%CC%12201" RefId="%AID%_UP-%TT%%CC%122" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%123_R-%TT%%CC%12301" RefId="%AID%_UP-%TT%%CC%123" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%124_R-%TT%%CC%12401" RefId="%AID%_UP-%TT%%CC%124" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%125_R-%TT%%CC%12501" RefId="%AID%_UP-%TT%%CC%125" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%126_R-%TT%%CC%12601" RefId="%AID%_UP-%TT%%CC%126" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%127_R-%TT%%CC%12701" RefId="%AID%_UP-%TT%%CC%127" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" RefId="%AID%_P-%TT%%CC%132" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%133_R-%TT%%CC%13301" RefId="%AID%_P-%TT%%CC%133" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%134_R-%TT%%CC%13401" RefId="%AID%_P-%TT%%CC%134" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%135_R-%TT%%CC%13501" RefId="%AID%_P-%TT%%CC%135" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%136_R-%TT%%CC%13601" RefId="%AID%_UP-%TT%%CC%136" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%137_R-%TT%%CC%13701" RefId="%AID%_P-%TT%%CC%137" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%138_R-%TT%%CC%13801" RefId="%AID%_P-%TT%%CC%138" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%139_R-%TT%%CC%13901" RefId="%AID%_UP-%TT%%CC%139" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%140_R-%TT%%CC%14001" RefId="%AID%_UP-%TT%%CC%140" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%141_R-%TT%%CC%14101" RefId="%AID%_UP-%TT%%CC%141" /> -->
+
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%162_R-%TT%%CC%16201" RefId="%AID%_P-%TT%%CC%162" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%163_R-%TT%%CC%16301" RefId="%AID%_P-%TT%%CC%163" /> -->
+
+              <ParameterRef Id="%AID%_UP-%TT%%CC%166_R-%TT%%CC%16601" RefId="%AID%_UP-%TT%%CC%166" />
+
+              <ParameterRef Id="%AID%_UP-%TT%%CC%167_R-%TT%%CC%16701" RefId="%AID%_UP-%TT%%CC%167" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%168_R-%TT%%CC%16801" RefId="%AID%_UP-%TT%%CC%168" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%170_R-%TT%%CC%17001" RefId="%AID%_UP-%TT%%CC%170" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%171_R-%TT%%CC%17101" RefId="%AID%_UP-%TT%%CC%171" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%172_R-%TT%%CC%17201" RefId="%AID%_UP-%TT%%CC%172" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%173_R-%TT%%CC%17301" RefId="%AID%_UP-%TT%%CC%173" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" RefId="%AID%_UP-%TT%%CC%174" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%175_R-%TT%%CC%17501" RefId="%AID%_UP-%TT%%CC%175" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%176_R-%TT%%CC%17601" RefId="%AID%_UP-%TT%%CC%176" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%178_R-%TT%%CC%17801" RefId="%AID%_UP-%TT%%CC%178" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%179_R-%TT%%CC%17901" RefId="%AID%_UP-%TT%%CC%179" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%180_R-%TT%%CC%18001" RefId="%AID%_UP-%TT%%CC%180" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%181_R-%TT%%CC%18101" RefId="%AID%_UP-%TT%%CC%181" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" RefId="%AID%_UP-%TT%%CC%182" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%183_R-%TT%%CC%18301" RefId="%AID%_UP-%TT%%CC%183" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%184_R-%TT%%CC%18401" RefId="%AID%_UP-%TT%%CC%184" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%186_R-%TT%%CC%18601" RefId="%AID%_UP-%TT%%CC%186" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%187_R-%TT%%CC%18701" RefId="%AID%_UP-%TT%%CC%187" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%188_R-%TT%%CC%18801" RefId="%AID%_UP-%TT%%CC%188" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%189_R-%TT%%CC%18901" RefId="%AID%_UP-%TT%%CC%189" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" RefId="%AID%_UP-%TT%%CC%190" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%191_R-%TT%%CC%19101" RefId="%AID%_UP-%TT%%CC%191" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%192_R-%TT%%CC%19201" RefId="%AID%_UP-%TT%%CC%192" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%194_R-%TT%%CC%19401" RefId="%AID%_UP-%TT%%CC%194" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%195_R-%TT%%CC%19501" RefId="%AID%_UP-%TT%%CC%195" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%196_R-%TT%%CC%19601" RefId="%AID%_UP-%TT%%CC%196" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%197_R-%TT%%CC%19701" RefId="%AID%_UP-%TT%%CC%197" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" RefId="%AID%_UP-%TT%%CC%198" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%199_R-%TT%%CC%19901" RefId="%AID%_UP-%TT%%CC%199" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%200_R-%TT%%CC%20001" RefId="%AID%_UP-%TT%%CC%200" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%202_R-%TT%%CC%20201" RefId="%AID%_UP-%TT%%CC%202" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%203_R-%TT%%CC%20301" RefId="%AID%_UP-%TT%%CC%203" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%204_R-%TT%%CC%20401" RefId="%AID%_UP-%TT%%CC%204" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%205_R-%TT%%CC%20501" RefId="%AID%_UP-%TT%%CC%205" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%206_R-%TT%%CC%20601" RefId="%AID%_UP-%TT%%CC%206" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%207_R-%TT%%CC%20701" RefId="%AID%_UP-%TT%%CC%207" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%208_R-%TT%%CC%20801" RefId="%AID%_UP-%TT%%CC%208" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%210_R-%TT%%CC%21001" RefId="%AID%_UP-%TT%%CC%210" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%211_R-%TT%%CC%21101" RefId="%AID%_UP-%TT%%CC%211" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%212_R-%TT%%CC%21201" RefId="%AID%_UP-%TT%%CC%212" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%213_R-%TT%%CC%21301" RefId="%AID%_UP-%TT%%CC%213" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%214_R-%TT%%CC%21401" RefId="%AID%_UP-%TT%%CC%214" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%215_R-%TT%%CC%21501" RefId="%AID%_UP-%TT%%CC%215" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%216_R-%TT%%CC%21601" RefId="%AID%_UP-%TT%%CC%216" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%218_R-%TT%%CC%21801" RefId="%AID%_UP-%TT%%CC%218" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%219_R-%TT%%CC%21901" RefId="%AID%_UP-%TT%%CC%219" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%220_R-%TT%%CC%22001" RefId="%AID%_UP-%TT%%CC%220" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%221_R-%TT%%CC%22101" RefId="%AID%_UP-%TT%%CC%221" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%222_R-%TT%%CC%22201" RefId="%AID%_UP-%TT%%CC%222" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%223_R-%TT%%CC%22301" RefId="%AID%_UP-%TT%%CC%223" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%224_R-%TT%%CC%22401" RefId="%AID%_UP-%TT%%CC%224" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%226_R-%TT%%CC%22601" RefId="%AID%_UP-%TT%%CC%226" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%227_R-%TT%%CC%22701" RefId="%AID%_UP-%TT%%CC%227" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%228_R-%TT%%CC%22801" RefId="%AID%_UP-%TT%%CC%228" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%229_R-%TT%%CC%22901" RefId="%AID%_UP-%TT%%CC%229" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%230_R-%TT%%CC%23001" RefId="%AID%_UP-%TT%%CC%230" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%231_R-%TT%%CC%23101" RefId="%AID%_UP-%TT%%CC%231" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%232_R-%TT%%CC%23201" RefId="%AID%_UP-%TT%%CC%232" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%233_R-%TT%%CC%23301" RefId="%AID%_UP-%TT%%CC%233" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%234_R-%TT%%CC%23401" RefId="%AID%_UP-%TT%%CC%234" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%235_R-%TT%%CC%23501" RefId="%AID%_UP-%TT%%CC%235" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%236_R-%TT%%CC%23601" RefId="%AID%_UP-%TT%%CC%236" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%237_R-%TT%%CC%23701" RefId="%AID%_UP-%TT%%CC%237" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%238_R-%TT%%CC%23801" RefId="%AID%_UP-%TT%%CC%238" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%239_R-%TT%%CC%23901" RefId="%AID%_UP-%TT%%CC%239" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%240_R-%TT%%CC%24001" RefId="%AID%_UP-%TT%%CC%240" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%241_R-%TT%%CC%24101" RefId="%AID%_UP-%TT%%CC%241" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%242_R-%TT%%CC%24201" RefId="%AID%_UP-%TT%%CC%242" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%243_R-%TT%%CC%24301" RefId="%AID%_UP-%TT%%CC%243" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%244_R-%TT%%CC%24401" RefId="%AID%_UP-%TT%%CC%244" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%245_R-%TT%%CC%24501" RefId="%AID%_UP-%TT%%CC%245" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%246_R-%TT%%CC%24601" RefId="%AID%_UP-%TT%%CC%246" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%247_R-%TT%%CC%24701" RefId="%AID%_UP-%TT%%CC%247" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%248_R-%TT%%CC%24801" RefId="%AID%_UP-%TT%%CC%248" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%249_R-%TT%%CC%24901" RefId="%AID%_UP-%TT%%CC%249" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%250_R-%TT%%CC%25001" RefId="%AID%_UP-%TT%%CC%250" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%251_R-%TT%%CC%25101" RefId="%AID%_UP-%TT%%CC%251" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%252_R-%TT%%CC%25201" RefId="%AID%_UP-%TT%%CC%252" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%253_R-%TT%%CC%25301" RefId="%AID%_UP-%TT%%CC%253" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%254_R-%TT%%CC%25401" RefId="%AID%_UP-%TT%%CC%254" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%255_R-%TT%%CC%25501" RefId="%AID%_UP-%TT%%CC%255" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%256_R-%TT%%CC%25601" RefId="%AID%_UP-%TT%%CC%256" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%257_R-%TT%%CC%25701" RefId="%AID%_UP-%TT%%CC%257" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%258_R-%TT%%CC%25801" RefId="%AID%_UP-%TT%%CC%258" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%259_R-%TT%%CC%25901" RefId="%AID%_UP-%TT%%CC%259" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%260_R-%TT%%CC%26001" RefId="%AID%_UP-%TT%%CC%260" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%261_R-%TT%%CC%26101" RefId="%AID%_UP-%TT%%CC%261" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%262_R-%TT%%CC%26201" RefId="%AID%_UP-%TT%%CC%262" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%263_R-%TT%%CC%26301" RefId="%AID%_UP-%TT%%CC%263" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%264_R-%TT%%CC%26401" RefId="%AID%_UP-%TT%%CC%264" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%265_R-%TT%%CC%26501" RefId="%AID%_UP-%TT%%CC%265" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%266_R-%TT%%CC%26601" RefId="%AID%_UP-%TT%%CC%266" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%267_R-%TT%%CC%26701" RefId="%AID%_UP-%TT%%CC%267" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%268_R-%TT%%CC%26801" RefId="%AID%_UP-%TT%%CC%268" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%269_R-%TT%%CC%26901" RefId="%AID%_UP-%TT%%CC%269" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%270_R-%TT%%CC%27001" RefId="%AID%_UP-%TT%%CC%270" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%271_R-%TT%%CC%27101" RefId="%AID%_UP-%TT%%CC%271" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%272_R-%TT%%CC%27201" RefId="%AID%_UP-%TT%%CC%272" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%273_R-%TT%%CC%27301" RefId="%AID%_UP-%TT%%CC%273" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%274_R-%TT%%CC%27401" RefId="%AID%_UP-%TT%%CC%274" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%275_R-%TT%%CC%27501" RefId="%AID%_P-%TT%%CC%275" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%276_R-%TT%%CC%27601" RefId="%AID%_UP-%TT%%CC%276" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%277_R-%TT%%CC%27701" RefId="%AID%_UP-%TT%%CC%277" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801" RefId="%AID%_P-%TT%%CC%278" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%279_R-%TT%%CC%27901" RefId="%AID%_UP-%TT%%CC%279" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%280_R-%TT%%CC%28001" RefId="%AID%_UP-%TT%%CC%280" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%381_R-%TT%%CC%38101" RefId="%AID%_UP-%TT%%CC%381" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%382_R-%TT%%CC%38201" RefId="%AID%_UP-%TT%%CC%382" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%387_R-%TT%%CC%38701" RefId="%AID%_UP-%TT%%CC%387" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%388_R-%TT%%CC%38801" RefId="%AID%_UP-%TT%%CC%388" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%389_R-%TT%%CC%38901" RefId="%AID%_UP-%TT%%CC%389" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%390_R-%TT%%CC%39001" RefId="%AID%_UP-%TT%%CC%390" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%391_R-%TT%%CC%39101" RefId="%AID%_UP-%TT%%CC%391" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%392_R-%TT%%CC%39201" RefId="%AID%_UP-%TT%%CC%392" />
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%395_R-%TT%%CC%39501" RefId="%AID%_P-%TT%%CC%395" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%396_R-%TT%%CC%39601" RefId="%AID%_UP-%TT%%CC%396" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%397_R-%TT%%CC%39701" RefId="%AID%_UP-%TT%%CC%397" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%398_R-%TT%%CC%39801" RefId="%AID%_UP-%TT%%CC%398" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%399_R-%TT%%CC%39901" RefId="%AID%_UP-%TT%%CC%399" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%400_R-%TT%%CC%40001" RefId="%AID%_UP-%TT%%CC%400" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%401_R-%TT%%CC%40101" RefId="%AID%_UP-%TT%%CC%401" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%402_R-%TT%%CC%40201" RefId="%AID%_UP-%TT%%CC%402" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%403_R-%TT%%CC%40301" RefId="%AID%_UP-%TT%%CC%403" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%404_R-%TT%%CC%40401" RefId="%AID%_UP-%TT%%CC%404" />
+
+              <ParameterRef Id="%AID%_UP-%TT%%CC%427_R-%TT%%CC%42701" RefId="%AID%_UP-%TT%%CC%427" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%428_R-%TT%%CC%42801" RefId="%AID%_UP-%TT%%CC%428" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%429_R-%TT%%CC%42901" RefId="%AID%_UP-%TT%%CC%429" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%430_R-%TT%%CC%43001" RefId="%AID%_UP-%TT%%CC%430" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%431_R-%TT%%CC%43101" RefId="%AID%_UP-%TT%%CC%431" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%432_R-%TT%%CC%43201" RefId="%AID%_UP-%TT%%CC%432" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%433_R-%TT%%CC%43301" RefId="%AID%_UP-%TT%%CC%433" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%434_R-%TT%%CC%43401" RefId="%AID%_UP-%TT%%CC%434" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%435_R-%TT%%CC%43501" RefId="%AID%_UP-%TT%%CC%435" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%436_R-%TT%%CC%43601" RefId="%AID%_UP-%TT%%CC%436" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%437_R-%TT%%CC%43701" RefId="%AID%_UP-%TT%%CC%437" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%438_R-%TT%%CC%43801" RefId="%AID%_UP-%TT%%CC%438" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%439_R-%TT%%CC%43901" RefId="%AID%_P-%TT%%CC%439" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%440_R-%TT%%CC%44001" RefId="%AID%_UP-%TT%%CC%440" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%441_R-%TT%%CC%44101" RefId="%AID%_UP-%TT%%CC%441" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%442_R-%TT%%CC%44201" RefId="%AID%_UP-%TT%%CC%442" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%443_R-%TT%%CC%44301" RefId="%AID%_UP-%TT%%CC%443" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%448_R-%TT%%CC%44801" RefId="%AID%_UP-%TT%%CC%448" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%449_R-%TT%%CC%44901" RefId="%AID%_UP-%TT%%CC%449" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%450_R-%TT%%CC%45001" RefId="%AID%_UP-%TT%%CC%450" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%451_R-%TT%%CC%45101" RefId="%AID%_UP-%TT%%CC%451" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%452_R-%TT%%CC%45201" RefId="%AID%_UP-%TT%%CC%452" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%453_R-%TT%%CC%45301" RefId="%AID%_UP-%TT%%CC%453" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%454_R-%TT%%CC%45401" RefId="%AID%_UP-%TT%%CC%454" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%455_R-%TT%%CC%45501" RefId="%AID%_UP-%TT%%CC%455" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%456_R-%TT%%CC%45601" RefId="%AID%_P-%TT%%CC%456" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%457_R-%TT%%CC%45701" RefId="%AID%_P-%TT%%CC%457" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%458_R-%TT%%CC%45801" RefId="%AID%_P-%TT%%CC%458" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%463_R-%TT%%CC%46301" RefId="%AID%_UP-%TT%%CC%463" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%464_R-%TT%%CC%46401" RefId="%AID%_UP-%TT%%CC%464" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%465_R-%TT%%CC%46501" RefId="%AID%_P-%TT%%CC%465" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%466_R-%TT%%CC%46601" RefId="%AID%_P-%TT%%CC%466" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%467_R-%TT%%CC%46701" RefId="%AID%_UP-%TT%%CC%467" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%468_R-%TT%%CC%46801" RefId="%AID%_UP-%TT%%CC%468" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%469_R-%TT%%CC%46901" RefId="%AID%_P-%TT%%CC%469" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%470_R-%TT%%CC%47001" RefId="%AID%_P-%TT%%CC%470" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%471_R-%TT%%CC%47101" RefId="%AID%_UP-%TT%%CC%471" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%472_R-%TT%%CC%47201" RefId="%AID%_UP-%TT%%CC%472" />
+
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%473_R-%TT%%CC%47301" RefId="%AID%_UP-%TT%%CC%473" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%474_R-%TT%%CC%47401" RefId="%AID%_UP-%TT%%CC%474" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%475_R-%TT%%CC%47501" RefId="%AID%_UP-%TT%%CC%475" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%476_R-%TT%%CC%47601" RefId="%AID%_UP-%TT%%CC%476" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%477_R-%TT%%CC%47701" RefId="%AID%_P-%TT%%CC%477" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%%CC%478_R-%TT%%CC%47801" RefId="%AID%_P-%TT%%CC%478" /> -->
+
+              <ParameterRef Id="%AID%_UP-%TT%%CC%479_R-%TT%%CC%47901" RefId="%AID%_UP-%TT%%CC%479" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%480_R-%TT%%CC%48001" RefId="%AID%_UP-%TT%%CC%480" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%%CC%481_R-%TT%%CC%48101" RefId="%AID%_UP-%TT%%CC%481" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%482_R-%TT%%CC%48201" RefId="%AID%_UP-%TT%%CC%482" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%483_R-%TT%%CC%48301" RefId="%AID%_UP-%TT%%CC%483" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%484_R-%TT%%CC%48401" RefId="%AID%_UP-%TT%%CC%484" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%485_R-%TT%%CC%48501" RefId="%AID%_UP-%TT%%CC%485" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%486_R-%TT%%CC%48601" RefId="%AID%_UP-%TT%%CC%486" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%487_R-%TT%%CC%48701" RefId="%AID%_UP-%TT%%CC%487" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%488_R-%TT%%CC%48801" RefId="%AID%_UP-%TT%%CC%488" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%489_R-%TT%%CC%48901" RefId="%AID%_UP-%TT%%CC%489" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%490_R-%TT%%CC%49001" RefId="%AID%_P-%TT%%CC%490" />
+              <!-- input.e1.e2 uses 491-510 -->
+              <ParameterRef Id="%AID%_UP-%TT%%CC%511_R-%TT%%CC%51101" RefId="%AID%_UP-%TT%%CC%511" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%512_R-%TT%%CC%51201" RefId="%AID%_UP-%TT%%CC%512" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%513_R-%TT%%CC%51301" RefId="%AID%_UP-%TT%%CC%513" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%514_R-%TT%%CC%51401" RefId="%AID%_UP-%TT%%CC%514" />
+              <ParameterRef Id="%AID%_P-%TT%%CC%515_R-%TT%%CC%51501" RefId="%AID%_P-%TT%%CC%515" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%516_R-%TT%%CC%51601" RefId="%AID%_UP-%TT%%CC%516" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%517_R-%TT%%CC%51701" RefId="%AID%_UP-%TT%%CC%517" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%518_R-%TT%%CC%51801" RefId="%AID%_UP-%TT%%CC%518" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%519_R-%TT%%CC%51901" RefId="%AID%_UP-%TT%%CC%519" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%520_R-%TT%%CC%52001" RefId="%AID%_UP-%TT%%CC%520" />
+              <ParameterRef Id="%AID%_UP-%TT%%CC%521_R-%TT%%CC%52101" RefId="%AID%_UP-%TT%%CC%521" />
+              <!-- input.i1.i2 uses 522-525 -->
+            </ParameterRefs>
+            <ParameterCalculations>
+              <op:usePart name="INPUT" xpath="//ParameterCalculations/*" />
+              <op:usePart name="INTERNAL" xpath="//ParameterCalculations/*" />
+              <ParameterCalculation Id="%AID%_PC-%TT%%CC%0101" Language="JavaScript" Name="CalcRelAbs%CC%Oa" RLTransformationFunc="LOG_CalcAbsFromRel" RLTransformationParameters="{&quot;OwnKO&quot;: %K2%}" LRTransformationFunc="LOG_CalcRelFromAbs" LRTransformationParameters="{&quot;OwnKO&quot;: %K2%}">
+                <LParameters>
+                  <!-- Absolute Address -->
+                  <ParameterRefRef RefId="%AID%_P-%TT%%CC%465_R-%TT%%CC%46501" AliasName="AbsReadKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%442_R-%TT%%CC%44201" AliasName="AbsWriteKO" />
+                </LParameters>
+                <RParameters>
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%463_R-%TT%%CC%46301" AliasName="RelWriteKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%440_R-%TT%%CC%44001" AliasName="AbsRel" />
+                </RParameters>
+              </ParameterCalculation>
+              <ParameterCalculation Id="%AID%_PC-%TT%%CC%0102" Language="JavaScript" Name="CalcRelAbs%CC%Ob" RLTransformationFunc="LOG_CalcAbsFromRel" RLTransformationParameters="{&quot;OwnKO&quot;: %K2%}" LRTransformationFunc="LOG_CalcRelFromAbs" LRTransformationParameters="{&quot;OwnKO&quot;: %K2%}">
+                <LParameters>
+                  <!-- Absolute Address -->
+                  <ParameterRefRef RefId="%AID%_P-%TT%%CC%466_R-%TT%%CC%46601" AliasName="AbsReadKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%443_R-%TT%%CC%44301" AliasName="AbsWriteKO" />
+                </LParameters>
+                <RParameters>
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%464_R-%TT%%CC%46401" AliasName="RelWriteKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%441_R-%TT%%CC%44101" AliasName="AbsRel" />
+                </RParameters>
+              </ParameterCalculation>
+
+              <ParameterCalculation Id="%AID%_PC-%TT%%CC%0103" Language="JavaScript" Name="CalcRelAbs%CC%Oc" RLTransformationFunc="LOG_CalcAbsFromRel" RLTransformationParameters="{&quot;OwnKO&quot;: %K2%}" LRTransformationFunc="LOG_CalcRelFromAbs" LRTransformationParameters="{&quot;OwnKO&quot;: %K2%}">
+                <LParameters>
+                  <!-- Absolute Address -->
+                  <ParameterRefRef RefId="%AID%_P-%TT%%CC%469_R-%TT%%CC%46901" AliasName="AbsReadKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%435_R-%TT%%CC%43501" AliasName="AbsWriteKO" />
+                </LParameters>
+                <RParameters>
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%467_R-%TT%%CC%46701" AliasName="RelWriteKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%471_R-%TT%%CC%47101" AliasName="AbsRel" />
+                </RParameters>
+              </ParameterCalculation>
+              <ParameterCalculation Id="%AID%_PC-%TT%%CC%0104" Language="JavaScript" Name="CalcRelAbs%CC%Od" RLTransformationFunc="LOG_CalcAbsFromRel" RLTransformationParameters="{&quot;OwnKO&quot;: %K2%}" LRTransformationFunc="LOG_CalcRelFromAbs" LRTransformationParameters="{&quot;OwnKO&quot;: %K2%}">
+                <LParameters>
+                  <!-- Absolute Address -->
+                  <ParameterRefRef RefId="%AID%_P-%TT%%CC%470_R-%TT%%CC%47001" AliasName="AbsReadKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%436_R-%TT%%CC%43601" AliasName="AbsWriteKO" />
+                </LParameters>
+                <RParameters>
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%468_R-%TT%%CC%46801" AliasName="RelWriteKO" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%472_R-%TT%%CC%47201" AliasName="AbsRel" />
+                </RParameters>
+              </ParameterCalculation>
+            </ParameterCalculations>
+            <ComObjectTable>
+              <op:usePart name="INPUT" xpath="//ComObjectTable/*" />
+              <ComObject Id="%AID%_O-%TT%%CC%002" Name="KOf%C%O" Text="Ausgang" Number="%K2%" FunctionText="Logik %C%: Ausgang" ObjectSize="14 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" />
+            </ComObjectTable>
+            <ComObjectRefs>
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00201" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, Schalten"          ObjectSize="1 Bit"    DatapointType="DPST-1-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00202" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, Zwangsführung"     ObjectSize="2 Bit"    DatapointType="DPST-2-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00215" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, Dimmen"            ObjectSize="4 Bit"    DatapointType="DPST-3-7"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00203" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 1-Byte"            ObjectSize="1 Byte"   DatapointType="DPST-5-5"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00204" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, Prozent"           ObjectSize="1 Byte"   DatapointType="DPST-5-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00205" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 1-Byte-Vorzeichen" ObjectSize="1 Byte"   DatapointType="DPST-6-10"    TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00206" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 2-Byte"            ObjectSize="2 Bytes"  DatapointType="DPST-7-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00207" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 2-Byte-Vorzeichen" ObjectSize="2 Bytes"  DatapointType="DPST-8-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00208" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 2-Byte-Gleitkomma" ObjectSize="2 Bytes"  DatapointType="DPST-9-1"     TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00212" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 4-Byte"            ObjectSize="4 Bytes"  DatapointType="DPST-12-1"    TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00213" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 4-Byte-Vorzeichen" ObjectSize="4 Bytes"  DatapointType="DPST-13-1"    TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00214" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 4-Byte-Gleitkomma" ObjectSize="4 Bytes"  DatapointType="DPST-14-68"   TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00209" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 14-Byte-Text"      ObjectSize="14 Bytes" DatapointType="DPST-16-1"    TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00210" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, Szene"             ObjectSize="1 Byte"   DatapointType="DPST-17-1"    TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <ComObjectRef Id="%AID%_O-%TT%%CC%002_R-%TT%%CC%00211" RefId="%AID%_O-%TT%%CC%002" Text="{{0:Logik %C%: Ausgang}}" FunctionText="Logik %C%: Ausgang, 3-Byte-RGB"        ObjectSize="3 Bytes"  DatapointType="DPST-232-600" TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" />
+              <op:usePart name="INPUT" xpath="//ComObjectRefs/*" />
+            </ComObjectRefs>
+          </Static>
+          <Dynamic>
+            <ChannelIndependentBlock>
+              <choose ParamRefId="%AID%_UP-%TT%00164_R-%TT%0016401">
+                <when test="&gt;=%C%">
+                  <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%Logic" Text="Logik %C%: {{0: ...}}" TextParameterRefId="%AID%_P-%TT%%CC%001_R-%TT%%CC%00101" Icon="gate-nand" HelpContext="Empty" ShowInComObjectTree="true">
+                    <!-- Any input active (hidden) -->
+                    <!-- Input 1 active as full or delta (hidden) -->
+                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%456_R-%TT%%CC%45601" />
+                    <!-- Input 2 active as full or delta (hidden) -->
+                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%457_R-%TT%%CC%45701" />
+                    <!-- internal KO overview channel display helper (hidden) -->
+                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%458_R-%TT%%CC%45801" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanaldefinition" UIHint="Headline" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%001_R-%TT%%CC%00101" HelpContext="%DOC%" IndentLevel="1" />
+                    <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%002_R-%TT%%CC%00201" HelpContext="%DOC%" IndentLevel="1" /> -->
+                    <!-- ChannelDelay Delay pattern -->
+                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ChannelDelayCycle" Inline="true" Layout="Grid" HelpContext="LOG-Zeit-bis-der-Kanal-nach-einem-Neustart-aktiv-wird">
+                      <Rows>
+                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                      </Rows>
+                      <Columns>
+                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="1%" />
+                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="44%" />
+                        <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                        <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="20%" />
+                      </Columns>
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text=" Zeit bis der Kanal nach einem&#10; Neustart aktiv wird" Cell="1,2" />
+                      <ParameterRefRef RefId="%AID%_UP-%TT%%CC%382_R-%TT%%CC%38201" Cell="1,3" HelpContext="%DOC%" />
+                      <ParameterRefRef RefId="%AID%_UP-%TT%%CC%381_R-%TT%%CC%38101" Cell="1,4" HelpContext="%DOC%" />
+                    </ParameterBlock>
+                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%166_R-%TT%%CC%16601" HelpContext="%DOC%" IndentLevel="1" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                    <!-- <Module Id="%AID%_MD-%TT%00001_M-%C%" RefId="%AID%_MD-%TT%00001" /> -->
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Kommentar" UIHint="Headline" />
+                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%439_R-%TT%%CC%43901" HelpContext="LOG-Kommentar" IndentLevel="1" />
+                    <Button Id="%AID%_B-%TT%%CC%001" Text="Alle '\n' im Text durch neue Zeile(n) ersetzen" EventHandler="newline" EventHandlerParameters="{ &quot;textbox&quot;:&quot;LOG_f%C%Kommentar&quot; }" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikdefinition" UIHint="Headline" />
+                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301" HelpContext="%DOC%" IndentLevel="1" />
+                    <choose ParamRefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301">
+                      <when test="1 2 3 4 6">
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%008_R-%TT%%CC%00801" HelpContext="LOG-Eingang-n" IndentLevel="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%028_R-%TT%%CC%02801" HelpContext="LOG-Eingang-n" IndentLevel="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%048_R-%TT%%CC%04801" HelpContext="LOG-Interner-Eingang-n" IndentLevel="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%050_R-%TT%%CC%05001" HelpContext="LOG-Interner-Eingang-n" IndentLevel="1" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikauswertung" UIHint="Headline" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingänge werden so betrachtet, als ob sie nicht da wären." />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" HelpContext="%DOC%" IndentLevel="1" />
+                      </when>
+                      <when test="4">
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Tordefinition" UIHint="Headline" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%396_R-%TT%%CC%39601" HelpContext="%DOC%" IndentLevel="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" HelpContext="%DOC%" IndentLevel="1" />
+                        <choose ParamRefId="%AID%_UP-%TT%%CC%396_R-%TT%%CC%39601">
+                          <when test="0">
+                            <ParameterRefRef RefId="%AID%_UP-%TT%%CC%006_R-%TT%%CC%00601" HelpContext="%DOC%" IndentLevel="1" />
+                          </when>
+                        </choose>
+                      </when>
+                      <when test="6">
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Schalter (RS-Flip-Flop)" UIHint="Headline" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Ein Schalter erlaubt es, mit einem EIN-Telegramm am Eingang 1 den Ausgang zu setzen (Einschalten) und mit einem EIN-Telegramm am Eingang 2 den Ausgang wieder zurückzusetzen (Ausschalten)." />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Alternativ kann der interne Eingang 3 zum Setzen und interne Eingang 4 zum Zurücksetzen genutzt werden, auch Kombinationen mit Eingang 1 bzw. 2." />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Da nur Telegramme ausgewertet werden, gibt es keine logische Verknüpfung zwischen 1 und 3 bzw. 2 und 4, jedes EIN-Telegramm wird ausgewertet. Wie bei 2 hörenden GA an einem KO." />
+                      </when>
+                      <when test="!=0">
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Logik-Trigger" UIHint="Headline" />
+                      </when>
+                      <when test="1 2 3 4 6">
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" HelpContext="%DOC%" IndentLevel="1" />
+                        <choose ParamRefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501">
+                          <when test="1 17">
+                            <choose ParamRefId="%AID%_UP-%TT%%CC%008_R-%TT%%CC%00801">
+                              <when test="!=0">
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%089_R-%TT%%CC%08901" HelpContext="LOG-Eingang-Trigger" IndentLevel="1" />
+                              </when>
+                            </choose>
+                            <choose ParamRefId="%AID%_UP-%TT%%CC%028_R-%TT%%CC%02801">
+                              <when test="!=0">
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%090_R-%TT%%CC%09001" HelpContext="LOG-Eingang-Trigger" IndentLevel="1" />
+                              </when>
+                            </choose>
+                            <choose ParamRefId="%AID%_UP-%TT%%CC%048_R-%TT%%CC%04801">
+                              <when test="!=0">
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%091_R-%TT%%CC%09101" HelpContext="LOG-Eingang-Trigger" IndentLevel="1" />
+                              </when>
+                            </choose>
+                            <choose ParamRefId="%AID%_UP-%TT%%CC%050_R-%TT%%CC%05001">
+                              <when test="!=0">
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%092_R-%TT%%CC%09201" HelpContext="LOG-Eingang-Trigger" IndentLevel="1" />
+                              </when>
+                            </choose>
+                          </when>
+                          <when test="0 16 32">
+                            <ParameterSeparator Id="%AID%_PS-nnn" Text="'Nur bei geändertem Ergebnis' bezieht sich nicht auf das Ergebnis des gesamten Logikanals, sondern auf das Ergebnis der oben angegebenen Logikfunktion BEVOR die Ausgangs-Pipeline beginnt!" UIHint="Information" />
+                          </when>
+                        </choose>
+                      </when>
+                      <when test="5">
+                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%167_R-%TT%%CC%16701" HelpContext="%DOC%" IndentLevel="1" />
+                        <choose ParamRefId="%AID%_UP-%TT%%CC%167_R-%TT%%CC%16701">
+                          <when test="0 16 32">
+                            <ParameterSeparator Id="%AID%_PS-nnn" Text="'Nur bei geändertem Ergebnis' bezieht sich nicht auf das Ergebnis des gesamten Logikkanals, sondern nur auf einen geänderten Wert der Zeitschaltuhr!" UIHint="Information" />
+                          </when>
+                        </choose>
+                      </when>
+                    </choose>
+                    <!-- Input/Output (subtree) -->
+                    <choose ParamRefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301">
+                      <when test="1 2 3 4 6">
+                        <!-- Display output page -->
+                        <Assign TargetParamRefRef="%AID%_P-%TT%%CC%490_R-%TT%%CC%49001" Value="1" />
+                        <!-- Input 1 -->
+                        <op:usePart name="INPUT" xpath="//Dynamic/ChannelIndependentBlock/*" instance="1" />
+                        <!-- Input 2 -->
+                        <op:usePart name="INPUT" xpath="//Dynamic/ChannelIndependentBlock/*" instance="2" />
+                        <!-- Int Input 3 and 4, both instances -->
+                        <op:usePart name="INTERNAL" xpath="//Dynamic/ChannelIndependentBlock/*" />
+                      </when>
+                      <!-- Timer -->
+                      <when test="5">
+                        <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Timer" Text="Schaltzeiten: {{0: ...}}" TextParameterRefId="%AID%_P-%TT%%CC%275_R-%TT%%CC%27501" Icon="table-clock" HelpContext="Empty">
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Zeitschaltuhr" UIHint="Headline" />
+                          <ParameterRefRef RefId="%AID%_P-%TT%%CC%275_R-%TT%%CC%27501" HelpContext="%DOC%" IndentLevel="1" />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%272_R-%TT%%CC%27201" HelpContext="%DOC%" IndentLevel="1" />
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%272_R-%TT%%CC%27201">
+                            <when test="0 1">
+                              <!-- Display output page -->
+                              <Assign TargetParamRefRef="%AID%_P-%TT%%CC%490_R-%TT%%CC%49001" Value="1" />
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%273_R-%TT%%CC%27301" HelpContext="%DOC%" IndentLevel="1" />
+                              <choose ParamRefId="%AID%_UP-%TT%00138_R-%TT%0013801">
+                                <when test="1">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%276_R-%TT%%CC%27601" HelpContext="%DOC%" IndentLevel="1" />
+                                  <choose ParamRefId="%AID%_UP-%TT%%CC%276_R-%TT%%CC%27601">
+                                    <when test="0">
+                                      <!-- Nachholen bei Urlaub nicht beachten oder... -->
+                                      <ParameterRefRef RefId="%AID%_UP-%TT%%CC%274_R-%TT%%CC%27401" HelpContext="%DOC%" IndentLevel="1" />                                      
+                                    </when>
+                                  </choose>
+                                </when>
+                                <when test="0">
+                                  <!-- ... Nachholen, wenn gar kein Urlaub behandelt wird -->
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%274_R-%TT%%CC%27401" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                              </choose>
+                              <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                            </when>
+                            <when test="2 3">
+                              <!-- Zeitschaltuhr fortsetzen von Kanal... -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="LOG-Schaltzeiten-fortsetzen-von-Kanal">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Width="1%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Width="44%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Width="21%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Width="12%" />
+                                  <Column Id="%AID%_PB-nnn_C-5" Width="12%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text=" Schaltzeiten fortsetzen von Kanal" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%473_R-%TT%%CC%47301" Cell="1,3" HelpContext="LOG-Art-der-Verbindung" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%473_R-%TT%%CC%47301">
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%049_R-%TT%%CC%04901" Cell="1,5" HelpContext="LOG-Absolute-Angabe" />
+                                  </when>
+                                  <when test="2">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%475_R-%TT%%CC%47501" Cell="1,4" HelpContext="LOG-Relative-Angabe" />
+                                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%477_R-%TT%%CC%47701" Cell="1,5" HelpContext="LOG-Absolute-Ausgabe" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                              <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                            </when>
+                            <when test="1 3">
+                              <ParameterSeparator Id="%AID%_PS-nnn" Text="Schaltzeitpunkte Jahresschaltuhr" UIHint="Headline" />
+                              <ParameterBlock Id="%AID%_PB-18" Name="TimerYear%C%" Text="#" Inline="true" Layout="Table" HelpContext="Empty">
+                                <Rows>
+                                  <Row Id="%AID%_PB-18_R-1" Name="Row1" Text="1" />
+                                  <Row Id="%AID%_PB-18_R-2" Name="Row2" Text="2" />
+                                  <Row Id="%AID%_PB-18_R-3" Name="Row3" Text="3" />
+                                  <Row Id="%AID%_PB-18_R-4" Name="Row4" Text="4" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-18_C-1" Name="Col1" Text="Mo" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-2" Name="Col2" Text="Di" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-3" Name="Col3" Text="Mi" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-4" Name="Col4" Text="Do" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-5" Name="Col5" Text="Fr" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-6" Name="Col6" Text="Sa" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-7" Name="Col7" Text="So" Width="8%" />
+                                  <Column Id="%AID%_PB-18_C-8" Name="Col8" Text="Typ" Width="20%" />
+                                  <Column Id="%AID%_PB-18_C-9" Name="Col9" Text="Tag" Width="13%" />
+                                  <Column Id="%AID%_PB-18_C-10" Name="Col10" Text="Monat" Width="13%" />
+                                  <Column Id="%AID%_PB-18_C-11" Name="Col11" Text="Zeitbezug" Width="27%" />
+                                  <Column Id="%AID%_PB-18_C-12" Name="Col12" Text="Std/Grad" Width="15%" />
+                                  <Column Id="%AID%_PB-18_C-13" Name="Col13" Text="Min" Width="12%" />
+                                  <Column Id="%AID%_PB-18_C-14" Name="Col14" Text="Wert (Logik)" Width="20%" />
+                                  <Column Id="%AID%_PB-18_C-15" Name="Col15" Text="Wert (als E1)" Width="20%" />
+                                </Columns>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%171_R-%TT%%CC%17101" Cell="1,11" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%171_R-%TT%%CC%17101">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%168_R-%TT%%CC%16801" Cell="1,14" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%482_R-%TT%%CC%48201" Cell="1,15" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%240_R-%TT%%CC%24001" Cell="1,8" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%241_R-%TT%%CC%24101" Cell="1,10" HelpContext="%DOC%" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%240_R-%TT%%CC%24001">
+                                      <when test="0">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%239_R-%TT%%CC%23901" Cell="1,9" HelpContext="%DOC%" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%232_R-%TT%%CC%23201" Cell="1,1" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%233_R-%TT%%CC%23301" Cell="1,2" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%234_R-%TT%%CC%23401" Cell="1,3" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%235_R-%TT%%CC%23501" Cell="1,4" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%236_R-%TT%%CC%23601" Cell="1,5" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%237_R-%TT%%CC%23701" Cell="1,6" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%238_R-%TT%%CC%23801" Cell="1,7" HelpContext="LOG-Wochentage" />
+                                      </when>
+                                    </choose>
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%170_R-%TT%%CC%17001" Cell="1,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%173_R-%TT%%CC%17301" Cell="1,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%448_R-%TT%%CC%44801" Cell="1,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%172_R-%TT%%CC%17201" Cell="1,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%427_R-%TT%%CC%42701" Cell="1,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,13" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%179_R-%TT%%CC%17901" Cell="2,11" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%179_R-%TT%%CC%17901">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%176_R-%TT%%CC%17601" Cell="2,14" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%483_R-%TT%%CC%48301" Cell="2,15" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%250_R-%TT%%CC%25001" Cell="2,8" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%251_R-%TT%%CC%25101" Cell="2,10" HelpContext="%DOC%" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%250_R-%TT%%CC%25001">
+                                      <when test="0">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%249_R-%TT%%CC%24901" Cell="2,9" HelpContext="%DOC%" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%242_R-%TT%%CC%24201" Cell="2,1" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%243_R-%TT%%CC%24301" Cell="2,2" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%244_R-%TT%%CC%24401" Cell="2,3" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%245_R-%TT%%CC%24501" Cell="2,4" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%246_R-%TT%%CC%24601" Cell="2,5" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%247_R-%TT%%CC%24701" Cell="2,6" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%248_R-%TT%%CC%24801" Cell="2,7" HelpContext="LOG-Wochentage" />
+                                      </when>
+                                    </choose>
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%178_R-%TT%%CC%17801" Cell="2,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%181_R-%TT%%CC%18101" Cell="2,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%449_R-%TT%%CC%44901" Cell="2,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%180_R-%TT%%CC%18001" Cell="2,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%428_R-%TT%%CC%42801" Cell="2,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,13" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%187_R-%TT%%CC%18701" Cell="3,11" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%187_R-%TT%%CC%18701">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%184_R-%TT%%CC%18401" Cell="3,14" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%484_R-%TT%%CC%48401" Cell="3,15" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%260_R-%TT%%CC%26001" Cell="3,8" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%261_R-%TT%%CC%26101" Cell="3,10" HelpContext="%DOC%" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%260_R-%TT%%CC%26001">
+                                      <when test="0">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%259_R-%TT%%CC%25901" Cell="3,9" HelpContext="%DOC%" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%252_R-%TT%%CC%25201" Cell="3,1" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%253_R-%TT%%CC%25301" Cell="3,2" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%254_R-%TT%%CC%25401" Cell="3,3" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%255_R-%TT%%CC%25501" Cell="3,4" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%256_R-%TT%%CC%25601" Cell="3,5" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%257_R-%TT%%CC%25701" Cell="3,6" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%258_R-%TT%%CC%25801" Cell="3,7" HelpContext="LOG-Wochentage" />
+                                      </when>
+                                    </choose>
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%186_R-%TT%%CC%18601" Cell="3,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%189_R-%TT%%CC%18901" Cell="3,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%450_R-%TT%%CC%45001" Cell="3,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%188_R-%TT%%CC%18801" Cell="3,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%429_R-%TT%%CC%42901" Cell="3,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,13" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%195_R-%TT%%CC%19501" Cell="4,11" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%195_R-%TT%%CC%19501">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%192_R-%TT%%CC%19201" Cell="4,14" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%485_R-%TT%%CC%48501" Cell="4,15" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%270_R-%TT%%CC%27001" Cell="4,8" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%271_R-%TT%%CC%27101" Cell="4,10" HelpContext="%DOC%" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%270_R-%TT%%CC%27001">
+                                      <when test="0">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%269_R-%TT%%CC%26901" Cell="4,9" HelpContext="%DOC%" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%262_R-%TT%%CC%26201" Cell="4,1" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%263_R-%TT%%CC%26301" Cell="4,2" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%264_R-%TT%%CC%26401" Cell="4,3" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%265_R-%TT%%CC%26501" Cell="4,4" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%266_R-%TT%%CC%26601" Cell="4,5" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%267_R-%TT%%CC%26701" Cell="4,6" HelpContext="LOG-Wochentage" />
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%268_R-%TT%%CC%26801" Cell="4,7" HelpContext="LOG-Wochentage" />
+                                      </when>
+                                    </choose>
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%194_R-%TT%%CC%19401" Cell="4,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%197_R-%TT%%CC%19701" Cell="4,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%451_R-%TT%%CC%45101" Cell="4,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%196_R-%TT%%CC%19601" Cell="4,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,13" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%430_R-%TT%%CC%43001" Cell="4,12" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,13" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                            </when>
+                            <when test="0 2">
+                              <ParameterSeparator Id="%AID%_PS-nnn" Text="Schaltzeitpunkte Tagesschaltuhr" UIHint="Headline" />
+                              <ParameterBlock Id="%AID%_PB-19" Name="TimerDay%C%" Text="#" Inline="true" Layout="Table" HelpContext="Empty">
+                                <Rows>
+                                  <Row Id="%AID%_PB-19_R-1" Name="Row1" Text="1" />
+                                  <Row Id="%AID%_PB-19_R-2" Name="Row2" Text="2" />
+                                  <Row Id="%AID%_PB-19_R-3" Name="Row3" Text="3" />
+                                  <Row Id="%AID%_PB-19_R-4" Name="Row4" Text="4" />
+                                  <Row Id="%AID%_PB-19_R-5" Name="Row5" Text="5" />
+                                  <Row Id="%AID%_PB-19_R-6" Name="Row6" Text="6" />
+                                  <Row Id="%AID%_PB-19_R-7" Name="Row7" Text="7" />
+                                  <Row Id="%AID%_PB-19_R-8" Name="Row8" Text="8" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-19_C-1" Name="Col1" Text="Wochentag" Width="21%" />
+                                  <Column Id="%AID%_PB-19_C-2" Name="Col2" Text="Zeitbezug" Width="27%" />
+                                  <Column Id="%AID%_PB-19_C-3" Name="Col3" Text="Std/Grad" Width="18%" />
+                                  <Column Id="%AID%_PB-19_C-4" Name="Col4" Text="Min" Width="18%" />
+                                  <Column Id="%AID%_PB-18_C-5" Name="Col5" Text="Wert (Logik)" Width="20%" />
+                                  <Column Id="%AID%_PB-18_C-6" Name="Col6" Text="Wert (als E1)" Width="20%" />
+                                </Columns>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%171_R-%TT%%CC%17101" Cell="1,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%171_R-%TT%%CC%17101">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%175_R-%TT%%CC%17501" Cell="1,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%168_R-%TT%%CC%16801" Cell="1,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%482_R-%TT%%CC%48201" Cell="1,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%170_R-%TT%%CC%17001" Cell="1,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%173_R-%TT%%CC%17301" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%448_R-%TT%%CC%44801" Cell="1,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%172_R-%TT%%CC%17201" Cell="1,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%427_R-%TT%%CC%42701" Cell="1,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%174_R-%TT%%CC%17401" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%179_R-%TT%%CC%17901" Cell="2,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%179_R-%TT%%CC%17901">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%183_R-%TT%%CC%18301" Cell="2,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%176_R-%TT%%CC%17601" Cell="2,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%483_R-%TT%%CC%48301" Cell="2,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%178_R-%TT%%CC%17801" Cell="2,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%181_R-%TT%%CC%18101" Cell="2,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%449_R-%TT%%CC%44901" Cell="2,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%180_R-%TT%%CC%18001" Cell="2,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%428_R-%TT%%CC%42801" Cell="2,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%182_R-%TT%%CC%18201" Cell="2,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%187_R-%TT%%CC%18701" Cell="3,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%187_R-%TT%%CC%18701">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%191_R-%TT%%CC%19101" Cell="3,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%184_R-%TT%%CC%18401" Cell="3,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%484_R-%TT%%CC%48401" Cell="3,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%186_R-%TT%%CC%18601" Cell="3,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%189_R-%TT%%CC%18901" Cell="3,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%450_R-%TT%%CC%45001" Cell="3,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%188_R-%TT%%CC%18801" Cell="3,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%429_R-%TT%%CC%42901" Cell="3,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%190_R-%TT%%CC%19001" Cell="3,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%195_R-%TT%%CC%19501" Cell="4,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%195_R-%TT%%CC%19501">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%199_R-%TT%%CC%19901" Cell="4,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%192_R-%TT%%CC%19201" Cell="4,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%485_R-%TT%%CC%48501" Cell="4,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%194_R-%TT%%CC%19401" Cell="4,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%197_R-%TT%%CC%19701" Cell="4,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%451_R-%TT%%CC%45101" Cell="4,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%196_R-%TT%%CC%19601" Cell="4,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%430_R-%TT%%CC%43001" Cell="4,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%198_R-%TT%%CC%19801" Cell="4,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%203_R-%TT%%CC%20301" Cell="5,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%203_R-%TT%%CC%20301">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%207_R-%TT%%CC%20701" Cell="5,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%200_R-%TT%%CC%20001" Cell="5,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%486_R-%TT%%CC%48601" Cell="5,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%202_R-%TT%%CC%20201" Cell="5,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%205_R-%TT%%CC%20501" Cell="5,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%452_R-%TT%%CC%45201" Cell="5,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%206_R-%TT%%CC%20601" Cell="5,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%204_R-%TT%%CC%20401" Cell="5,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%206_R-%TT%%CC%20601" Cell="5,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%431_R-%TT%%CC%43101" Cell="5,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%206_R-%TT%%CC%20601" Cell="5,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%211_R-%TT%%CC%21101" Cell="6,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%211_R-%TT%%CC%21101">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%215_R-%TT%%CC%21501" Cell="6,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%208_R-%TT%%CC%20801" Cell="6,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%487_R-%TT%%CC%48701" Cell="6,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%210_R-%TT%%CC%21001" Cell="6,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%213_R-%TT%%CC%21301" Cell="6,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%453_R-%TT%%CC%45301" Cell="6,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%214_R-%TT%%CC%21401" Cell="6,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%212_R-%TT%%CC%21201" Cell="6,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%214_R-%TT%%CC%21401" Cell="6,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%432_R-%TT%%CC%43201" Cell="6,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%214_R-%TT%%CC%21401" Cell="6,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%219_R-%TT%%CC%21901" Cell="7,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%219_R-%TT%%CC%21901">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%223_R-%TT%%CC%22301" Cell="7,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%216_R-%TT%%CC%21601" Cell="7,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%488_R-%TT%%CC%48801" Cell="7,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%218_R-%TT%%CC%21801" Cell="7,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%221_R-%TT%%CC%22101" Cell="7,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%454_R-%TT%%CC%45401" Cell="7,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%222_R-%TT%%CC%22201" Cell="7,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%220_R-%TT%%CC%22001" Cell="7,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%222_R-%TT%%CC%22201" Cell="7,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%433_R-%TT%%CC%43301" Cell="7,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%222_R-%TT%%CC%22201" Cell="7,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%227_R-%TT%%CC%22701" Cell="8,2" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%227_R-%TT%%CC%22701">
+                                  <when test="!=0">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%231_R-%TT%%CC%23101" Cell="8,1" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%224_R-%TT%%CC%22401" Cell="8,5" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%489_R-%TT%%CC%48901" Cell="8,6" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%226_R-%TT%%CC%22601" Cell="8,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%229_R-%TT%%CC%22901" Cell="8,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="4 5 8 9">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%455_R-%TT%%CC%45501" Cell="8,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%230_R-%TT%%CC%23001" Cell="8,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="6 7 10 11">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%228_R-%TT%%CC%22801" Cell="8,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%230_R-%TT%%CC%23001" Cell="8,4" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="12 13 14 15">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%434_R-%TT%%CC%43401" Cell="8,3" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%230_R-%TT%%CC%23001" Cell="8,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                            </when>
+                          </choose>
+                        </ParameterBlock>
+                      </when>
+                    </choose>
+                    <choose ParamRefId="%AID%_P-%TT%%CC%490_R-%TT%%CC%49001">
+                      <when test="1">
+                        <!-- Signalverarbeitung -->
+                        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%Processing" Text="Signalverarbeitung" Icon="dots-horizontal-circle-outline" HelpContext="Empty">
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Signalverarbeitung" UIHint="Headline" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Die folgenden Blöcke der Signalverarbeitung können den Ausgangswert beeinflussen. Sie werden - sofern aktiv - in der hier aufgeführten Reihenfolge ausgeführt" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Treppenlicht" UIHint="Headline" />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%052_R-%TT%%CC%05201" HelpContext="%DOC%" IndentLevel="1" />
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%052_R-%TT%%CC%05201">
+                            <when test="!=0">
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%053_R-%TT%%CC%05301" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- Stairtime Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OStairtimeCycle" Inline="true" Layout="Grid" HelpContext="LOG-Zeit-fuer-Treppenlicht">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="3%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="42%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Zeit für Treppenlicht" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%054_R-%TT%%CC%05401" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%053_R-%TT%%CC%05301" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%055_R-%TT%%CC%05501" HelpContext="%DOC%" IndentLevel="2" />
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%056_R-%TT%%CC%05601" HelpContext="%DOC%" IndentLevel="2" />
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%057_R-%TT%%CC%05701" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- Blink Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OBlinkCycle" Inline="true" Layout="Grid" HelpContext="LOG-Treppenlicht-blinkt-im-Rhythmus">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="3%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="42%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Treppenlicht blinkt im Rhythmus&#10;(0 = nicht blinken)" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%388_R-%TT%%CC%38801" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%387_R-%TT%%CC%38701" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                            </when>
+                          </choose>
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Ein-/Ausschaltverzögerung" UIHint="Headline" />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%058_R-%TT%%CC%05801" HelpContext="%DOC%" IndentLevel="1" />
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%058_R-%TT%%CC%05801">
+                            <when test="!=0">
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%059_R-%TT%%CC%05901" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- DelayOn Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ODelayOnCycle" Inline="true" Layout="Grid" HelpContext="LOG-EINschalten-wird-verzoegert-um">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="3%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="42%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="EINschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%060_R-%TT%%CC%06001" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%059_R-%TT%%CC%05901" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%060_R-%TT%%CC%06001">
+                                <when test=">0">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%117_R-%TT%%CC%11701" HelpContext="%DOC%" IndentLevel="4" />
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%118_R-%TT%%CC%11801" HelpContext="%DOC%" IndentLevel="4" />
+                                </when>
+                              </choose>
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%060_R-%TT%%CC%06001" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- DelayOff Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ODelayOffCycle" Inline="true" Layout="Grid" HelpContext="LOG-AUSschalten-wird-verzoegert-um">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="3%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="42%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="AUSschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%063_R-%TT%%CC%06301" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%062_R-%TT%%CC%06201" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%063_R-%TT%%CC%06301">
+                                <when test=">0">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%119_R-%TT%%CC%11901" HelpContext="%DOC%" IndentLevel="4" />
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%120_R-%TT%%CC%12001" HelpContext="%DOC%" IndentLevel="4" />
+                                </when>
+                              </choose>
+                            </when>
+                          </choose>
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Wiederholungsfilter" UIHint="Headline" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Durch die bisherigen Signalverarbeitungsschritte kann es vorkommen, dass EIN- oder AUS-Signale mehrfach hintereinander kommen. Der folgende Filter erlaubt einen Einfluss darauf zu nehmen." />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%127_R-%TT%%CC%12701" HelpContext="%DOC%" IndentLevel="1" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Zyklisch senden" UIHint="Headline" />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%061_R-%TT%%CC%06101" HelpContext="%DOC%" IndentLevel="1" />
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%061_R-%TT%%CC%06101">
+                            <when test="!=0">
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%062_R-%TT%%CC%06201" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- RepeatOn Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ORepeatOnCycle" Inline="true" Layout="Grid" HelpContext="LOG-EIN-Telegramm-wird-wiederholt-alle">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="1%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="44%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="EIN-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%390_R-%TT%%CC%39001" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%389_R-%TT%%CC%38901" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                              <!-- <ParameterRefRef RefId="%AID%_P-%TT%%CC%063_R-%TT%%CC%06301" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- RepeatOff Delay pattern -->
+                              <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ORepeatOffCycle" Inline="true" Layout="Grid" HelpContext="LOG-AUS-Telegramm-wird-wiederholt-alle">
+                                <Rows>
+                                  <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="1%" />
+                                  <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="44%" />
+                                  <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="15%" />
+                                  <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="AUS-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%392_R-%TT%%CC%39201" Cell="1,3" HelpContext="%DOC%" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%391_R-%TT%%CC%39101" Cell="1,4" HelpContext="%DOC%" />
+                              </ParameterBlock>
+                            </when>
+                          </choose>
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Interne Eingänge" UIHint="Headline" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Der bis hierher ermittelte  Zustand steht als Ausgangswert des Kanals für andere Logikkanäle zur Verfügung." />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Es kann bestimmt werden, ob der EIN oder der AUS-Wert weitergeleitet werden." />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%397_R-%TT%%CC%39701" HelpContext="%DOC%" IndentLevel="1" />
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%398_R-%TT%%CC%39801" HelpContext="%DOC%" IndentLevel="1" />
+                        </ParameterBlock>
+                        <!-- Output -->
+                        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%Output" Text="Ausgang: {{0: ...}}" TextParameterRefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" Icon="chevron-left-circle-outline" HelpContext="Empty">
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Ausgang" UIHint="Headline" />
+                          <ParameterRefRef RefId="%AID%_P-%TT%%CC%132_R-%TT%%CC%13201" HelpContext="%DOC%" IndentLevel="1" />
+
+                          <!-- <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für Ausgang" UIHint="Headline" /> -->
+                          <!-- DPT -->
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401" HelpContext="%DOC%" IndentLevel="1" />
+                          <!-- Sendeverhalten -->
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%479_R-%TT%%CC%47901" HelpContext="%DOC%" IndentLevel="1" />
+                          <!-- Eigenes KO ausblenden -->
+                          <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OKoDisplay" Inline="true" Layout="Grid">
+                            <Rows>
+                              <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                            </Rows>
+                            <Columns>
+                              <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="1%" />
+                              <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="44%" />
+                              <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="33%" />
+                              <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="25%" />
+                            </Columns>
+                            <ParameterSeparator Id="%AID%_PS-nnn" Text=" Eigenes KO anzeigen" Cell="1,2" />
+                            <ParameterRefRef RefId="%AID%_P-%TT%%CC%515_R-%TT%%CC%51501" HelpContext="%DOC%" Cell="1,3" />
+                            <choose ParamRefId="%AID%_P-%TT%%CC%515_R-%TT%%CC%51501">
+                              <when test="0">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="%K2% (nicht in KO-Liste)" Cell="1,4" />
+                              </when>
+                              <when test="1">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="%K2%" Cell="1,4" />
+                              </when>
+                            </choose>
+                          </ParameterBlock>
+                           
+                          <!-- Wert für EIN senden -->
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für EIN" UIHint="Headline" />
+                          <!-- OutputSend -->
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%136_R-%TT%%CC%13601" HelpContext="%DOC%" IndentLevel="1" />
+                          <!-- Create constant values for On-Value -->
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%136_R-%TT%%CC%13601">
+                            <when test="1">
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401">
+                                <when test="0">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%066_R-%TT%%CC%06601" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="1">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%067_R-%TT%%CC%06701" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="2">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%068_R-%TT%%CC%06801" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="3">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%069_R-%TT%%CC%06901" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="4">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%070_R-%TT%%CC%07001" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="5">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%071_R-%TT%%CC%07101" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="6">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%072_R-%TT%%CC%07201" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="7">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%073_R-%TT%%CC%07301" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="8">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%074_R-%TT%%CC%07401" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="9">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%075_R-%TT%%CC%07501" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="10">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%076_R-%TT%%CC%07601" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="13">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%399_R-%TT%%CC%39901" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="14">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%400_R-%TT%%CC%40001" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="15">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%401_R-%TT%%CC%40101" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="17">
+                                  <ParameterBlock Id="%AID%_PB-xxx" Inline="true" Layout="Grid">
+                                    <Rows>
+                                      <Row Id="%AID%_PB-xxx_R-1" Name="Row1" /> 
+                                    </Rows>
+                                    <Columns>
+                                      <Column Id="%AID%_PB-xxx_C-1" Name="Col1" Width="1%" />
+                                      <Column Id="%AID%_PB-xxx_C-2" Name="Col2" Width="44%" />  
+                                      <Column Id="%AID%_PB-xxx_C-3" Name="Col3" Width="30%" />
+                                      <Column Id="%AID%_PB-xxx_C-4" Name="Col4" Width="20%" />
+                                    </Columns>
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text=" Wert für EIN senden als" Cell="1,2" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%511_R-%TT%%CC%51101" Cell="1,3" HelpContext="Empty" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%512_R-%TT%%CC%51201" Cell="1,4" HelpContext="Empty" />
+                                  </ParameterBlock>
+                                </when>
+                              </choose>
+                            </when>
+                            <when test="5">
+                              <ParameterBlock Id="%AID%_PB-%C%001" Name="PA%C%001" Inline="true" Layout="Grid" HelpContext="LOG-Physikalische-Adresse">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%001_R-1" Name="Row%C%001" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="10%" />
+                                  <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="2%" />
+                                  <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="10%" />
+                                  <Column Id="%AID%_PB-%C%001_C-6" Name="Col6" Width="2%" />
+                                  <Column Id="%AID%_PB-%C%001_C-7" Name="Col7" Width="12%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Physikalische Adresse" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%121_R-%TT%%CC%12101" Cell="1,3" />
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="." UIHint="Headline" Cell="1,4" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%122_R-%TT%%CC%12201" Cell="1,5" />
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="." UIHint="Headline" Cell="1,6" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%123_R-%TT%%CC%12301" Cell="1,7" />
+                              </ParameterBlock>
+                            </when>
+                            <!-- <when test="6"> -->
+                              <!-- <ParameterRefRef RefId="%AID%_UP-%TT%%CC%140_R-%TT%%CC%14001" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- <Assign TargetParamRefRef="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801" Value="1" /> -->
+                            <!-- </when> -->
+                            <when test="7">
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%516_R-%TT%%CC%51601" HelpContext="%DOC%" IndentLevel="1" />
+                              <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="Empty">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%001_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="18%" />
+                                  <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="18%" />
+                                  <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="19%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="LED-Effekt" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%518_R-%TT%%CC%51801" Cell="1,3" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%518_R-%TT%%CC%51801">
+                                  <when test=">1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%520_R-%TT%%CC%52001" Cell="1,4" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%076_R-%TT%%CC%07602" Cell="1,5" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%076_R-%TT%%CC%07602" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                              <!-- <Assign TargetParamRefRef="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801" Value="1" /> -->
+                            </when>
+                            <when test="8">
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%279_R-%TT%%CC%27901" HelpContext="%DOC%" IndentLevel="1" />
+                            </when>
+                            <when test="9">
+                              <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="LOG-Nummer-des-Kommunikationsobjekts">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%001_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="21%" />
+                                  <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="12%" />
+                                  <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="12%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Nummer des Kommunikationsobjekts" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%471_R-%TT%%CC%47101" HelpContext="%DOC%" Cell="1,3" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%471_R-%TT%%CC%47101">
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%435_R-%TT%%CC%43501" HelpContext="%DOC%" Cell="1,5" />
+                                  </when>
+                                  <when test="2">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%467_R-%TT%%CC%46701" HelpContext="%DOC%" Cell="1,4" />
+                                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%469_R-%TT%%CC%46901" HelpContext="%DOC%" Cell="1,5" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%437_R-%TT%%CC%43701" HelpContext="%DOC%" IndentLevel="1" />
+                            </when>
+                            <when test="1 2 3 8 9">
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401">
+                                <when test="0 1 2 3 4 5 6 7 9 10 13 14 15">
+                                  <ParameterBlock Id="%AID%_PB-%C%002" Inline="true" Layout="Grid" HelpContext="LOG-Wert-fuer-EIN-an-ein-zusaetzliches-KO-senden">
+                                    <Rows>
+                                      <Row Id="%AID%_PB-%C%001_R-1" Name="Row%C%001" />
+                                    </Rows>
+                                    <Columns>
+                                      <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                      <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                      <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="21%" />
+                                      <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="12%" />
+                                      <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="12%" />
+                                    </Columns>
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für EIN an ein zusätzliches&#10;KO senden?" Cell="1,2" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%440_R-%TT%%CC%44001" HelpContext="%DOC%" IndentLevel="1" Cell="1,3" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%440_R-%TT%%CC%44001">
+                                      <when test="0">
+                                        <ParameterSeparator Id="%AID%_PS-nnn" Text="%K2%" Cell="1,5" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%442_R-%TT%%CC%44201" HelpContext="%DOC%" Cell="1,5" />
+                                      </when>
+                                      <when test="2">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%463_R-%TT%%CC%46301" HelpContext="%DOC%" Cell="1,4" />
+                                        <ParameterRefRef RefId="%AID%_P-%TT%%CC%465_R-%TT%%CC%46501" HelpContext="%DOC%" Cell="1,5" />
+                                      </when>
+                                    </choose>
+                                  </ParameterBlock>
+                                </when>
+                              </choose>
+                            </when>
+                          </choose>
+                          <!-- Wert für AUS senden -->
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für AUS" UIHint="Headline" />
+                          <!-- OutputSend -->
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%139_R-%TT%%CC%13901" HelpContext="%DOC%" IndentLevel="1" />
+                          <!-- Create constant values for Off-Value -->
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%139_R-%TT%%CC%13901">
+                            <when test="1">
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401">
+                                <when test="0">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%078_R-%TT%%CC%07801" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="1">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%079_R-%TT%%CC%07901" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="2">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%080_R-%TT%%CC%08001" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="3">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%081_R-%TT%%CC%08101" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="4">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%082_R-%TT%%CC%08201" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="5">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%083_R-%TT%%CC%08301" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="6">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%084_R-%TT%%CC%08401" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="7">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%085_R-%TT%%CC%08501" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="8">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%086_R-%TT%%CC%08601" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="9">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%087_R-%TT%%CC%08701" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="10">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%088_R-%TT%%CC%08801" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="13">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%402_R-%TT%%CC%40201" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="14">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%403_R-%TT%%CC%40301" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="15">
+                                  <ParameterRefRef RefId="%AID%_UP-%TT%%CC%404_R-%TT%%CC%40401" HelpContext="%DOC%" IndentLevel="1" />
+                                </when>
+                                <when test="17">
+                                  <ParameterBlock Id="%AID%_PB-xxx" Inline="true" Layout="Grid">
+                                    <Rows>
+                                      <Row Id="%AID%_PB-xxx_R-1" Name="Row1" /> 
+                                    </Rows>
+                                    <Columns>
+                                      <Column Id="%AID%_PB-xxx_C-1" Name="Col1" Width="1%" />
+                                      <Column Id="%AID%_PB-xxx_C-2" Name="Col2" Width="44%" />  
+                                      <Column Id="%AID%_PB-xxx_C-3" Name="Col3" Width="30%" />
+                                      <Column Id="%AID%_PB-xxx_C-4" Name="Col4" Width="20%" />
+                                    </Columns>
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text=" Wert für AUS senden als" Cell="1,2" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%513_R-%TT%%CC%51301" Cell="1,3" HelpContext="Empty" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%514_R-%TT%%CC%51401" Cell="1,4" HelpContext="Empty" />
+                                  </ParameterBlock>
+                                </when>
+                              </choose>
+                            </when>
+                            <when test="5">
+                              <ParameterBlock Id="%AID%_PB-%C%002" Name="PA%C%002" Inline="true" Layout="Grid" HelpContext="LOG-Physikalische-Adresse">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%002_R-1" Name="Row%C%002" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%002_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%002_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%002_C-3" Name="Col3" Width="10%" />
+                                  <Column Id="%AID%_PB-%C%002_C-4" Name="Col4" Width="2%" />
+                                  <Column Id="%AID%_PB-%C%002_C-5" Name="Col5" Width="10%" />
+                                  <Column Id="%AID%_PB-%C%002_C-6" Name="Col6" Width="2%" />
+                                  <Column Id="%AID%_PB-%C%002_C-7" Name="Col7" Width="12%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Physikalische Adresse" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%124_R-%TT%%CC%12401" Cell="1,3" />
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="." UIHint="Headline" Cell="1,4" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%125_R-%TT%%CC%12501" Cell="1,5" />
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="." UIHint="Headline" Cell="1,6" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%126_R-%TT%%CC%12601" Cell="1,7" />
+                              </ParameterBlock>
+                            </when>
+                            <!-- <when test="6"> -->
+                              <!-- <ParameterRefRef RefId="%AID%_UP-%TT%%CC%141_R-%TT%%CC%14101" HelpContext="%DOC%" IndentLevel="1" /> -->
+                              <!-- <Assign TargetParamRefRef="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801" Value="1" /> -->
+                            <!-- </when> -->
+                            <when test="7">
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%517_R-%TT%%CC%51701" HelpContext="%DOC%" IndentLevel="1" />
+                              <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="Empty">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%001_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="18%" />
+                                  <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="18%" />
+                                  <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="19%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="LED-Effekt" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%519_R-%TT%%CC%51901" Cell="1,3" HelpContext="%DOC%" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%519_R-%TT%%CC%51901">
+                                  <when test=">1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%521_R-%TT%%CC%52101" Cell="1,4" HelpContext="%DOC%" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%088_R-%TT%%CC%08802" Cell="1,5" HelpContext="%DOC%" />
+                                  </when>
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%088_R-%TT%%CC%08802" Cell="1,4" HelpContext="%DOC%" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                              <!-- <Assign TargetParamRefRef="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801" Value="1" /> -->
+                            </when>
+                            <when test="8">
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%280_R-%TT%%CC%28001" HelpContext="%DOC%" IndentLevel="1" />
+                            </when>
+                            <when test="9">
+                              <ParameterBlock Id="%AID%_PB-%C%003" Inline="true" Layout="Grid" HelpContext="LOG-Nummer-des-Kommunikationsobjekts">
+                                <Rows>
+                                  <Row Id="%AID%_PB-%C%001_R-1" Name="Row1" />
+                                </Rows>
+                                <Columns>
+                                  <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                  <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                  <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="21%" />
+                                  <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="12%" />
+                                  <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="12%" />
+                                </Columns>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Nummer des Kommunikationsobjekts" Cell="1,2" />
+                                <ParameterRefRef RefId="%AID%_UP-%TT%%CC%472_R-%TT%%CC%47201" HelpContext="%DOC%" Cell="1,3" />
+                                <choose ParamRefId="%AID%_UP-%TT%%CC%472_R-%TT%%CC%47201">
+                                  <when test="1">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%436_R-%TT%%CC%43601" HelpContext="%DOC%" Cell="1,5" />
+                                  </when>
+                                  <when test="2">
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%468_R-%TT%%CC%46801" HelpContext="%DOC%" Cell="1,4" />
+                                    <ParameterRefRef RefId="%AID%_P-%TT%%CC%470_R-%TT%%CC%47001" HelpContext="%DOC%" Cell="1,5" />
+                                  </when>
+                                </choose>
+                              </ParameterBlock>
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%438_R-%TT%%CC%43801" HelpContext="%DOC%" IndentLevel="1" />
+                            </when>
+                            <when test="1 2 3 8 9">
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401">
+                                <when test="0 1 2 3 4 5 6 7 9 10 13 14 15">
+                                  <ParameterBlock Id="%AID%_PB-%C%003" Name="KO%C%002" Inline="true" Layout="Grid" HelpContext="LOG-Wert-fuer-AUS-an-ein-zusaetzliches-KO-senden">
+                                    <Rows>
+                                      <Row Id="%AID%_PB-%C%001_R-1" Name="Row%C%001" />
+                                    </Rows>
+                                    <Columns>
+                                      <Column Id="%AID%_PB-%C%001_C-1" Name="Col1" Width="4%" />
+                                      <Column Id="%AID%_PB-%C%001_C-2" Name="Col2" Width="41%" />
+                                      <Column Id="%AID%_PB-%C%001_C-3" Name="Col3" Width="21%" />
+                                      <Column Id="%AID%_PB-%C%001_C-4" Name="Col4" Width="12%" />
+                                      <Column Id="%AID%_PB-%C%001_C-5" Name="Col5" Width="12%" />
+                                    </Columns>
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für AUS an ein zusätzliches&#10;KO senden?" Cell="1,2" />
+                                    <ParameterRefRef RefId="%AID%_UP-%TT%%CC%441_R-%TT%%CC%44101" HelpContext="%DOC%" IndentLevel="1" Cell="1,3" />
+                                    <choose ParamRefId="%AID%_UP-%TT%%CC%441_R-%TT%%CC%44101">
+                                      <when test="0">
+                                        <ParameterSeparator Id="%AID%_PS-nnn" Text="%K2%" Cell="1,5" />
+                                      </when>
+                                      <when test="1">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%443_R-%TT%%CC%44301" HelpContext="%DOC%" Cell="1,5" />
+                                      </when>
+                                      <when test="2">
+                                        <ParameterRefRef RefId="%AID%_UP-%TT%%CC%464_R-%TT%%CC%46401" HelpContext="%DOC%" Cell="1,4" />
+                                        <ParameterRefRef RefId="%AID%_P-%TT%%CC%466_R-%TT%%CC%46601" HelpContext="%DOC%" Cell="1,5" />
+                                      </when>
+                                    </choose>
+                                  </ParameterBlock>
+                                </when>
+                              </choose>
+                            </when>
+                          </choose>
+                          <!-- Wert für AUS senden -->
+                          <!-- Warning for "Send value of KO", just present once -->
+                          <choose ParamRefId="%AID%_UP-%TT%%CC%136_R-%TT%%CC%13601">
+                            <when test="9">
+                              <ParameterSeparator Id="%AID%_PS-nnn" Text="Beim Senden vom 'Wert eines KO' ist der DPT des zu sendenden KO sehr wichtig. Er muss korrekt angegeben werden, da er nicht automatisch ermittelt werden kann." UIHint="Information" />
+                            </when>
+                            <when test="!=9">
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%139_R-%TT%%CC%13901">
+                                <when test="9">
+                                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Beim Senden vom 'Wert eines KO' ist der DPT des zu sendenden KO sehr wichtig. Er muss korrekt angegeben werden, da er nicht automatisch ermittelt werden kann." UIHint="Information" />
+                                </when>
+                              </choose>
+                            </when>
+                          </choose>
+
+                          <!-- Ask for alarm output in case RGB or Buzzer is acive -->
+                          <!-- <choose ParamRefId="%AID%_P-%TT%%CC%278_R-%TT%%CC%27801"> -->
+                            <!-- <when test="1"> -->
+                              <!-- <ParameterRefRef RefId="%AID%_UP-%TT%%CC%277_R-%TT%%CC%27701" HelpContext="%DOC%" IndentLevel="1" /> -->
+                            <!-- </when> -->
+                          <!-- </choose> -->
+                          <!-- We present KO only if any input is active -->
+                          <!-- Timer is also an active input -->
+                          <!-- experimental or, true case -->
+                          <!-- now we evaluate the above or -->
+                          <choose ParamRefId="%AID%_P-%TT%%CC%515_R-%TT%%CC%51501">
+                            <when test="1">
+                              <!-- Create ComObjects for output -->
+                              <choose ParamRefId="%AID%_UP-%TT%%CC%064_R-%TT%%CC%06401">
+                                <when test="0">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00201" />
+                                </when>
+                                <when test="1">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00202" />
+                                </when>
+                                <when test="2">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00203" />
+                                </when>
+                                <when test="3">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00204" />
+                                </when>
+                                <when test="4">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00205" />
+                                </when>
+                                <when test="5">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00206" />
+                                </when>
+                                <when test="6">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00207" />
+                                </when>
+                                <when test="7">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00208" />
+                                </when>
+                                <when test="8">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00209" />
+                                </when>
+                                <when test="9">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00210" />
+                                </when>
+                                <when test="10">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00211" />
+                                </when>
+                                <when test="13">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00212" />
+                                </when>
+                                <when test="14">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00213" />
+                                </when>
+                                <when test="15">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00214" />
+                                </when>
+                                <when test="17">
+                                  <ComObjectRefRef RefId="%AID%_O-%TT%%CC%002_R-%TT%%CC%00215" />
+                                </when>
+                              </choose>
+                            </when>
+                          </choose>
+                        </ParameterBlock>
+                      </when>
+                    </choose>
+                  </ParameterBlock>
+                </when>
+              </choose>
+            </ChannelIndependentBlock>
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

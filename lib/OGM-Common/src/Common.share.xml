@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+  
+  <op:minOpenKNXproducerVersion value="3.13.6" />
+  
+  <op:config name="%BASE_ShowExtendedSave%" value="1" />
+  <op:config name="%BASE_ExtendedSave%" value="0" />
+  <op:config name="%BASE_PeriodicSave%" value="0" />
+  <op:config name="%BASE_ManualSave%" value="0" />
+  <op:config name="%BASE_StartupDelay%" value="1" />
+  <op:config name="%BASE_ShowSyncModulesButton%" value="0" />
+  <op:config name="%BASE_Info1LedLabel%" value=""></op:config>
+  <op:config name="%BASE_Info2LedLabel%" value=""></op:config>
+  <op:config name="%BASE_Info3LedLabel%" value=""></op:config>
+  <op:config name="%BASE_Info1LedFunc%" value="0"></op:config>
+  <op:config name="%BASE_Info2LedFunc%" value="0"></op:config>
+  <op:config name="%BASE_Info3LedFunc%" value="0"></op:config>
+  <op:config name="%BASE_ShowInfoLedPanel%" value="1"></op:config>
+  <op:config name="%BASE_ShowInfo1LedFunc%" value="1"></op:config>
+  <op:config name="%BASE_ShowInfo2LedFunc%" value="1"></op:config>
+  <op:config name="%BASE_ShowInfo3LedFunc%" value="1"></op:config>
+  <op:config name="%BASE_Info1LedFunc_Access%" value="ReadWrite"></op:config>
+  <op:config name="%BASE_Info2LedFunc_Access%" value="ReadWrite"></op:config>
+  <op:config name="%BASE_Info3LedFunc_Access%" value="ReadWrite"></op:config>
+  <op:config name="%BASE_ShowDeviceDependentLedSelector%" value="0"></op:config>
+  <op:nowarn id="7" regex="_R-100000202"/>
+  <op:nowarn id="3" regex="invokeFunctionPropertyWrapper"/>
+  
+  <ManufacturerData>
+    <Manufacturer RefId="M-00FA">
+      <ApplicationPrograms>
+        <ApplicationProgram>
+          <op:part name="InfoLed" href="InfoLed.part.xml" instances="1"></op:part>
+          <Static>
+            <ParameterTypes>
+              <ParameterType Id="%AID%_PT-ETS" Name="ETS">
+                <TypePicture RefId="%FILE-ets%" HorizontalAlignment="Right"/>
+              </ParameterType>
+              <!-- short description -->
+              <ParameterType Id="%AID%_PT-Text40Byte" Name="Text40Byte">
+                <TypeText SizeInBit="320" />
+              </ParameterType>
+              <!-- long description -->
+              <ParameterType Id="%AID%_PT-Text80Byte" Name="Text80Byte">
+                <TypeText SizeInBit="640" />
+              </ParameterType>
+              <!-- comment field -->
+              <ParameterType Id="%AID%_PT-Text512Byte" Name="Text512Byte">
+                <TypeText SizeInBit="4096" />
+              </ParameterType>
+              <!-- Delay pattern -->
+              <ParameterType Id="%AID%_PT-DelayBase" Name="DelayBase">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Sekunde(n)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Minute(n)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Stunde(n)" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DelayBase10" Name="DelayBase10">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="1/10  Sekunde(n)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Sekunde(n)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Minute(n)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Stunde(n)" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DelayTime" Name="DelayTime">
+                <TypeNumber SizeInBit="14" Type="unsignedInt" minInclusive="0" maxInclusive="16000" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DelayTimeMin1" Name="DelayTimeMin1">
+                <TypeNumber SizeInBit="14" Type="unsignedInt" minInclusive="1" maxInclusive="16000" />
+              </ParameterType>
+              <!-- end of delay pattern -->
+              <!-- Boolean values -->
+              <ParameterType Id="%AID%_PT-CheckBox" Name="CheckBox">
+                <TypeNumber SizeInBit="1" Type="unsignedInt" minInclusive="0" maxInclusive="1" UIHint="CheckBox" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OnOffYesNo" Name="OnOffYesNo">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OnOffYesNoInverted" Name="OnOffYesNoInverted">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Nein" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Ja" Value="0" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- KO numbers -->
+              <ParameterType Id="%AID%_PT-KONumber" Name="KONumber">
+                <!-- Number of available KO is derived from current application -->
+                <TypeNumber SizeInBit="15" Type="unsignedInt" minInclusive="1" maxInclusive="%MaxKoNumber%" />
+              </ParameterType>
+              <!-- generic (DPT dependant) fields -->
+              <ParameterType Id="%AID%_PT-ValueDpt1" Name="ValueDpt1">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="AUS (0)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="EIN (1)" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt2" Name="ValueDpt2">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="nicht genutzt" Value="4" Id="%ENID%" />
+                  <Enumeration Text="normal AUS (00)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="normal EIN (01)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="priorität AUS (10)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="priorität EIN (11)" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt2Out" Name="ValueDpt2Out">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="normal AUS (00)" Value="0"    Id="%ENID%" />
+                  <Enumeration Text="normal EIN (01)" Value="1"    Id="%ENID%" />
+                  <Enumeration Text="priorität AUS (10)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="priorität EIN (11)" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt5" Name="ValueDpt5">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="255" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt5001" Name="ValueDpt5001">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt6" Name="ValueDpt6">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-128" maxInclusive="127" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt7" Name="ValueDpt7">
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="65535" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt8" Name="ValueDpt8">
+                <TypeNumber SizeInBit="16" Type="signedInt" minInclusive="-32768" maxInclusive="32767" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt9" Name="ValueDpt9">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="-671088" maxInclusive="670760" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt12" Name="ValueDpt12">
+                <TypeNumber SizeInBit="32" Type="unsignedInt" minInclusive="0" maxInclusive="4294967295" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt13" Name="ValueDpt13">
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-2147483648" maxInclusive="2147483647" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt14" Name="ValueDpt14">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="-1000000000000" maxInclusive="1000000000000" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueRGB" Name="ValueRGB">
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="16777216" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueColor" Name="ValueColor">
+                <TypeColor Space="RGB" />
+              </ParameterType>
+              <!-- Specific Types for common -->
+              <!-- selection of seperated or combined com-object for time and date -->
+              <ParameterType Id="%AID%_PT-CombinedTimeDate" Name="CombinedTimeDate">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="ein kombiniertes KO" Value="1" Id="%ENID%" />
+                  <Enumeration Text="zwei getrennte KOs" Value="0" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Time handling -->
+              <ParameterType Id="%AID%_PT-SummertimeAll" Name="SummertimeAll">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown" >
+                  <Enumeration Text="Kommunikationsobjekt 'Sommerzeit aktiv'" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Kombiniertes Datum/Zeit-KO (DPT 19)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Interne Berechnung" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SummertimeDE" Name="SummertimeDE">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <Enumeration Text="Kommunikationsobjekt 'Sommerzeit aktiv'" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Interne Berechnung" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SummertimeWorld" Name="SummertimeWorld">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <Enumeration Text="Kommunikationsobjekt 'Sommerzeit aktiv'" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Kombiniertes Datum/Zeit-KO (DPT 19)" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SummertimeKO" Name="SummertimeKO">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <Enumeration Text="Kommunikationsobjekt 'Sommerzeit aktiv'" Value="0" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-TimezoneCustom" Name="TimezoneCustom">
+                <TypeText SizeInBit="504" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Timezone" Name="Timezone">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="Amsterdam, Berlin, Bern, Rom, Wien (+1 Stunde)" Value="1" Id="%ENID%" />   
+                  <Enumeration Text="Benutzerdefiniert" Value="31" Id="%ENID%" />
+                  <Enumeration Text="UTC -11 Stunden" Value="27" Id="%ENID%" />
+                  <Enumeration Text="UTC -10 Stunden" Value="26" Id="%ENID%" />
+                  <Enumeration Text="UTC -9 Stunden" Value="25" Id="%ENID%" />
+                  <Enumeration Text="UTC -8 Stunden" Value="24" Id="%ENID%" />
+                  <Enumeration Text="UTC -7 Stunden" Value="23" Id="%ENID%" />
+                  <Enumeration Text="UTC -6 Stunden" Value="22" Id="%ENID%" />
+                  <Enumeration Text="UTC -5 Stunden" Value="21" Id="%ENID%" />
+                  <Enumeration Text="UTC -4 Stunden" Value="20" Id="%ENID%" />
+                  <Enumeration Text="UTC -3 Stunden" Value="19" Id="%ENID%" />
+                  <Enumeration Text="UTC -2 Stunden" Value="18" Id="%ENID%" />
+                  <Enumeration Text="UTC -1 Stunde" Value="17" Id="%ENID%" />
+                  <Enumeration Text="UTC +0 Stunden" Value="0" Id="%ENID%" />
+                  <Enumeration Text="UTC +1 Stunden" Value="28" Id="%ENID%" />
+                  <Enumeration Text="UTC +2 Stunden" Value="2" Id="%ENID%" />
+                  <Enumeration Text="UTC +3 Stunden" Value="3" Id="%ENID%" />
+                  <Enumeration Text="UTC +4 Stunden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="UTC +5 Stunden" Value="5" Id="%ENID%" />
+                  <Enumeration Text="UTC +6 Stunden" Value="6" Id="%ENID%" />
+                  <Enumeration Text="UTC +7 Stunden" Value="7" Id="%ENID%" />
+                  <Enumeration Text="UTC +8 Stunden" Value="8" Id="%ENID%" />
+                  <Enumeration Text="UTC +9 Stunden" Value="9" Id="%ENID%" />
+                  <Enumeration Text="UTC +10 Stunden" Value="10" Id="%ENID%" />
+                  <Enumeration Text="UTC +11 Stunden" Value="11" Id="%ENID%" />
+                  <Enumeration Text="UTC +12 Stunden" Value="12" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Location -->
+              <ParameterType Id="%AID%_PT-Latitude" Name="Latitude">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="-90" maxInclusive="90" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Longitude" Name="Longitude">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="-180" maxInclusive="180" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-PeriodicSave" Name="PeriodicSave">
+                <TypeRestriction Base="Value" SizeInBit="8" UIHint="DropDown">
+                  <Enumeration Text="Deaktiviert" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Jede Stunde" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Alle 2 Stunden" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Alle 4 Stunden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Alle 6 Stunden" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Täglich" Value="24" Id="%ENID%" />
+                  <Enumeration Text="Wöchentlich" Value="168" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ManualSave" Name="ManualSave">
+                <TypeRestriction Base="Value" SizeInBit="3" UIHint="DropDown">
+                  <Enumeration Text="Deaktiviert" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Aktiv mit 5 min. Schreibschutz" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Aktiv mit 15 min. Schreibschutz" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Aktiv mit 60 min. Schreibschutz" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Status LEDs-->
+              <ParameterType Id="%AID%_PT-SLEDFunc" Name="SLEDFunc">
+                <TypeRestriction Base="Value" SizeInBit="16" UIHint="DropDown">
+                  <Enumeration Text="Deaktiviert" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Prog-LED" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Gerätetatus" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Busstatus" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Zeitstatus" Value="4" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+            </ParameterTypes>
+            <Parameters>
+              <!-- Parameter ID-Namespace 001-099 / Namespace is shared with LogicModule (historical reason) -->
+              <!-- Some IDs are over 100. These are parameters that have also been moved here from the logic module -->
+
+              <!-- OpenKNX Logo -->
+              <Parameter Id="%AID%_P-%TT%00001" Name="ETS" ParameterType="%AID%_PT-ETS" Text="ETS" Access="Read" Value="" />
+
+              <!-- Helper with 0 An auxiliary parameter that is always 0 to make a check against it -->
+              <Parameter Id="%AID%_P-%TT%00099" Name="SelectHelper" ParameterType="%AID%_PT-CheckBox" Text="" Value="0" Access="None"/>
+
+           
+              <!-- Extended save -->
+              <Parameter Id="%AID%_P-%TT%00011" Name="ExtendedSave" ParameterType="%AID%_PT-OnOffYesNo" Text="Erweitertes Speichern" Value="%BASE_ExtendedSave%" />
+
+              <Parameter Id="%AID%_P-%TT%00023" Name="ProgLedFunc" ParameterType="%AID%_PT-SLEDFunc" Text="Prog" Value="1" Access="Read"/>
+
+              <!-- Info LED -->
+              <Parameter Id="%AID%_P-%TT%00040" Name="Info1LedFuncNotice" ParameterType="%AID%_PT-Text80Byte" Text="" Value="" />
+              <Parameter Id="%AID%_P-%TT%00041" Name="Info2LedFuncNotice" ParameterType="%AID%_PT-Text80Byte" Text="" Value="" />
+              <Parameter Id="%AID%_P-%TT%00042" Name="Info3LedFuncNotice" ParameterType="%AID%_PT-Text80Byte" Text="" Value="" />
+              <Parameter Id="%AID%_P-%TT%00049" Name="ShowLedFuncTable"   ParameterType="%AID%_PT-CheckBox"   Text="" Value="1" Access="None" />
+
+              <!-- General -->
+              <Union SizeInBit="32">
+                <Memory CodeSegment="%MID%" Offset="0" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00002" Name="StartupDelayBase"   ParameterType="%AID%_PT-DelayBase"        Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00003" Name="StartupDelayTime"   ParameterType="%AID%_PT-DelayTimeMin1"    Offset="0" BitOffset="2" Text="Zeit" Value="%BASE_StartupDelay%" />
+                <Parameter Id="%AID%_UP-%TT%00004" Name="HeartbeatDelayBase" ParameterType="%AID%_PT-DelayBase"        Offset="2" BitOffset="0" Text="Zeitbasis" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00005" Name="HeartbeatDelayTime" ParameterType="%AID%_PT-DelayTime"        Offset="2" BitOffset="2" Text="Zeit" Value="300" />
+              </Union>
+
+              <!-- Time & Date -->
+              <Union SizeInBit="520">
+                <Memory CodeSegment="%MID%" Offset="4" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00144" Name="Timezone"         ParameterType="%AID%_PT-Timezone"         Offset="0" BitOffset="0" Text="Zeitzone" Value="1" />
+                <Parameter op:configTransfer="always"
+                           Id="%AID%_UP-%TT%00156" Name="CombinedTimeDate" ParameterType="%AID%_PT-CombinedTimeDate" Offset="0" BitOffset="5" Text="Empfangen über" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00159" Name="SummertimeAll"    ParameterType="%AID%_PT-SummertimeAll"    Offset="0" BitOffset="6" Text="Sommerzeit ermitteln durch" Value="2" />
+                <Parameter Id="%AID%_UP-%TT%00160" Name="SummertimeDE"     ParameterType="%AID%_PT-SummertimeDE"     Offset="0" BitOffset="6" Text="Sommerzeit ermitteln durch" Value="2" />
+                <Parameter Id="%AID%_UP-%TT%00161" Name="SummertimeWorld"  ParameterType="%AID%_PT-SummertimeWorld"  Offset="0" BitOffset="6" Text="Sommerzeit ermitteln durch" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00162" Name="SummertimeKO"     ParameterType="%AID%_PT-SummertimeKO"     Offset="0" BitOffset="6" Text="Sommerzeit ermitteln durch" Value="0" />          
+                <Parameter Id="%AID%_UP-%TT%00175" Name="TimezoneCustom"   ParameterType="%AID%_PT-TimezoneCustom"   Offset="1" BitOffset="0" Text="POSIX TZ-String" Value="CET-1CEST,M3.5.0/2:00:00,M10.5.0/3:00:00" />          
+                <!-- ^^^ 63 Characters + 0 terminator = 64 bytes ^^^ -->
+              </Union>
+
+              <!-- Location -->
+              <Union SizeInBit="64">
+                <Memory CodeSegment="%MID%" Offset="69" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00142" Name="Latitude"  ParameterType="%AID%_PT-Latitude"  Offset="0" BitOffset="0" Text="Breitengrad" Value="50.115377" />
+                <Parameter Id="%AID%_UP-%TT%00143" Name="Longitude" ParameterType="%AID%_PT-Longitude" Offset="4" BitOffset="0" Text="Längengrad"  Value="8.683764"  />
+              </Union>
+
+              <!-- Extended -->
+              <Union SizeInBit="256">
+                <Memory CodeSegment="%MID%" Offset="78" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00146" Name="Diagnose"          ParameterType="%AID%_PT-OnOffYesNo"   Offset="0" BitOffset="0" Text="Diagnoseobjekt anzeigen" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00147" Name="Watchdog"          ParameterType="%AID%_PT-OnOffYesNo"   Offset="0" BitOffset="1" Text="Watchdog aktivieren" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00034" Name="ReadTimeDate"      ParameterType="%AID%_PT-OnOffYesNo"   Offset="0" BitOffset="2" Text="Bei Neustart vom Bus lesen" Value="1" />
+                <!-- The follwing 2 IDs are used by logic module for update compatibility -->
+                <!-- <Parameter Id="%AID%_UP-%TT%00035" Name="BuzzerInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="0" /> -->
+                <!-- <Parameter Id="%AID%_UP-%TT%00036" Name="LedInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="Optischer Signalgeber vorhanden (RGB-LED)?" Value="0" /> -->
+                <Parameter Id="%AID%_UP-%TT%00037" Name="HeartbeatExtended" ParameterType="%AID%_PT-OnOffYesNo"   Offset="0" BitOffset="3" Text="Erweitertes &quot;In Betrieb&quot;" Value="0" />
+                <!-- Hidden Options for external time control -->
+                <Parameter Id="%AID%_UP-%TT%00006" Name="InternalTime"      ParameterType="%AID%_PT-OnOffYesNo"   Offset="0" BitOffset="4" Text="InternalTime" Access="None" Value="0" />    
+                <Parameter Id="%AID%_UP-%TT%00091" Name="ManualSave"        ParameterType="%AID%_PT-ManualSave"   Offset="0" BitOffset="5" Text="Manuelles speichern" Value="%BASE_ManualSave%"/>
+                <Parameter Id="%AID%_UP-%TT%00090" Name="PeriodicSave"      ParameterType="%AID%_PT-PeriodicSave" Offset="1" BitOffset="0" Text="Zyklisches speichern" Value="%BASE_PeriodicSave%" />
+                <Parameter Id="%AID%_UP-%TT%00020" Name="Info1LedFunc"      ParameterType="%AID%_PT-SLEDFunc"     Offset="2" BitOffset="0" Text="Info1%BASE_Info1LedLabel%" Value="%BASE_Info1LedFunc%" Access="%BASE_Info1LedFunc_Access%"/>
+                <Parameter Id="%AID%_UP-%TT%00021" Name="Info2LedFunc"      ParameterType="%AID%_PT-SLEDFunc"     Offset="4" BitOffset="0" Text="Info2%BASE_Info2LedLabel%" Value="%BASE_Info2LedFunc%" Access="%BASE_Info2LedFunc_Access%"/>
+                <Parameter Id="%AID%_UP-%TT%00022" Name="Info3LedFunc"      ParameterType="%AID%_PT-SLEDFunc"     Offset="6" BitOffset="0" Text="Info3%BASE_Info3LedLabel%" Value="%BASE_Info3LedFunc%" Access="%BASE_Info3LedFunc_Access%"/>
+                <Parameter Id="%AID%_UP-%TT%00029" Name="DefaultLedFunc"    ParameterType="%AID%_PT-CheckBox"     Offset="8" BitOffset="0" Text="" Value="1"/>
+                <!--
+                
+                  Reserved for new parameters
+                
+                -->
+                <!-- Set dummy for last Byte to reserve Space-->
+                <Parameter Id="%AID%_UP-%TT%00098" Name="Dummy"  ParameterType="%AID%_PT-ValueDpt5" Offset="31" BitOffset="0" Text="" Value="0" />
+              </Union>
+
+              <!-- Local parameters for module visibility -->
+              <!-- OpenKNXproducer replacement area, do not add or delete anything below this line -->
+              <Parameter Id="%AID%_P-0099900" Name="ShowModuleSyncButton" ParameterType="%AID%_PT-CheckBox" Text="Module abgleichen zeigen?" Value="1" Access="None" />
+              <Union SizeInBit="32">
+                <Memory CodeSegment="%MID%" Offset="110" BitOffset="0" />
+                <Parameter Id="%AID%_UP-00998%ProducerModuleId%" Name="%ProducerModuleName%" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="0" Text="%ProducerModuleText%" Value="1" op:configTransfer="never" />
+              </Union>
+
+            </Parameters>
+            <ParameterRefs>
+              <ParameterRef Id="%AID%_P-%TT%00001_R-%TT%0000101" RefId="%AID%_P-%TT%00001" />
+              <!-- Free: <ParameterRef Id="%AID%_P-%TT%00010_R-%TT%0001001" RefId="%AID%_P-%TT%00010" /> -->
+              <ParameterRef Id="%AID%_P-%TT%00011_R-%TT%0001101" RefId="%AID%_P-%TT%00011" />
+              <ParameterRef Id="%AID%_UP-%TT%00002_R-%TT%0000201" RefId="%AID%_UP-%TT%00002" />
+              <ParameterRef Id="%AID%_UP-%TT%00003_R-%TT%0000301" RefId="%AID%_UP-%TT%00003" />
+              <ParameterRef Id="%AID%_UP-%TT%00004_R-%TT%0000401" RefId="%AID%_UP-%TT%00004" />
+              <ParameterRef Id="%AID%_UP-%TT%00005_R-%TT%0000501" RefId="%AID%_UP-%TT%00005" />
+              <ParameterRef Id="%AID%_UP-%TT%00006_R-%TT%0000601" RefId="%AID%_UP-%TT%00006" />
+              <ParameterRef Id="%AID%_UP-%TT%00020_R-%TT%0002001" RefId="%AID%_UP-%TT%00020" />
+              <ParameterRef Id="%AID%_UP-%TT%00021_R-%TT%0002101" RefId="%AID%_UP-%TT%00021" />
+              <ParameterRef Id="%AID%_UP-%TT%00022_R-%TT%0002201" RefId="%AID%_UP-%TT%00022" />
+              <ParameterRef Id="%AID%_P-%TT%00040_R-%TT%0004001" RefId="%AID%_P-%TT%00040" />
+              <ParameterRef Id="%AID%_P-%TT%00041_R-%TT%0004101" RefId="%AID%_P-%TT%00041" />
+              <ParameterRef Id="%AID%_P-%TT%00042_R-%TT%0004201" RefId="%AID%_P-%TT%00042" />
+              <ParameterRef Id="%AID%_P-%TT%00049_R-%TT%0004901" RefId="%AID%_P-%TT%00049" />
+              <ParameterRef Id="%AID%_P-%TT%00023_R-%TT%0002301" RefId="%AID%_P-%TT%00023" />
+              <ParameterRef Id="%AID%_UP-%TT%00029_R-%TT%0002901" RefId="%AID%_UP-%TT%00029" />
+              <ParameterRef Id="%AID%_UP-%TT%00029_R-%TT%0002902" RefId="%AID%_UP-%TT%00029" Access="None" Value="0"/>
+              <ParameterRef Id="%AID%_UP-%TT%00034_R-%TT%0003401" RefId="%AID%_UP-%TT%00034" />
+              <!-- The follwing 2 IDs are used by logic module for update compatibility -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00035_R-%TT%0003501" RefId="%AID%_UP-%TT%00035" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00036_R-%TT%0003601" RefId="%AID%_UP-%TT%00036" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%00037_R-%TT%0003701" RefId="%AID%_UP-%TT%00037" />
+              <ParameterRef Id="%AID%_UP-%TT%00142_R-%TT%0014201" RefId="%AID%_UP-%TT%00142" />
+              <ParameterRef Id="%AID%_UP-%TT%00143_R-%TT%0014301" RefId="%AID%_UP-%TT%00143" />
+              <ParameterRef Id="%AID%_UP-%TT%00144_R-%TT%0014401" RefId="%AID%_UP-%TT%00144" />
+              <ParameterRef Id="%AID%_UP-%TT%00146_R-%TT%0014601" RefId="%AID%_UP-%TT%00146" />
+              <ParameterRef Id="%AID%_UP-%TT%00147_R-%TT%0014701" RefId="%AID%_UP-%TT%00147" />
+              <ParameterRef Id="%AID%_UP-%TT%00156_R-%TT%0015601" RefId="%AID%_UP-%TT%00156" />
+              <ParameterRef Id="%AID%_UP-%TT%00159_R-%TT%0015901" RefId="%AID%_UP-%TT%00159" />
+              <ParameterRef Id="%AID%_UP-%TT%00160_R-%TT%0016001" RefId="%AID%_UP-%TT%00160" />
+              <ParameterRef Id="%AID%_UP-%TT%00161_R-%TT%0016101" RefId="%AID%_UP-%TT%00161" />
+              <ParameterRef Id="%AID%_UP-%TT%00162_R-%TT%0016201" RefId="%AID%_UP-%TT%00162" />
+              <ParameterRef Id="%AID%_UP-%TT%00175_R-%TT%0017501" RefId="%AID%_UP-%TT%00175" />
+              <ParameterRef Id="%AID%_UP-%TT%00090_R-%TT%0009001" RefId="%AID%_UP-%TT%00090" />
+              <ParameterRef Id="%AID%_UP-%TT%00091_R-%TT%0009101" RefId="%AID%_UP-%TT%00091" />
+              <ParameterRef Id="%AID%_P-%TT%00099_R-%TT%0009901" RefId="%AID%_P-%TT%00099" />
+
+              <!-- Local parameters for module visibility -->
+              <!-- OpenKNXproducer replacement area, do not add or delete anything below this line -->
+              <ParameterRef Id="%AID%_P-0099900_R-009990001" RefId="%AID%_P-0099900" />
+              <ParameterRef Id="%AID%_UP-00998%ProducerModuleRefId%" RefId="%AID%_UP-00998%ProducerModuleId%" />
+
+            </ParameterRefs>
+            <ComObjectTable>
+              <ComObject Id="%AID%_O-%TT%00001" Name="Heartbeat"      Text="In Betrieb"       Number="1"  FunctionText="Zyklisch" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="%AID%_O-%TT%00002" Name="Time"           Text="Uhrzeit"          Number="2"  FunctionText="Eingang" ObjectSize="3 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-10-1" />
+              <ComObject Id="%AID%_O-%TT%00003" Name="Date"           Text="Datum"            Number="3"  FunctionText="Eingang" ObjectSize="3 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-11-1" />
+              <!-- Be careful, KO-Numbers are reordered and not anymore aligned with ID's -->
+              <ComObject Id="%AID%_O-%TT%00012" Name="DateTime"       Text="Uhrzeit/Datum"    Number="4"  FunctionText="Eingang" ObjectSize="8 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-19-1" />
+              <ComObject Id="%AID%_O-%TT%00010" Name="IsSummertime"   Text="Sommerzeit aktiv" Number="5"  FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
+              <ComObject Id="%AID%_O-%TT%00011" Name="ManualSave"     Text="Speichern"        Number="6"  FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-17" />
+              <ComObject Id="%AID%_O-%TT%00007" Name="Diagnose"       Text="Diagnose"         Number="7"  FunctionText="Diagnoseobjekt" ObjectSize="14 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-16-1" />
+              <!-- ComObject-IDs 013-019 are free, ComObject-Numbers 008-014 are free -->
+            </ComObjectTable>
+            <ComObjectRefs>
+              <!-- Heartbeat -->
+              <ComObjectRef Id="%AID%_O-%TT%00001_R-%TT%0000101" RefId="%AID%_O-%TT%00001" ObjectSize="1 Bit" DatapointType="DPST-1-2" />
+              <ComObjectRef Id="%AID%_O-%TT%00001_R-%TT%0000102" RefId="%AID%_O-%TT%00001" />
+              <!-- Time -->
+              <ComObjectRef Id="%AID%_O-%TT%00002_R-%TT%0000201" RefId="%AID%_O-%TT%00002" />
+              <!-- Output Time -->
+              <ComObjectRef Id="%AID%_O-%TT%00002_R-%TT%0000203" RefId="%AID%_O-%TT%00002" FunctionText="Ausgang" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" />
+              <!-- Date -->
+              <ComObjectRef Id="%AID%_O-%TT%00003_R-%TT%0000301" RefId="%AID%_O-%TT%00003" />
+              <!-- Output Date -->
+              <ComObjectRef Id="%AID%_O-%TT%00003_R-%TT%0000303" RefId="%AID%_O-%TT%00003" FunctionText="Ausgang" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" />
+              <!-- Diagnose-->
+              <ComObjectRef Id="%AID%_O-%TT%00007_R-%TT%0000701" RefId="%AID%_O-%TT%00007" />
+              <!-- Summertime -->
+              <ComObjectRef Id="%AID%_O-%TT%00010_R-%TT%0001001" RefId="%AID%_O-%TT%00010" />
+              <!-- Output Summertime -->
+              <ComObjectRef Id="%AID%_O-%TT%00010_R-%TT%0001003" RefId="%AID%_O-%TT%00010" FunctionText="Ausgang" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled"  />
+              <!-- ManualSave -->
+              <ComObjectRef Id="%AID%_O-%TT%00011_R-%TT%0001101" RefId="%AID%_O-%TT%00011" />
+              <!-- Input DateTime (manually modified ID for backward compatibility) -->
+              <ComObjectRef Id="%AID%_O-%TT%00002_R-%TT%0000202" RefId="%AID%_O-%TT%00012" op:noerror="true" />
+              <!-- Output DateTime -->
+              <ComObjectRef Id="%AID%_O-%TT%00012_R-%TT%0001203" RefId="%AID%_O-%TT%00012"  FunctionText="Ausgang" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" />
+            </ComObjectRefs>
+            <Script>
+              <op:include href="Common.script.js" prefix="BASE" type="script" />
+            </Script>            
+          </Static>
+          <ModuleDefs>
+            <ModuleDef Id="%AID%_MD-%TT%00001" Name="KommentarModule">
+              <!-- <Arguments>
+                <Argument Id="%AID%_MD-%TT%00001_A-1" Name="argHelpContext" Type="Text" />
+              </Arguments> -->
+              <Static>
+                <Parameters>
+                  <Parameter Id="%AID%_MD-%TT%00001_P-%TT%00001" Name="Kommentar-%TT%00001" ParameterType="%AID%_PT-Text512Byte" Text="Kommentar" Value="" />
+                </Parameters>
+                <ParameterRefs>
+                  <ParameterRef Id="%AID%_MD-%TT%00001_P-%TT%00001_R-%TT%0000101" RefId="%AID%_MD-%TT%00001_P-%TT%00001" />
+                </ParameterRefs>
+              </Static>
+              <Dynamic>
+                <ParameterBlock Id="%AID%_MD-%TT%00001_PB-nnn" Inline="true">
+                  <ParameterRefRef RefId="%AID%_MD-%TT%00001_P-%TT%00001_R-%TT%0000101" HelpContext="BASE-Comment" />
+                  <Button Id="%AID%_MD-%TT%00001_B-%TT%00001" Text="Alle '\n' im Text durch neue Zeile(n) ersetzen" EventHandler="newline" EventHandlerParameters="{ &quot;textbox&quot;:&quot;BASE_Kommentar-%TT%00001&quot; }" />
+                </ParameterBlock>
+              </Dynamic>
+            </ModuleDef> 
+          </ModuleDefs>
+          <Dynamic>
+            <!-- <ChannelIndependentBlock> -->
+            <Channel Id="%AID%_CH-%PREFIX%" Number="%PREFIX%" Name="Main" Text="OpenKNX" Icon="openknx" HelpContext="BASE-OpenKNX">
+
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Basic" Text="Allgemein" Icon="cog-outline" HelpContext="BASE-OpenKNX">
+                <!-- Hidden -->
+                <ParameterRefRef RefId="%AID%_UP-%TT%00006_R-%TT%0000601" />
+                <ParameterRefRef RefId="%AID%_P-%TT%00099_R-%TT%0009901" />
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Allgemein" UIHint="Headline" />
+                <!-- Startup Delay pattern -->
+                <ParameterBlock Id="%AID%_PB-nnn" Name="StartupDelayCycle" Inline="true" Layout="Grid" HelpContext="BASE-Startup">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="  Startverzögerung" Cell="1,1" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%00003_R-%TT%0000301" Cell="1,2" IndentLevel="1" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%00002_R-%TT%0000201" Cell="1,3" IndentLevel="1" />
+                </ParameterBlock>
+                <!-- Heartbeat Delay pattern -->
+                <ParameterBlock Id="%AID%_PB-nnn" Name="HeartbeatSendCycle" Inline="true" Layout="Grid" HelpContext="BASE-Heartbeat">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="  In Betrieb senden alle" Cell="1,1" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%00005_R-%TT%0000501" Cell="1,2" />
+                  <ParameterRefRef RefId="%AID%_UP-%TT%00004_R-%TT%0000401" Cell="1,3" />
+                </ParameterBlock>
+                <choose ParamRefId="%AID%_UP-%TT%00005_R-%TT%0000501">
+                  <when test="!=0">
+                    <!-- show heartbeat only if it is parametrized -->
+                    <choose ParamRefId="%AID%_UP-%TT%00037_R-%TT%0003701">
+                      <when test="0">
+                        <ComObjectRefRef RefId="%AID%_O-%TT%00001_R-%TT%0000101" />
+                      </when>
+                      <when test="1">
+                        <ComObjectRefRef RefId="%AID%_O-%TT%00001_R-%TT%0000102" />                        
+                      </when>
+                    </choose>
+                  </when>
+                </choose>
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Uhrzeit &amp; Datum" UIHint="Headline" />
+                <choose ParamRefId="%AID%_UP-%TT%00006_R-%TT%0000601">
+                  <when test="0">
+                    <!-- Combined Time/Date KO -->
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00156_R-%TT%0015601" HelpContext="%DOC%" IndentLevel="1" />
+                    <choose ParamRefId="%AID%_UP-%TT%00156_R-%TT%0015601">
+                      <when test="0">
+                        <!-- Time -->
+                        <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000201" />
+                        <!-- Date -->
+                        <ComObjectRefRef RefId="%AID%_O-%TT%00003_R-%TT%0000301" />
+                      </when>
+                      <when test="1">
+                        <!-- Date-Time -->
+                        <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000202" />
+                      </when>
+                    </choose>
+                    <!-- Read Time/Date on startup -->
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00034_R-%TT%0003401" HelpContext="%DOC%" IndentLevel="1" />
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00144_R-%TT%0014401" HelpContext="%DOC%" IndentLevel="1" />
+                    <choose ParamRefId="%AID%_UP-%TT%00144_R-%TT%0014401"> <!--  Timezone-->
+                      <when test="0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28">
+                        <!-- Timezone is other than Germany -->
+                        <choose ParamRefId="%AID%_UP-%TT%00156_R-%TT%0015601">
+                          <when test="0">
+                            <!-- DPT19 not active -->
+                            <ParameterRefRef RefId="%AID%_UP-%TT%00162_R-%TT%0016201" HelpContext="%DOC%" IndentLevel="1"/>
+                            <choose ParamRefId="%AID%_UP-%TT%00162_R-%TT%0016201">
+                              <when test="0">
+                                <!-- Summertime active? -->
+                                <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001" />
+                              </when>
+                            </choose>
+                          </when>
+                          <when test="1">
+                            <!-- DPT19 active -->
+                            <ParameterRefRef RefId="%AID%_UP-%TT%00161_R-%TT%0016101" HelpContext="%DOC%" IndentLevel="1" />
+                            <choose ParamRefId="%AID%_UP-%TT%00161_R-%TT%0016101">
+                              <when test="0">
+                                <!-- Summertime active? -->
+                                <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001" />
+                              </when>
+                            </choose>
+                          </when>
+                        </choose>
+                      </when>
+                      <when test="1 31">
+                        <choose ParamRefId="%AID%_UP-%TT%00144_R-%TT%0014401"> <!--  Timezone-->
+                          <when test="31">
+                            <!-- Timezone is Custom -->
+                            <ParameterRefRef RefId="%AID%_UP-%TT%00175_R-%TT%0017501" HelpContext="%DOC%" IndentLevel="2" />
+                          </when> 
+                        </choose>    
+                        <!-- Timezone is Germany or Custom -->
+                        <choose ParamRefId="%AID%_UP-%TT%00156_R-%TT%0015601">
+                          <when test="0">
+                            <!-- DPT19 not active -->
+                            <ParameterRefRef RefId="%AID%_UP-%TT%00160_R-%TT%0016001" HelpContext="%DOC%"  IndentLevel="1" />
+                            <choose ParamRefId="%AID%_UP-%TT%00160_R-%TT%0016001">
+                              <when test="0">
+                                <!-- Summertime active? -->
+                                <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001" />
+                              </when>
+                              <!-- <when test="2">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Für Deutschland kann die Sommerzeit auch intern vom Logikmodul berechnet werden. Für alle anderen Länder (auch in der gleichen Zeitzone) sollte diese Einstellung nicht gewählt werden!" UIHint="Information" />
+                              </when> -->
+                            </choose>
+                          </when>
+                          <when test="1">
+                            <ParameterRefRef RefId="%AID%_UP-%TT%00159_R-%TT%0015901" HelpContext="%DOC%" IndentLevel="1" />
+                            <choose ParamRefId="%AID%_UP-%TT%00159_R-%TT%0015901">
+                              <when test="0">
+                                <!-- Summertime active? -->
+                                <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001" />
+                              </when>
+                              <!-- <when test="2">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Für Deutschland kann die Sommerzeit auch intern vom Logikmodul berechnet werden. Für alle anderen Länder (auch in der gleichen Zeitzone) sollte diese Einstellung nicht gewählt werden!" UIHint="Information" />
+                              </when> -->
+                            </choose>
+                          </when>
+                        </choose>
+                      </when>
+                    </choose>
+                  </when>
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00144_R-%TT%0014401" HelpContext="%DOC%" IndentLevel="1" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Die Zeit wird durch einen internen Zeitgeber verwaltet!" UIHint="Information" />
+                    <!-- Output Time -->
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000203" />
+                    <!-- Output Date -->
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00003_R-%TT%0000303" />       
+                    <!-- Output DateTime -->
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00012_R-%TT%0001203" />    
+                    <!-- Output Summertime -->
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001003" />
+                  </when>
+                </choose>
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Gerätestandort" UIHint="Headline" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00142_R-%TT%0014201" HelpContext="BASE-Geraetestandort" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00143_R-%TT%0014301" HelpContext="BASE-Geraetestandort" IndentLevel="1" />
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text=" " />
+                <ParameterBlock Id="%AID%_PB-nnn" Name="OpenKNX" Inline="true" Layout="Grid">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    <Row Id="%AID%_PB-nnn_R-2" Name="Row2" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="100%" />
+                  </Columns>
+                  <ParameterRefRef RefId="%AID%_P-%TT%00001_R-%TT%0000101" Cell="1,1" HelpContext="BASE-OpenKNX"/>
+                </ParameterBlock>
+
+              </ParameterBlock>
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Extended" Text="Erweitert" Icon="format-list-text" HelpContext="BASE-OpenKNX">
+
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Erweitert" UIHint="Headline" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00147_R-%TT%0014701" HelpContext="%DOC%" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00146_R-%TT%0014601" HelpContext="%DOC%" IndentLevel="1" />
+                <choose ParamRefId="%AID%_UP-%TT%00146_R-%TT%0014601">
+                  <when test="1">
+                    <!-- show diagnose object just if requested -->
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00007_R-%TT%0000701" />
+                  </when>
+                </choose>
+
+                <choose ParamRefId="%AID%_UP-%TT%00005_R-%TT%0000501">
+                  <when test="!=0">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00037_R-%TT%0003701" HelpContext="%DOC%" IndentLevel="1"/>
+                  </when>
+                </choose>
+
+                <!-- Extendend save -->
+                <choose ParamRefId="%AID%_P-%TT%00099_R-%TT%0009901">
+                  <when test="!=%BASE_ShowExtendedSave%">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00011_R-%TT%0001101" HelpContext="%DOC%" IndentLevel="1" />
+                    <choose ParamRefId="%AID%_P-%TT%00011_R-%TT%0001101">
+                      <when test="1">
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Erweitertes Speichern" UIHint="Headline" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00090_R-%TT%0009001" HelpContext="BASE-Erweitertes-Speichern" IndentLevel="1" />
+                        <ParameterRefRef RefId="%AID%_UP-%TT%00091_R-%TT%0009101" HelpContext="BASE-Erweitertes-Speichern" IndentLevel="1" />
+                        <choose ParamRefId="%AID%_UP-%TT%00091_R-%TT%0009101">
+                          <when test=">0">
+                            <ComObjectRefRef RefId="%AID%_O-%TT%00011_R-%TT%0001101" />
+                          </when>
+                        </choose>
+
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Wichtig: Vor der Nutzung der erweiterten Speichermöglichkeiten sollte unbedingt die Hilfe konsultiert werden. Diese ist kontextsensitiv auf den jeweiligen Feldern hinterlegt. " UIHint="Information" />
+                      </when>
+                    </choose>
+                  </when>
+                </choose>
+              </ParameterBlock>
+
+              <op:usePart name="InfoLed" xpath="//Dynamic/ChannelIndependentBlock/*" />
+
+       	      <ParameterBlock Id="%AID%_PB-nnn" Name="OpenKNXproducerGeneratedModules" Text="Module" Icon="puzzle-outline" HelpContext="BASE-Module">
+                <!-- OpenKNXproducer replacement area, do not add or delete anything within this ParameterBlock -->
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Module" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Nicht benötigte Module können deaktiviert werden, um die Übersichtlichkeit zu erhöhen." />
+                <ParameterBlock Id="%AID%_PB-nnn" Name="OpenKNXproducerModules" Inline="true" Layout="Grid">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    <Row Id="%AID%_PB-nnn_R-%ModuleCount+1%" Name="Row%ModuleCount+1%" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="2%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="8%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="40%" />
+                    <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="20%" />
+                  </Columns>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Aktiv" Cell="1,2" UIHint="Headline" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Modul" Cell="1,3" UIHint="Headline" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Version" Cell="1,4" UIHint="Headline" />
+                  <ParameterRefRef RefId="%AID%_UP-00998%ProducerModuleRefId%" Cell="%ModuleCount+1%,2" HelpContext="BASE-Modul-aktivieren"/>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="%ProducerModuleName%" Cell="%ModuleCount+1%,3" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="%ProducerModuleVersion%" Cell="%ModuleCount+1%,4" />
+                </ParameterBlock>
+                <!-- following parameter is always hidden -->
+                <ParameterRefRef RefId="%AID%_P-0099900_R-009990001" />
+                <choose ParamRefId="%AID%_P-0099900_R-009990001">
+                  <when test="%BASE_ShowSyncModulesButton%">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Abgleich mit dem Gerät" UIHint="Headline" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Diese Applikation unterstützt die Verwendung mit verschiedenen Geräten. Einzelne Module können von der angeschlossenen Hardware abhängig sein." />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Nachdem das Gerät programmiert wurde (PA + Applikation) ist ein Abgleich mit den Fähigkeiten der Hardware möglich:" />
+                    <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid">
+                      <Rows>
+                        <Row Id="%AID%_PB-nnn_R-1" />
+                        <Row Id="%AID%_PB-nnn_R-2" />
+                        <Row Id="%AID%_PB-nnn_R-3" />
+                      </Rows>
+                      <Columns>
+                        <Column Id="%AID%_PB-nnn_C-1" Width="2%" />
+                        <Column Id="%AID%_PB-nnn_C-2" Width="49%" />
+                        <Column Id="%AID%_PB-nnn_C-3" Width="49%" />
+                      </Columns>
+                      <Button Id="%AID%_B-%TT%00001" Text="Nicht unterstützte Module deaktivieren" Name="UnsupportedModules" Cell="1,2" EventHandler="BASE_getUnsupportedEtsModules" EventHandlerParameters="{&quot;Sync&quot;: 0}" EventHandlerOnline="ConnectionOriented" />
+                      <Button Id="%AID%_B-%TT%00002" Text="Komplettabgleich aller Module"          Name="SyncModules"        Cell="2,2" EventHandler="BASE_getUnsupportedEtsModules" EventHandlerParameters="{&quot;Sync&quot;: 1}" EventHandlerOnline="ConnectionOriented" />
+                      <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,3" Text="Die nicht unterstützten Module werden ausgeblendet. Die vom Benutzer ausgeblendeten Module bleiben ausgeblendet." />
+                      <ParameterSeparator Id="%AID%_PS-nnn" Cell="2,3" Text="Es werden sowohl die unterstützten wie auch die nicht unterstützten Module abgeglichen. Die vom Benutzer vorgenommene Auswahl wird überschrieben." />
+                    </ParameterBlock>
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="&#10;" />
+                  </when>
+                </choose>
+              </ParameterBlock>
+       	      <ParameterBlock Id="%AID%_PB-nnn" Name="Docu" Text="Hilfe" Icon="help-circle-outline" HelpContext="BASE-OpenKNX">
+						
+              	<ParameterSeparator Id="%AID%_PS-nnn" Text="Dokumentation" UIHint="Headline" />
+								<ParameterSeparator Id="%AID%_PS-nnn" Text="Die Dokumentation ist als Kontextsensitive Hilfe verfügbar, siehe den Text im unteren Bereich des Bildschirms." />
+								<ParameterSeparator Id="%AID%_PS-nnn" Text="Wird keine Dokumentation angezeigt, muss diese in der ETS Werkzeugleiste über die Schaltfläche&#10;'(?) Kontexhilfe' aktiviert werden." />
+								<ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+	
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="ETS Tipp" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Benötigen mehrere Kanäle die gleiche Konfigurationen, können mit gedrückter STRG Taste die jeweils gleichen Seiten mit der Maus ausgewählt werden."  />
+								<ParameterSeparator Id="%AID%_PS-nnn" Text="Die vorgenommen Konfigurationen werden dann auf alle gewählten Kanäle übernommen."  />
+	              <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+	
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Verwendung von Open Source" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="OpenKNX verwendet für die Sonnenstandsberechnung den PSA Algorithmus welcher unter der CC BY 4.0 Lizenz veröffentlich wurde."  />
+								<ParameterSeparator Id="%AID%_PS-nnn" Text="Mehr Information dazu sind unter https://www.sciencedirect.com/science/article/pii/S0038092X20311488?via%3Dihub zu finden."  />
+
+              </ParameterBlock>
+            </Channel>
+            <!-- </ChannelIndependentBlock> -->
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="" Name="ets.png" Id="%FILE-ets%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Help_de.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

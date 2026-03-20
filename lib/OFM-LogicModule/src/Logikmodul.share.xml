@@ -1,0 +1,1420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+
+  <op:minOpenKNXproducerVersion value="3.13.0" />
+  <op:minModuleVersion prefix="UCT" dependency="onlyIfUsed" value="0.5" />
+
+
+  <op:config name="%LOG_EnableSave%" value="1" />
+  <op:config name="%LOG_NumChannelsDefault%" value="%N%" />
+  
+  <op:nowarn id="3" regex="LOG_processUserFormula" />
+
+  <ManufacturerData>
+    <Manufacturer RefId="M-00FA">
+      <ApplicationPrograms>
+        <ApplicationProgram Id="%AID%" ApplicationNumber="102" ApplicationVersion="21" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
+          <op:part name="FORMULA" href="Logikmodul.userformula.part.xml" instances="30">
+            <op:param name="%ParamOffset%" value="7" increment="100" />
+            <op:param name="%PPP%" value="200" digits="3" increment="3" />
+            <op:param name="%Fn%" value="1" increment="1" />
+          </op:part>
+          <Static>
+            <ParameterTypes>
+              <!-- Number of channels (module specific) -->
+              <ParameterType Id="%AID%_PT-LOGNumChannels" Name="LOGNumChannels">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="%N%" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Text80Byte" Name="Text80Byte">
+                <TypeText SizeInBit="640" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OffsetTemp" Name="OffsetTemp">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DeltaAbsTemp" Name="DeltaAbsTemp">
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="500" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Smooth" Name="Smooth">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="240" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Percent" Name="Percent">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
+              </ParameterType>
+              <!-- This type is necessary to allow op:config-parameters beeing changed in future -->
+              <ParameterType Id="%AID%_PT-EnableSave" Name="EnableSave">
+                <TypeNumber SizeInBit="1" Type="unsignedInt" minInclusive="0" maxInclusive="1" />
+              </ParameterType>
+              <!-- UserFormula support, 99 chars per formula -->
+              <ParameterType Id="%AID%_PT-UserFormula" Name="UserFormula">
+                <TypeText SizeInBit="792" />
+              </ParameterType>
+              <!-- parameter types for logic module -->
+              <ParameterType Id="%AID%_PT-Logic" Name="Logic">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="aus" Value="0" Id="%ENID%" />
+                  <Enumeration Text="UND" Value="1" Id="%ENID%" />
+                  <Enumeration Text="ODER" Value="2" Id="%ENID%" />
+                  <Enumeration Text="EXCLUSIV-ODER" Value="3" Id="%ENID%" />
+                  <Enumeration Text="TOR" Value="4" Id="%ENID%" />
+                  <Enumeration Text="SCHALTER (RS-FLIP-FLOP)" Value="6" Id="%ENID%" />
+                  <Enumeration Text="ZEITSCHALTUHR" Value="5" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Calculate" Name="Calculate">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="auch wenn noch nicht alle Werte gültig sind" Value="0" Id="%ENID%" />
+                  <Enumeration Text="erst wenn alle Werte gültig sind" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Trigger" Name="Trigger">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="nur bei geändertem Ergebnis" Value="0" Id="%ENID%" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm immer senden" Value="32" Id="%ENID%" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm nicht senden" Value="16" Id="%ENID%" />
+                  <Enumeration Text="bei jedem Eingangstelegramm" Value="15" Id="%ENID%" />
+                  <Enumeration Text="bei jedem Eingangstelegramm, aber erstes Telegramm nicht senden" Value="31" Id="%ENID%" />
+                  <Enumeration Text="bei folgenden Eingangstelegrammen" Value="1" Id="%ENID%" />
+                  <Enumeration Text="bei folgenden Eingangstelegrammen, aber erstes Telegramm nicht senden" Value="17" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-TriggerTime" Name="TriggerTime">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="nur bei geändertem Ergebnis" Value="0" Id="%ENID%" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm immer senden" Value="32" Id="%ENID%" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm nicht senden" Value="16" Id="%ENID%" />
+                  <Enumeration Text="bei jedem Eingangstelegramm" Value="15" Id="%ENID%" />
+                  <Enumeration Text="bei jedem Eingangstelegramm, aber erstes Telegramm nicht senden" Value="31" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-GateTrigger" Name="GateTrigger">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Nichts gesendet" Value="0" Id="%ENID%" />
+                  <Enumeration Text="AUS gesendet" Value="1" Id="%ENID%" />
+                  <Enumeration Text="EIN gesendet" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Eingangswert gesendet" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputKind" Name="InputKind">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <!-- <Enumeration Text="keine" Value="0" Id="%ENID%" /> -->
+                  <Enumeration Text="absolut" Value="1" Id="%ENID%" />
+                  <Enumeration Text="relativ" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputEnable" Name="InputEnable">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="inaktiv" Value="0" Id="%ENID%" />
+                  <Enumeration Text="normal aktiv" Value="1" Id="%ENID%" />
+                  <Enumeration Text="invertiert aktiv" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Internal, not used für display -->
+              <ParameterType Id="%AID%_PT-InputConv" Name="InputConv">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Wertintervall" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Differenzintervall" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Hysterese" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Differenzhysterese" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Einzelwerte" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Konstante (für Formeln)" Value="5" Id="%ENID%" />
+                  <!-- Eingangswert ist der Default, 0 und 1 wird ausgewertet -->
+                  <Enumeration Text="Eingangswert" Value="6" Id="%ENID%" />
+                  <!-- Trigger wird immer 1, egal ob durch 0 oder 1 getriggert -->
+                  <Enumeration Text="Trigger" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputConvInt" Name="InputConvInt">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Wertintervall" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Differenzintervall" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Hysterese" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Differenzhysterese" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Einzelwerte" Value="4" Id="%ENID%" />
+                  <!-- Trigger wird immer 1, egal ob durch 0 oder 1 getriggert -->
+                  <Enumeration Text="Trigger" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Konstante (für Formeln)" Value="5" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputConvFloat" Name="InputConvFloat">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Wertintervall" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Differenzintervall" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Hysterese" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Differenzhysterese" Value="3" Id="%ENID%" />
+                  <!-- Trigger wird immer 1, egal ob durch 0 oder 1 getriggert -->
+                  <Enumeration Text="Trigger" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Konstante (für Formeln)" Value="5" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputConvSpecial" Name="InputConvSpecial">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Einzelwerte" Value="4" Id="%ENID%" />
+                  <!-- Trigger wird immer 1, egal ob durch 0 oder 1 getriggert -->
+                  <Enumeration Text="Trigger" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Konstante (für Formeln)" Value="5" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputConvBool" Name="InputConvBool">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <!-- Eingangswert ist der Default, 0 und 1 wird ausgewertet -->
+                  <Enumeration Text="Eingangswert" Value="6" Id="%ENID%" />
+                  <!-- Trigger wird immer 1, egal ob durch 0 oder 1 getriggert -->
+                  <Enumeration Text="Trigger" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Input- und Output-DPT haben die selben Werte für Value!!!! -->
+              <ParameterType Id="%AID%_PT-InputDpt" Name="InputDpt">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="DPT 1.xxx (Schalten)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="DPT 2.xxx (Zwangsführung)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="DPT 3.xxx (Dimmen)" Value="17" Id="%ENID%" />
+                  <Enumeration Text="DPT 5.xxx (1-Byte)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="DPT 5.001 (Prozent)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="DPT 6.xxx (1-Byte-Vorzeichen)" Value="4" Id="%ENID%" />
+                  <Enumeration Text="DPT 7.xxx (2-Byte)" Value="5" Id="%ENID%" />
+                  <Enumeration Text="DPT 8.xxx (2-Byte-Vorzeichen)" Value="6" Id="%ENID%" />
+                  <Enumeration Text="DPT 9.xxx (2-Byte-Gleitkomma)" Value="7" Id="%ENID%" />
+                  <Enumeration Text="DPT 12.xxx (4-Byte)" Value="13" Id="%ENID%" />
+                  <Enumeration Text="DPT 13.xxx (4-Byte-Vorzeichen)" Value="14" Id="%ENID%" />
+                  <Enumeration Text="DPT 14.xxx (4-Byte-Gleitkomma)" Value="15" Id="%ENID%" />
+                  <Enumeration Text="DPT 17.001 (Szene)" Value="9" Id="%ENID%" />
+                  <Enumeration Text="DPT 232.xxx (3-Byte-RGB)" Value="10" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OutputDpt" Name="OutputDpt">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="DPT 1.xxx (Schalten)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="DPT 2.xxx (Zwangsführung)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="DPT 3.xxx (Dimmen)" Value="17" Id="%ENID%" />
+                  <Enumeration Text="DPT 5.xxx (1-Byte)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="DPT 5.001 (Prozent)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="DPT 6.xxx (1-Byte-Vorzeichen)" Value="4" Id="%ENID%" />
+                  <Enumeration Text="DPT 7.xxx (2-Byte)" Value="5" Id="%ENID%" />
+                  <Enumeration Text="DPT 8.xxx (2-Byte-Vorzeichen)" Value="6" Id="%ENID%" />
+                  <Enumeration Text="DPT 9.xxx (2-Byte-Gleitkomma)" Value="7" Id="%ENID%" />
+                  <Enumeration Text="DPT 12.xxx (4-Byte)" Value="13" Id="%ENID%" />
+                  <Enumeration Text="DPT 13.xxx (4-Byte-Vorzeichen)" Value="14" Id="%ENID%" />
+                  <Enumeration Text="DPT 14.xxx (4-Byte-Gleitkomma)" Value="15" Id="%ENID%" />
+                  <Enumeration Text="DPT 16.001 (14-Byte-Text)" Value="8" Id="%ENID%" />
+                  <Enumeration Text="DPT 17.001 (Szene)" Value="9" Id="%ENID%" />
+                  <Enumeration Text="DPT 232.xxx (3-Byte-RGB)" Value="10" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- <ParameterType Id="%AID%_PT-ValueBuzzer" Name="ValueBuzzer">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Ton ausschalten" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ton leise einschalten" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Ton normal einschalten" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Ton laut einschalten" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType> -->
+              <ParameterType Id="%AID%_PT-InputDefault" Name="InputDefault">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Nichts (undefiniert)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Wert vom Bus lesen" Value="1" Id="%ENID%" />
+                  <Enumeration Text="AUS (0)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="EIN (1)" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputDefaultExt" Name="InputDefaultExt">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Nichts (undefiniert)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="AUS (0)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="EIN (1)" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputFunction" Name="InputFunction">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="%N%" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InputFunctionRel" Name="InputFunctionRel">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-%N-1%" maxInclusive="%N-1%" />
+              </ParameterType>
+              <!-- <ParameterType Id="%AID%_PT-TimeBase" Name="TimeBase">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="1/10 Sekunde" Value="0" Id="%ENID%" />
+                  <Enumeration Text="1 Sekunde" Value="1" Id="%ENID%" />
+                  <Enumeration Text="1 Minute" Value="2" Id="%ENID%" />
+                  <Enumeration Text="1 Stunde" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType> -->
+              <!-- erneutes einschalten führt zu ... -->
+              <ParameterType Id="%AID%_PT-OnOffRepeat" Name="OnOffRepeat">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Verzögerung bleibt bestehen" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Verzögerung wird verlängert" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Sofort schalten ohne Verzögerung" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- darauffolgendes ausschalten führt zu ... -->
+              <ParameterType Id="%AID%_PT-OnOffReset" Name="OnOffReset">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Verzögerung bleibt bestehen" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Verzögerung beenden ohne zu schalten" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- <ParameterType Id="%AID%_PT-TimeBasedTime" Name="TimeBasedTime">
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="32767" />
+              </ParameterType> -->
+              <ParameterType Id="%AID%_PT-ValueDpt3Dir" Name="ValueDpt3Dir">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="dunkler" Value="0" Id="%ENID%" />
+                  <Enumeration Text="heller" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt3Dim" Name="ValueDpt3Dim">
+                <TypeRestriction Base="Value" SizeInBit="3">
+                  <Enumeration Text="Stop" Value="0" Id="%ENID%" />
+                  <Enumeration Text="100%" Value="1" Id="%ENID%" />
+                  <Enumeration Text="50%" Value="2" Id="%ENID%" />
+                  <Enumeration Text="25%" Value="3" Id="%ENID%" />
+                  <Enumeration Text="13%" Value="4" Id="%ENID%" />
+                  <Enumeration Text="6%" Value="5" Id="%ENID%" />
+                  <Enumeration Text="3%" Value="6" Id="%ENID%" />
+                  <Enumeration Text="2%" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueSceneIn" Name="ValueSceneIn">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nicht genutzt" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Szene 1" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Szene 2" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Szene 3" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Szene 4" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Szene 5" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Szene 6" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Szene 7" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Szene 8" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Szene 9" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Szene 10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="Szene 11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="Szene 12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="Szene 13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="Szene 14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="Szene 15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="Szene 16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="Szene 17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="Szene 18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="Szene 19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="Szene 20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="Szene 21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="Szene 22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="Szene 23" Value="23" Id="%ENID%" />
+                  <Enumeration Text="Szene 24" Value="24" Id="%ENID%" />
+                  <Enumeration Text="Szene 25" Value="25" Id="%ENID%" />
+                  <Enumeration Text="Szene 26" Value="26" Id="%ENID%" />
+                  <Enumeration Text="Szene 27" Value="27" Id="%ENID%" />
+                  <Enumeration Text="Szene 28" Value="28" Id="%ENID%" />
+                  <Enumeration Text="Szene 29" Value="29" Id="%ENID%" />
+                  <Enumeration Text="Szene 30" Value="30" Id="%ENID%" />
+                  <Enumeration Text="Szene 31" Value="31" Id="%ENID%" />
+                  <Enumeration Text="Szene 32" Value="32" Id="%ENID%" />
+                  <Enumeration Text="Szene 33" Value="33" Id="%ENID%" />
+                  <Enumeration Text="Szene 34" Value="34" Id="%ENID%" />
+                  <Enumeration Text="Szene 35" Value="35" Id="%ENID%" />
+                  <Enumeration Text="Szene 36" Value="36" Id="%ENID%" />
+                  <Enumeration Text="Szene 37" Value="37" Id="%ENID%" />
+                  <Enumeration Text="Szene 38" Value="38" Id="%ENID%" />
+                  <Enumeration Text="Szene 39" Value="39" Id="%ENID%" />
+                  <Enumeration Text="Szene 40" Value="40" Id="%ENID%" />
+                  <Enumeration Text="Szene 41" Value="41" Id="%ENID%" />
+                  <Enumeration Text="Szene 42" Value="42" Id="%ENID%" />
+                  <Enumeration Text="Szene 43" Value="43" Id="%ENID%" />
+                  <Enumeration Text="Szene 44" Value="44" Id="%ENID%" />
+                  <Enumeration Text="Szene 45" Value="45" Id="%ENID%" />
+                  <Enumeration Text="Szene 46" Value="46" Id="%ENID%" />
+                  <Enumeration Text="Szene 47" Value="47" Id="%ENID%" />
+                  <Enumeration Text="Szene 48" Value="48" Id="%ENID%" />
+                  <Enumeration Text="Szene 49" Value="49" Id="%ENID%" />
+                  <Enumeration Text="Szene 50" Value="50" Id="%ENID%" />
+                  <Enumeration Text="Szene 51" Value="51" Id="%ENID%" />
+                  <Enumeration Text="Szene 52" Value="52" Id="%ENID%" />
+                  <Enumeration Text="Szene 53" Value="53" Id="%ENID%" />
+                  <Enumeration Text="Szene 54" Value="54" Id="%ENID%" />
+                  <Enumeration Text="Szene 55" Value="55" Id="%ENID%" />
+                  <Enumeration Text="Szene 56" Value="56" Id="%ENID%" />
+                  <Enumeration Text="Szene 57" Value="57" Id="%ENID%" />
+                  <Enumeration Text="Szene 58" Value="58" Id="%ENID%" />
+                  <Enumeration Text="Szene 59" Value="59" Id="%ENID%" />
+                  <Enumeration Text="Szene 60" Value="60" Id="%ENID%" />
+                  <Enumeration Text="Szene 61" Value="61" Id="%ENID%" />
+                  <Enumeration Text="Szene 62" Value="62" Id="%ENID%" />
+                  <Enumeration Text="Szene 63" Value="63" Id="%ENID%" />
+                  <Enumeration Text="Szene 64" Value="64" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueSceneOut" Name="ValueSceneOut">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Szene 1" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Szene 2" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Szene 3" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Szene 4" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Szene 5" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Szene 6" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Szene 7" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Szene 8" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Szene 9" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Szene 10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="Szene 11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="Szene 12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="Szene 13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="Szene 14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="Szene 15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="Szene 16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="Szene 17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="Szene 18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="Szene 19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="Szene 20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="Szene 21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="Szene 22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="Szene 23" Value="23" Id="%ENID%" />
+                  <Enumeration Text="Szene 24" Value="24" Id="%ENID%" />
+                  <Enumeration Text="Szene 25" Value="25" Id="%ENID%" />
+                  <Enumeration Text="Szene 26" Value="26" Id="%ENID%" />
+                  <Enumeration Text="Szene 27" Value="27" Id="%ENID%" />
+                  <Enumeration Text="Szene 28" Value="28" Id="%ENID%" />
+                  <Enumeration Text="Szene 29" Value="29" Id="%ENID%" />
+                  <Enumeration Text="Szene 30" Value="30" Id="%ENID%" />
+                  <Enumeration Text="Szene 31" Value="31" Id="%ENID%" />
+                  <Enumeration Text="Szene 32" Value="32" Id="%ENID%" />
+                  <Enumeration Text="Szene 33" Value="33" Id="%ENID%" />
+                  <Enumeration Text="Szene 34" Value="34" Id="%ENID%" />
+                  <Enumeration Text="Szene 35" Value="35" Id="%ENID%" />
+                  <Enumeration Text="Szene 36" Value="36" Id="%ENID%" />
+                  <Enumeration Text="Szene 37" Value="37" Id="%ENID%" />
+                  <Enumeration Text="Szene 38" Value="38" Id="%ENID%" />
+                  <Enumeration Text="Szene 39" Value="39" Id="%ENID%" />
+                  <Enumeration Text="Szene 40" Value="40" Id="%ENID%" />
+                  <Enumeration Text="Szene 41" Value="41" Id="%ENID%" />
+                  <Enumeration Text="Szene 42" Value="42" Id="%ENID%" />
+                  <Enumeration Text="Szene 43" Value="43" Id="%ENID%" />
+                  <Enumeration Text="Szene 44" Value="44" Id="%ENID%" />
+                  <Enumeration Text="Szene 45" Value="45" Id="%ENID%" />
+                  <Enumeration Text="Szene 46" Value="46" Id="%ENID%" />
+                  <Enumeration Text="Szene 47" Value="47" Id="%ENID%" />
+                  <Enumeration Text="Szene 48" Value="48" Id="%ENID%" />
+                  <Enumeration Text="Szene 49" Value="49" Id="%ENID%" />
+                  <Enumeration Text="Szene 50" Value="50" Id="%ENID%" />
+                  <Enumeration Text="Szene 51" Value="51" Id="%ENID%" />
+                  <Enumeration Text="Szene 52" Value="52" Id="%ENID%" />
+                  <Enumeration Text="Szene 53" Value="53" Id="%ENID%" />
+                  <Enumeration Text="Szene 54" Value="54" Id="%ENID%" />
+                  <Enumeration Text="Szene 55" Value="55" Id="%ENID%" />
+                  <Enumeration Text="Szene 56" Value="56" Id="%ENID%" />
+                  <Enumeration Text="Szene 57" Value="57" Id="%ENID%" />
+                  <Enumeration Text="Szene 58" Value="58" Id="%ENID%" />
+                  <Enumeration Text="Szene 59" Value="59" Id="%ENID%" />
+                  <Enumeration Text="Szene 60" Value="60" Id="%ENID%" />
+                  <Enumeration Text="Szene 61" Value="61" Id="%ENID%" />
+                  <Enumeration Text="Szene 62" Value="62" Id="%ENID%" />
+                  <Enumeration Text="Szene 63" Value="63" Id="%ENID%" />
+                  <Enumeration Text="Szene 64" Value="64" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueText" Name="ValueText">
+                <TypeText SizeInBit="112" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OutputFilter" Name="OutputFilter">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Alle Wiederholungen durchlassen" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Nur EIN-Wiederholungen durchlassen" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Nur AUS-Wiederholungen durchlassen" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Keine Wiederholungen durchlassen" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SendOnChange" Name="SendOnChange">
+                <TypeRestriction Base="Value" SizeInBit="1" UIHint="DropDown">
+                  <Enumeration Text="Alle Werte senden" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Nur geänderte Werte senden" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- TO BE REMOVED: Old Buzzer and LED handling -->
+              <ParameterType Id="%AID%_PT-OutputSend" Name="OutputSend">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert eines KO" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- TO BE REMOVED: Old Buzzer and LED handling -->
+              <ParameterType Id="%AID%_PT-OutputSendBuzzer" Name="OutputSendBuzzer">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert eines KO" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Ja - Tonwiedegabe (Buzzer)" Value="6" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- TO BE REMOVED: Old Buzzer and LED handling -->
+              <ParameterType Id="%AID%_PT-OutputSendLed" Name="OutputSendLed">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert eines KO" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Ja - LED schalten" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OutputSendAll" Name="OutputSendAll">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert eines KO" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Ja - Status-LED schalten" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueFunction" Name="ValueFunction">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="A = E1 + E2 (Summe)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="A = E1 - E2 (Differenz)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="A = E1 * E2 (Produkt)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="A = E1 / E2 (Quotient)" Value="4" Id="%ENID%" />
+                  <Enumeration Text="A = E1 ^ E2 (Potenz)" Value="38" Id="%ENID%" />
+                  <Enumeration Text="A = (E1 + E2) / 2 (Durchschnitt)" Value="5" Id="%ENID%" />
+                  <Enumeration Text="A = E1 % E2 (Modulo)" Value="8" Id="%ENID%" />
+                  <Enumeration Text="A = E1 &amp; E2 (Bit-Und)" Value="9" Id="%ENID%" />
+                  <Enumeration Text="A = E1 | E2 (Bit-Oder)" Value="10" Id="%ENID%" />
+                  <Enumeration Text="A = E1 ^ E2 (Bit-Exklusiv-Oder)" Value="11" Id="%ENID%" />
+                  <Enumeration Text="A = E1 &lt;&lt; E2 (Bit-Links-Schieben)" Value="12" Id="%ENID%" />
+                  <Enumeration Text="A = E1 &lt;&lt; 1 (E1 um 1-Bit links verschoben)" Value="32" Id="%ENID%" />
+                  <Enumeration Text="A = E2 &lt;&lt; 1 (E2 um 1-Bit links verschoben)" Value="33" Id="%ENID%" />
+                  <Enumeration Text="A = A &lt;&lt; 1 (A um 1-Bit links verschoben)" Value="34" Id="%ENID%" />
+                  <Enumeration Text="A = E1 &gt;&gt; E2 (Bit-Rechts-Schieben)" Value="13" Id="%ENID%" />
+                  <Enumeration Text="A = E1 &gt;&gt; 1 (E1 um 1-Bit rechts verschoben)" Value="35" Id="%ENID%" />
+                  <Enumeration Text="A = E2 &gt;&gt; 1 (E2 um 1-Bit rechts verschoben)" Value="36" Id="%ENID%" />
+                  <Enumeration Text="A = A &gt;&gt; 1 (A um 1-Bit rechts verschoben)" Value="37" Id="%ENID%" />
+                  <Enumeration Text="A = Min(E1, E2) (Minimum)" Value="6" Id="%ENID%" />
+                  <Enumeration Text="A = Min(E1, E2, A) (Minimum)" Value="30" Id="%ENID%" />
+                  <Enumeration Text="A = Max(E1, E2) (Maximum)" Value="7" Id="%ENID%" />
+                  <Enumeration Text="A = Max(E1, E2, A) (Maximum)" Value="31" Id="%ENID%" />
+                  <Enumeration Text="A = E1 + 1 (Inkrementiere E1)" Value="16" Id="%ENID%" />
+                  <Enumeration Text="A = E2 + 1 (Inkrementiere E2)" Value="17" Id="%ENID%" />
+                  <Enumeration Text="A = A + 1 (Inkrementiere A)" Value="18" Id="%ENID%" />
+                  <Enumeration Text="A = E1 - 1 (Dekrementiere E1)" Value="19" Id="%ENID%" />
+                  <Enumeration Text="A = E2 - 1 (Dekrementiere E2)" Value="20" Id="%ENID%" />
+                  <Enumeration Text="A = A - 1 (Dekrementiere A)" Value="21" Id="%ENID%" />
+                  <Enumeration Text="A = A + E1 (Erhöhe um E1)" Value="22" Id="%ENID%" />
+                  <Enumeration Text="A = A + E2 (Erhöhe um E2)" Value="23" Id="%ENID%" />
+                  <Enumeration Text="A = A + (E1 + E2) (Erhöhe um Eingangssumme)" Value="24" Id="%ENID%" />
+                  <Enumeration Text="A = A + (E1 - E2) (Erhöhe um Eingangsdifferenz)" Value="25" Id="%ENID%" />
+                  <Enumeration Text="A = A - E1 (Erniedrige um E1)" Value="26" Id="%ENID%" />
+                  <Enumeration Text="A = A - E2 (Erniedrige um E2)" Value="27" Id="%ENID%" />
+                  <Enumeration Text="A = A - (E1 + E2) (Erniedr. um Eingangssumme)" Value="28" Id="%ENID%" />
+                  <Enumeration Text="A = A - (E1 - E2) (Erniedr. um Eingangsdifferenz)" Value="29" Id="%ENID%" />
+                  <Enumeration Text="A = -E1 (Negiere E1)" Value="39" Id="%ENID%" />
+                  <Enumeration Text="A = -E2 (Negiere E2)" Value="40" Id="%ENID%" />
+                  <Enumeration Text="A = ABS(E1) (Betrag von E1)" Value="41" Id="%ENID%" />
+                  <Enumeration Text="A = ABS(E2) (Betrag von E2)" Value="42" Id="%ENID%" />
+                  <Enumeration Text="A = B2I(E1, E2) (Bool zu Int)" Value="14" Id="%ENID%" />
+                  <Enumeration Text="A = Glättung(E1, E2)" Value="15" Id="%ENID%" />
+                  <Enumeration Text="A = B1(E1, E2, A)" Value="201" Id="%ENID%" />
+                  <Enumeration Text="A = B2(E1, E2, A)" Value="202" Id="%ENID%" />
+                  <Enumeration Text="A = B3(E1, E2, A)" Value="203" Id="%ENID%" />
+                  <Enumeration Text="A = B4(E1, E2, A)" Value="204" Id="%ENID%" />
+                  <Enumeration Text="A = B5(E1, E2, A)" Value="205" Id="%ENID%" />
+                  <Enumeration Text="A = B6(E1, E2, A)" Value="206" Id="%ENID%" />
+                  <Enumeration Text="A = B7(E1, E2, A)" Value="207" Id="%ENID%" />
+                  <Enumeration Text="A = B8(E1, E2, A)" Value="208" Id="%ENID%" />
+                  <Enumeration Text="A = B9(E1, E2, A)" Value="209" Id="%ENID%" />
+                  <Enumeration Text="A = B10(E1, E2, A)" Value="210" Id="%ENID%" />
+                  <Enumeration Text="A = B11(E1, E2, A)" Value="211" Id="%ENID%" />
+                  <Enumeration Text="A = B12(E1, E2, A)" Value="212" Id="%ENID%" />
+                  <Enumeration Text="A = B13(E1, E2, A)" Value="213" Id="%ENID%" />
+                  <Enumeration Text="A = B14(E1, E2, A)" Value="214" Id="%ENID%" />
+                  <Enumeration Text="A = B15(E1, E2, A)" Value="215" Id="%ENID%" />
+                  <Enumeration Text="A = B16(E1, E2, A)" Value="216" Id="%ENID%" />
+                  <Enumeration Text="A = B17(E1, E2, A)" Value="217" Id="%ENID%" />
+                  <Enumeration Text="A = B18(E1, E2, A)" Value="218" Id="%ENID%" />
+                  <Enumeration Text="A = B19(E1, E2, A)" Value="219" Id="%ENID%" />
+                  <Enumeration Text="A = B20(E1, E2, A)" Value="220" Id="%ENID%" />
+                  <Enumeration Text="A = B21(E1, E2, A)" Value="221" Id="%ENID%" />
+                  <Enumeration Text="A = B22(E1, E2, A)" Value="222" Id="%ENID%" />
+                  <Enumeration Text="A = B23(E1, E2, A)" Value="223" Id="%ENID%" />
+                  <Enumeration Text="A = B24(E1, E2, A)" Value="224" Id="%ENID%" />
+                  <Enumeration Text="A = B25(E1, E2, A)" Value="225" Id="%ENID%" />
+                  <Enumeration Text="A = B26(E1, E2, A)" Value="226" Id="%ENID%" />
+                  <Enumeration Text="A = B27(E1, E2, A)" Value="227" Id="%ENID%" />
+                  <Enumeration Text="A = B28(E1, E2, A)" Value="228" Id="%ENID%" />
+                  <Enumeration Text="A = B29(E1, E2, A)" Value="229" Id="%ENID%" />
+                  <Enumeration Text="A = B30(E1, E2, A)" Value="230" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Delta" Name="Delta">
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-2147483648" maxInclusive="2147483647" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-PALine" Name="PALine">
+                <TypeNumber SizeInBit="4" Type="unsignedInt" minInclusive="0" maxInclusive="15" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-PADevice" Name="PADevice">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="255" />
+              </ParameterType>
+              <!-- Ab hier Zeitschaltuhr -->
+              <ParameterType Id="%AID%_PT-OnOff" Name="OnOff">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="AUS" Value="0" Id="%ENID%" />
+                  <Enumeration Text="EIN" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-YearDay" Name="YearDay">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Tagesschaltuhr" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Jahresschaltuhr" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Tagesschaltuhr (verbunden)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Jahresschaltuhr (verbunden)" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Holiday" Name="Holiday">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Feiertage nicht beachten" Value="0" Id="%ENID%" />
+                  <Enumeration Text="An Feiertagen nicht schalten" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Nur an Feiertagen schalten" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Feiertage wie Sonntage behandeln" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Vacation" Name="Vacation">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Urlaub nicht beachten" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Bei Urlaub nicht schalten" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Nur bei Urlaub schalten" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Urlaub wie Sonntag behandeln" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-IsWeekday" Name="IsWeekday">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Tag" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Wochentag" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-RestoreState" Name="RestoreState">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Den letzten Schaltpunkt berechnen" Value="1" Id="%ENID%" />
+                  <!-- <Enumeration Text="Den letzten Schaltpunkt aus dem Speicher holen" Value="2" Id="%ENID%" /> -->
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DuskDawn" Name="DuskDawn">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="Schaltpunkt nicht aktiviert" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Zeitpunkt" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: plus Zeitversatz" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: minus Zeitversatz" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: Frühestens um..." Value="6" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: Spätestens um..." Value="7" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: Über Horizont..." Value="12" Id="%ENID%" />
+                  <Enumeration Text="Sonnenaufgang: Unter Horizont..." Value="14" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: plus Zeitversatz" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: minus Zeitversatz" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: Frühestens um..." Value="10" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: Spätestens um..." Value="11" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: Über Horizont..." Value="13" Id="%ENID%" />
+                  <Enumeration Text="Sonnenuntergang: Unter Horizont..." Value="15" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- <ParameterType Id="%AID%_PT-Degree" Name="Degree">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-90" maxInclusive="90" />
+              </ParameterType> -->
+              <ParameterType Id="%AID%_PT-Degree" Name="Degree">
+                <TypeRestriction Base="Value" SizeInBit="6">
+                  <Enumeration Text="0°" Value="0" Id="%ENID%" />
+                  <Enumeration Text="1°" Value="1" Id="%ENID%" />
+                  <Enumeration Text="2°" Value="2" Id="%ENID%" />
+                  <Enumeration Text="3°" Value="3" Id="%ENID%" />
+                  <Enumeration Text="4°" Value="4" Id="%ENID%" />
+                  <Enumeration Text="5°" Value="5" Id="%ENID%" />
+                  <Enumeration Text="6°" Value="6" Id="%ENID%" />
+                  <Enumeration Text="7°" Value="7" Id="%ENID%" />
+                  <Enumeration Text="8°" Value="8" Id="%ENID%" />
+                  <Enumeration Text="9°" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10°" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11°" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12°" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13°" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14°" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15°" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16°" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17°" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18°" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19°" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20°" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21°" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22°" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23°" Value="23" Id="%ENID%" />
+                  <Enumeration Text="24°" Value="24" Id="%ENID%" />
+                  <Enumeration Text="25°" Value="25" Id="%ENID%" />
+                  <Enumeration Text="26°" Value="26" Id="%ENID%" />
+                  <Enumeration Text="27°" Value="27" Id="%ENID%" />
+                  <Enumeration Text="28°" Value="28" Id="%ENID%" />
+                  <Enumeration Text="29°" Value="29" Id="%ENID%" />
+                  <Enumeration Text="30°" Value="30" Id="%ENID%" />
+                  <Enumeration Text="31°" Value="31" Id="%ENID%" />
+                  <Enumeration Text="32°" Value="32" Id="%ENID%" />
+                  <Enumeration Text="33°" Value="33" Id="%ENID%" />
+                  <Enumeration Text="34°" Value="34" Id="%ENID%" />
+                  <Enumeration Text="35°" Value="35" Id="%ENID%" />
+                  <Enumeration Text="36°" Value="36" Id="%ENID%" />
+                  <Enumeration Text="37°" Value="37" Id="%ENID%" />
+                  <Enumeration Text="38°" Value="38" Id="%ENID%" />
+                  <Enumeration Text="39°" Value="39" Id="%ENID%" />
+                  <Enumeration Text="40°" Value="40" Id="%ENID%" />
+                  <Enumeration Text="41°" Value="41" Id="%ENID%" />
+                  <Enumeration Text="42°" Value="42" Id="%ENID%" />
+                  <Enumeration Text="43°" Value="43" Id="%ENID%" />
+                  <Enumeration Text="44°" Value="44" Id="%ENID%" />
+                  <Enumeration Text="45°" Value="45" Id="%ENID%" />
+                  <Enumeration Text="46°" Value="46" Id="%ENID%" />
+                  <Enumeration Text="47°" Value="47" Id="%ENID%" />
+                  <Enumeration Text="48°" Value="48" Id="%ENID%" />
+                  <Enumeration Text="49°" Value="49" Id="%ENID%" />
+                  <Enumeration Text="50°" Value="50" Id="%ENID%" />
+                  <Enumeration Text="51°" Value="51" Id="%ENID%" />
+                  <Enumeration Text="52°" Value="52" Id="%ENID%" />
+                  <Enumeration Text="53°" Value="53" Id="%ENID%" />
+                  <Enumeration Text="54°" Value="54" Id="%ENID%" />
+                  <Enumeration Text="55°" Value="55" Id="%ENID%" />
+                  <Enumeration Text="56°" Value="56" Id="%ENID%" />
+                  <Enumeration Text="57°" Value="57" Id="%ENID%" />
+                  <Enumeration Text="58°" Value="58" Id="%ENID%" />
+                  <Enumeration Text="59°" Value="59" Id="%ENID%" />
+                  <Enumeration Text="60°" Value="60" Id="%ENID%" />
+                  <Enumeration Text="61°" Value="61" Id="%ENID%" />
+                  <Enumeration Text="62°" Value="62" Id="%ENID%" />
+                  <Enumeration Text="63°" Value="63" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Minute" Name="Minute">
+                <TypeRestriction Base="Value" SizeInBit="6">
+                  <Enumeration Text="jede" Value="63" Id="%ENID%" />
+                  <Enumeration Text="00" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                  <Enumeration Text="07" Value="7" Id="%ENID%" />
+                  <Enumeration Text="08" Value="8" Id="%ENID%" />
+                  <Enumeration Text="09" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23" Value="23" Id="%ENID%" />
+                  <Enumeration Text="24" Value="24" Id="%ENID%" />
+                  <Enumeration Text="25" Value="25" Id="%ENID%" />
+                  <Enumeration Text="26" Value="26" Id="%ENID%" />
+                  <Enumeration Text="27" Value="27" Id="%ENID%" />
+                  <Enumeration Text="28" Value="28" Id="%ENID%" />
+                  <Enumeration Text="29" Value="29" Id="%ENID%" />
+                  <Enumeration Text="30" Value="30" Id="%ENID%" />
+                  <Enumeration Text="31" Value="31" Id="%ENID%" />
+                  <Enumeration Text="32" Value="32" Id="%ENID%" />
+                  <Enumeration Text="33" Value="33" Id="%ENID%" />
+                  <Enumeration Text="34" Value="34" Id="%ENID%" />
+                  <Enumeration Text="35" Value="35" Id="%ENID%" />
+                  <Enumeration Text="36" Value="36" Id="%ENID%" />
+                  <Enumeration Text="37" Value="37" Id="%ENID%" />
+                  <Enumeration Text="38" Value="38" Id="%ENID%" />
+                  <Enumeration Text="39" Value="39" Id="%ENID%" />
+                  <Enumeration Text="40" Value="40" Id="%ENID%" />
+                  <Enumeration Text="41" Value="41" Id="%ENID%" />
+                  <Enumeration Text="42" Value="42" Id="%ENID%" />
+                  <Enumeration Text="43" Value="43" Id="%ENID%" />
+                  <Enumeration Text="44" Value="44" Id="%ENID%" />
+                  <Enumeration Text="45" Value="45" Id="%ENID%" />
+                  <Enumeration Text="46" Value="46" Id="%ENID%" />
+                  <Enumeration Text="47" Value="47" Id="%ENID%" />
+                  <Enumeration Text="48" Value="48" Id="%ENID%" />
+                  <Enumeration Text="49" Value="49" Id="%ENID%" />
+                  <Enumeration Text="50" Value="50" Id="%ENID%" />
+                  <Enumeration Text="51" Value="51" Id="%ENID%" />
+                  <Enumeration Text="52" Value="52" Id="%ENID%" />
+                  <Enumeration Text="53" Value="53" Id="%ENID%" />
+                  <Enumeration Text="54" Value="54" Id="%ENID%" />
+                  <Enumeration Text="55" Value="55" Id="%ENID%" />
+                  <Enumeration Text="56" Value="56" Id="%ENID%" />
+                  <Enumeration Text="57" Value="57" Id="%ENID%" />
+                  <Enumeration Text="58" Value="58" Id="%ENID%" />
+                  <Enumeration Text="59" Value="59" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-MinuteRel" Name="MinuteRel">
+                <TypeRestriction Base="Value" SizeInBit="6">
+                  <Enumeration Text="00" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                  <Enumeration Text="07" Value="7" Id="%ENID%" />
+                  <Enumeration Text="08" Value="8" Id="%ENID%" />
+                  <Enumeration Text="09" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23" Value="23" Id="%ENID%" />
+                  <Enumeration Text="24" Value="24" Id="%ENID%" />
+                  <Enumeration Text="25" Value="25" Id="%ENID%" />
+                  <Enumeration Text="26" Value="26" Id="%ENID%" />
+                  <Enumeration Text="27" Value="27" Id="%ENID%" />
+                  <Enumeration Text="28" Value="28" Id="%ENID%" />
+                  <Enumeration Text="29" Value="29" Id="%ENID%" />
+                  <Enumeration Text="30" Value="30" Id="%ENID%" />
+                  <Enumeration Text="31" Value="31" Id="%ENID%" />
+                  <Enumeration Text="32" Value="32" Id="%ENID%" />
+                  <Enumeration Text="33" Value="33" Id="%ENID%" />
+                  <Enumeration Text="34" Value="34" Id="%ENID%" />
+                  <Enumeration Text="35" Value="35" Id="%ENID%" />
+                  <Enumeration Text="36" Value="36" Id="%ENID%" />
+                  <Enumeration Text="37" Value="37" Id="%ENID%" />
+                  <Enumeration Text="38" Value="38" Id="%ENID%" />
+                  <Enumeration Text="39" Value="39" Id="%ENID%" />
+                  <Enumeration Text="40" Value="40" Id="%ENID%" />
+                  <Enumeration Text="41" Value="41" Id="%ENID%" />
+                  <Enumeration Text="42" Value="42" Id="%ENID%" />
+                  <Enumeration Text="43" Value="43" Id="%ENID%" />
+                  <Enumeration Text="44" Value="44" Id="%ENID%" />
+                  <Enumeration Text="45" Value="45" Id="%ENID%" />
+                  <Enumeration Text="46" Value="46" Id="%ENID%" />
+                  <Enumeration Text="47" Value="47" Id="%ENID%" />
+                  <Enumeration Text="48" Value="48" Id="%ENID%" />
+                  <Enumeration Text="49" Value="49" Id="%ENID%" />
+                  <Enumeration Text="50" Value="50" Id="%ENID%" />
+                  <Enumeration Text="51" Value="51" Id="%ENID%" />
+                  <Enumeration Text="52" Value="52" Id="%ENID%" />
+                  <Enumeration Text="53" Value="53" Id="%ENID%" />
+                  <Enumeration Text="54" Value="54" Id="%ENID%" />
+                  <Enumeration Text="55" Value="55" Id="%ENID%" />
+                  <Enumeration Text="56" Value="56" Id="%ENID%" />
+                  <Enumeration Text="57" Value="57" Id="%ENID%" />
+                  <Enumeration Text="58" Value="58" Id="%ENID%" />
+                  <Enumeration Text="59" Value="59" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Hour" Name="Hour">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="jede" Value="31" Id="%ENID%" />
+                  <Enumeration Text="00" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                  <Enumeration Text="07" Value="7" Id="%ENID%" />
+                  <Enumeration Text="08" Value="8" Id="%ENID%" />
+                  <Enumeration Text="09" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23" Value="23" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-HourRel" Name="HourRel">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="00" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                  <Enumeration Text="07" Value="7" Id="%ENID%" />
+                  <Enumeration Text="08" Value="8" Id="%ENID%" />
+                  <Enumeration Text="09" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23" Value="23" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-HourRelShort" Name="HourRelShort">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="00" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Weekday" Name="Weekday">
+                <TypeRestriction Base="Value" SizeInBit="3">
+                  <Enumeration Text="jeder" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Montag" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Dienstag" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Mittwoch" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Donnerstag" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Freitag" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Samstag" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Sonntag" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Day" Name="Day">
+                <TypeRestriction Base="Value" SizeInBit="7">
+                  <Enumeration Text="jeder" Value="0" Id="%ENID%" />
+                  <Enumeration Text="01" Value="1" Id="%ENID%" />
+                  <Enumeration Text="02" Value="2" Id="%ENID%" />
+                  <Enumeration Text="03" Value="3" Id="%ENID%" />
+                  <Enumeration Text="04" Value="4" Id="%ENID%" />
+                  <Enumeration Text="05" Value="5" Id="%ENID%" />
+                  <Enumeration Text="06" Value="6" Id="%ENID%" />
+                  <Enumeration Text="07" Value="7" Id="%ENID%" />
+                  <Enumeration Text="08" Value="8" Id="%ENID%" />
+                  <Enumeration Text="09" Value="9" Id="%ENID%" />
+                  <Enumeration Text="10" Value="10" Id="%ENID%" />
+                  <Enumeration Text="11" Value="11" Id="%ENID%" />
+                  <Enumeration Text="12" Value="12" Id="%ENID%" />
+                  <Enumeration Text="13" Value="13" Id="%ENID%" />
+                  <Enumeration Text="14" Value="14" Id="%ENID%" />
+                  <Enumeration Text="15" Value="15" Id="%ENID%" />
+                  <Enumeration Text="16" Value="16" Id="%ENID%" />
+                  <Enumeration Text="17" Value="17" Id="%ENID%" />
+                  <Enumeration Text="18" Value="18" Id="%ENID%" />
+                  <Enumeration Text="19" Value="19" Id="%ENID%" />
+                  <Enumeration Text="20" Value="20" Id="%ENID%" />
+                  <Enumeration Text="21" Value="21" Id="%ENID%" />
+                  <Enumeration Text="22" Value="22" Id="%ENID%" />
+                  <Enumeration Text="23" Value="23" Id="%ENID%" />
+                  <Enumeration Text="24" Value="24" Id="%ENID%" />
+                  <Enumeration Text="25" Value="25" Id="%ENID%" />
+                  <Enumeration Text="26" Value="26" Id="%ENID%" />
+                  <Enumeration Text="27" Value="27" Id="%ENID%" />
+                  <Enumeration Text="28" Value="28" Id="%ENID%" />
+                  <Enumeration Text="29" Value="29" Id="%ENID%" />
+                  <Enumeration Text="30" Value="30" Id="%ENID%" />
+                  <Enumeration Text="31" Value="31" Id="%ENID%" />
+                  <Enumeration Text="ultimo" Value="32" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Month" Name="Month">
+                <TypeRestriction Base="Value" SizeInBit="4">
+                  <Enumeration Text="jeder" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Jan" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Feb" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Mär" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Apr" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Mai" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Jun" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Jul" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Aug" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Sep" Value="9" Id="%ENID%" />
+                  <Enumeration Text="Okt" Value="10" Id="%ENID%" />
+                  <Enumeration Text="Nov" Value="11" Id="%ENID%" />
+                  <Enumeration Text="Dez" Value="12" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <!-- Use this for external input assignment in a table -->
+              <ParameterType Id="%AID%_PT-KOInput" Name="KOInput">
+                <TypeRestriction Base="Value" SizeInBit="1" UIHint="DropDown">
+                  <Enumeration Text="Neues KO" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Absolutes KO" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-KORelInput" Name="KORelInput">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <Enumeration Text="Eigenes KO" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Absolutes KO" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Relatives KO" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-KORelInput2" Name="KORelInput2">
+                <TypeRestriction Base="Value" SizeInBit="2" UIHint="DropDown">
+                  <Enumeration Text="Absolutes KO" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Relatives KO" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-KOAbsNumber" Name="KOAbsNumber">
+                <!-- Referencing other KO as an absolute number -->
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="1" maxInclusive="%MaxKoNumber%" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-KORelNumber" Name="KORelNumber">
+                <!-- Referencing other KO as a relative number -->
+                <TypeNumber SizeInBit="16" Type="signedInt" minInclusive="-%MaxKoNumber-1%" maxInclusive="%MaxKoNumber-1%" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OverviewFilter" Name="OverviewFilter">
+                <TypeRestriction Base="Value" SizeInBit="1" UIHint="DropDown">
+                  <Enumeration Text="Alle Kanäle" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Nur Kanäle mit Verknüpfungen" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-OverviewDisplay" Name="OverviewDisplay">
+                <TypeRestriction Base="Value" SizeInBit="1" UIHint="DropDown">
+                  <Enumeration Text="Mit Logikbeschriftungen" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ohne Logikbeschriftungen" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SLEDFunc" Name="SLEDFunc">
+                <TypeRestriction Base="Value" SizeInBit="16" UIHint="DropDown">
+                  <Enumeration Text="Logikstatus 1" Value="90" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 2" Value="91" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 3" Value="92" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 4" Value="93" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 5" Value="94" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 6" Value="95" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 7" Value="96" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 8" Value="97" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-StatusLedProvider" Name="StatusLedProvider">
+                <TypeRestriction Base="Value" SizeInBit="3" UIHint="DropDown">
+                  <Enumeration Text="Logikstatus 1" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 2" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 3" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 4" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 5" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 6" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 7" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Logikstatus 8" Value="7" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-StatusLedEffect" Name="StatusLedEffect">
+                <TypeRestriction Base="Value" SizeInBit="3" UIHint="DropDown">
+                  <Enumeration Text="Aus" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ein" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Blinken" Value="2" Id="%ENID%" />
+                  <Enumeration Text="Pulsieren" Value="3" Id="%ENID%" />
+                  <Enumeration Text="Aufblitzen" Value="4" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-StatusLedEffectDuration" Name="StatusLedEffectDuration">
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="5" maxInclusive="60000" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-InternalInputType" Name="InternalInputType">
+                <TypeRestriction Base="Value" SizeInBit="1" UIHint="DropDown">
+                  <Enumeration Text="Anderen Logikkanal" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Statuskanal" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+            </ParameterTypes>
+            <Parameters>
+              <Parameter Id="%AID%_P-%TT%00166" Name="OverviewFilter" ParameterType="%AID%_PT-OverviewFilter" Text="Nur Kanäle mit internen Verknüpfungen anzeigen" Value="1" />
+              <Parameter Id="%AID%_P-%TT%00168" Name="CompactDisplay" ParameterType="%AID%_PT-OverviewDisplay" Text="Übersicht ohne Logikbeschriftung anzeigen (kompakter)" Value="0" />
+              <Parameter Id="%AID%_P-%TT%00167" Name="EnableSave" ParameterType="%AID%_PT-EnableSave" Text="Speichern von Werten in Hardware möglich?" Value="0" Access="None" />
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="0" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00164" Name="VisibleChannels" ParameterType="%AID%_PT-LOGNumChannels" Offset="0" BitOffset="0" Text="Verfügbare Kanäle" Value="%LOG_NumChannelsDefault%" SuffixText=" von %N%" />
+                <Parameter Id="%AID%_UP-%TT%00138" Name="VacationKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="0" Text="Urlaubsbehandlung aktivieren?" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00139" Name="HolidayKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="1" Text="Feiertage auf dem Bus verfügbar machen?" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00140" Name="VacationRead" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="2" Text="Nach Neustart Urlaubsinfo lesen?" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00141" Name="HolidaySend" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="3" Text="Nach Neuberechnung Feiertagsinfo senden?" Value="0" />
+                <!-- 4 Bit free -->
+              </Union>
+              <Union SizeInBit="40">
+                <Memory CodeSegment="%MID%" Offset="2" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00152" Name="Neujahr" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="0" Text="1. Neujahr" SuffixText="1. Januar" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00110" Name="DreiKoenige" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="2. Heilige Drei Könige" SuffixText="6. Januar" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00111" Name="Weiberfastnacht" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="3. Weiberfastnacht" SuffixText="52 Tage vor Ostern" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00112" Name="Rosenmontag" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="3" Text="4. Rosenmontag" SuffixText="48 Tage vor Ostern" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00113" Name="Fastnachtsdienstag" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="4" Text="5. Fastnachtsdienstag" SuffixText="47 Tage vor Ostern" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00114" Name="Aschermittwoch" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="5" Text="6. Aschermittwoch" SuffixText="46 Tage vor Ostern" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00153" Name="Frauentag" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="6" Text="7. Frauentag" SuffixText="8. März" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00115" Name="Gruendonnerstag" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="7" Text="8. Gründonnerstag" SuffixText="3 Tage vor Ostern" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00116" Name="Karfreitag" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="0" Text="9. Karfreitag" SuffixText="2 Tage vor Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00117" Name="Ostersonntag" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="1" Text="10. Ostersonntag" SuffixText="Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00118" Name="Ostermontag" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="2" Text="11. Ostermontag" SuffixText="1 Tag nach Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00119" Name="TagDerArbeit" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="3" Text="12. Tag der Arbeit" SuffixText="1. Mai" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00120" Name="Himmelfahrt" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="4" Text="13. Christi Himmelfahrt" SuffixText="39 Tage nach Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00121" Name="Pfingstsonntag" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="5" Text="14. Pfingstsonntag" SuffixText="49 Tage nach Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00122" Name="Pfingstmontag" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="6" Text="15. Pfingstmontag" SuffixText="50 Tage nach Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00123" Name="Fronleichnam" ParameterType="%AID%_PT-CheckBox" Offset="1" BitOffset="7" Text="16. Fronleichnam" SuffixText="60 Tage nach Ostern" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00124" Name="Friedensfest" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="0" Text="17. Hohes Friedensfest" SuffixText="8. August" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00125" Name="MariaHimmelfahrt" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="1" Text="18. Mariä Himmelfahrt" SuffixText="15. August" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00126" Name="DeutscheEinheit" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="2" Text="19. Tag der Deutschen Einheit" SuffixText="3. Oktober" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00127" Name="Reformationstag" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="3" Text="20. Reformationstag" SuffixText="31. Oktober" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00128" Name="Allerheiligen" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="4" Text="21. Allerheiligen" SuffixText="1. November" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00129" Name="BussBettag" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="5" Text="22. Buß- und Bettag" SuffixText="11 Tage vor 1. Adv." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00130" Name="Advent1" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="6" Text="23. Erster Advent" SuffixText="21 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00131" Name="Advent2" ParameterType="%AID%_PT-CheckBox" Offset="2" BitOffset="7" Text="24. Zweiter Advent" SuffixText="14 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00132" Name="Advent3" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="0" Text="25. Dritter Advent" SuffixText="7 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00133" Name="Advent4" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="1" Text="26. Vierter Advent" SuffixText="Sonntag vor Weihn." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00134" Name="Heiligabend" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="2" Text="27. Heiligabend" SuffixText="24. Dezember" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00135" Name="Weihnachtstag1" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="3" Text="28. Erster Weihnachtstag" SuffixText="25. Dezember" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00136" Name="Weihnachtstag2" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="4" Text="29. Zweiter Weihnachtstag" SuffixText="26. Dezember" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00137" Name="Silvester" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="5" Text="30. Silvester" SuffixText="31. Dezember" Value="1" />
+                <Parameter Id="%AID%_UP-%TT%00154" Name="Nationalfeiertag" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="6" Text="31. Nationalfeiertag (AT)" SuffixText="26. Oktober" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00155" Name="MariaEmpfaengnis" ParameterType="%AID%_PT-CheckBox" Offset="3" BitOffset="7" Text="32. Maria Empfängnis (AT)" SuffixText="8. Dezember" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00172" Name="NationalfeiertagSchweiz" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="0" Text="33. Nationalfeiertag (CH)" SuffixText="1. August" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00173" Name="Totensonntag" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="1" Text="34. Totensonntag" SuffixText="7 Tage vor 1. Adv." Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00174" Name="Weltkindertag" ParameterType="%AID%_PT-CheckBox" Offset="4" BitOffset="2" Text="35. Weltkindertag" SuffixText="20. September" Value="0" />
+                <!-- 6 Bit free -->
+              </Union>
+              <Parameter Id="%AID%_P-%TT%00169" Name="TestFormulaResult" ParameterType="%AID%_PT-Text40Byte" Text="Ergebnis des Formeltests" Value="" Access="None" />
+              <Parameter Id="%AID%_P-%TT%00170" Name="TestFormulaActive" ParameterType="%AID%_PT-CheckBox" Text="Formeltest aktiv" Value="0" />
+              <Parameter Id="%AID%_P-%TT%00171" Name="TestFormula" ParameterType="%AID%_PT-UserFormula" Text="Testformel" Value="" />
+              <!-- The following starts at Offset=7 !!! -->
+              <op:usePart name="FORMULA" xpath="//Static/Parameters/*" />
+            </Parameters>
+            <ParameterRefs>
+              <!-- General -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00002_R-%TT%0000201" RefId="%AID%_UP-%TT%00002" />
+              <ParameterRef Id="%AID%_UP-%TT%00003_R-%TT%0000301" RefId="%AID%_UP-%TT%00003" />
+              <ParameterRef Id="%AID%_UP-%TT%00004_R-%TT%0000401" RefId="%AID%_UP-%TT%00004" />
+              <ParameterRef Id="%AID%_UP-%TT%00005_R-%TT%0000501" RefId="%AID%_UP-%TT%00005" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00034_R-%TT%0003401" RefId="%AID%_UP-%TT%00034" /> -->
+              <!-- Parameter 3501 - 3601 - are enabled on generic page of target application -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%00035_R-%TT%0003501" RefId="%AID%_P-%TT%00035" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%00036_R-%TT%0003601" RefId="%AID%_P-%TT%00036" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%00110_R-%TT%0011001" RefId="%AID%_UP-%TT%00110" />
+              <ParameterRef Id="%AID%_UP-%TT%00111_R-%TT%0011101" RefId="%AID%_UP-%TT%00111" />
+              <ParameterRef Id="%AID%_UP-%TT%00112_R-%TT%0011201" RefId="%AID%_UP-%TT%00112" />
+              <ParameterRef Id="%AID%_UP-%TT%00113_R-%TT%0011301" RefId="%AID%_UP-%TT%00113" />
+              <ParameterRef Id="%AID%_UP-%TT%00114_R-%TT%0011401" RefId="%AID%_UP-%TT%00114" />
+              <ParameterRef Id="%AID%_UP-%TT%00115_R-%TT%0011501" RefId="%AID%_UP-%TT%00115" />
+              <ParameterRef Id="%AID%_UP-%TT%00116_R-%TT%0011601" RefId="%AID%_UP-%TT%00116" />
+              <ParameterRef Id="%AID%_UP-%TT%00117_R-%TT%0011701" RefId="%AID%_UP-%TT%00117" />
+              <ParameterRef Id="%AID%_UP-%TT%00118_R-%TT%0011801" RefId="%AID%_UP-%TT%00118" />
+              <ParameterRef Id="%AID%_UP-%TT%00119_R-%TT%0011901" RefId="%AID%_UP-%TT%00119" />
+              <ParameterRef Id="%AID%_UP-%TT%00120_R-%TT%0012001" RefId="%AID%_UP-%TT%00120" />
+              <ParameterRef Id="%AID%_UP-%TT%00121_R-%TT%0012101" RefId="%AID%_UP-%TT%00121" />
+              <ParameterRef Id="%AID%_UP-%TT%00122_R-%TT%0012201" RefId="%AID%_UP-%TT%00122" />
+              <ParameterRef Id="%AID%_UP-%TT%00123_R-%TT%0012301" RefId="%AID%_UP-%TT%00123" />
+              <ParameterRef Id="%AID%_UP-%TT%00124_R-%TT%0012401" RefId="%AID%_UP-%TT%00124" />
+              <ParameterRef Id="%AID%_UP-%TT%00125_R-%TT%0012501" RefId="%AID%_UP-%TT%00125" />
+              <ParameterRef Id="%AID%_UP-%TT%00126_R-%TT%0012601" RefId="%AID%_UP-%TT%00126" />
+              <ParameterRef Id="%AID%_UP-%TT%00127_R-%TT%0012701" RefId="%AID%_UP-%TT%00127" />
+              <ParameterRef Id="%AID%_UP-%TT%00128_R-%TT%0012801" RefId="%AID%_UP-%TT%00128" />
+              <ParameterRef Id="%AID%_UP-%TT%00129_R-%TT%0012901" RefId="%AID%_UP-%TT%00129" />
+              <ParameterRef Id="%AID%_UP-%TT%00130_R-%TT%0013001" RefId="%AID%_UP-%TT%00130" />
+              <ParameterRef Id="%AID%_UP-%TT%00131_R-%TT%0013101" RefId="%AID%_UP-%TT%00131" />
+              <ParameterRef Id="%AID%_UP-%TT%00132_R-%TT%0013201" RefId="%AID%_UP-%TT%00132" />
+              <ParameterRef Id="%AID%_UP-%TT%00133_R-%TT%0013301" RefId="%AID%_UP-%TT%00133" />
+              <ParameterRef Id="%AID%_UP-%TT%00134_R-%TT%0013401" RefId="%AID%_UP-%TT%00134" />
+              <ParameterRef Id="%AID%_UP-%TT%00135_R-%TT%0013501" RefId="%AID%_UP-%TT%00135" />
+              <ParameterRef Id="%AID%_UP-%TT%00136_R-%TT%0013601" RefId="%AID%_UP-%TT%00136" />
+              <ParameterRef Id="%AID%_UP-%TT%00137_R-%TT%0013701" RefId="%AID%_UP-%TT%00137" />
+              <ParameterRef Id="%AID%_UP-%TT%00138_R-%TT%0013801" RefId="%AID%_UP-%TT%00138" />
+              <ParameterRef Id="%AID%_UP-%TT%00139_R-%TT%0013901" RefId="%AID%_UP-%TT%00139" />
+              <ParameterRef Id="%AID%_UP-%TT%00140_R-%TT%0014001" RefId="%AID%_UP-%TT%00140" />
+              <ParameterRef Id="%AID%_UP-%TT%00141_R-%TT%0014101" RefId="%AID%_UP-%TT%00141" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00142_R-%TT%0014201" RefId="%AID%_UP-%TT%00142" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00143_R-%TT%0014301" RefId="%AID%_UP-%TT%00143" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00144_R-%TT%0014401" RefId="%AID%_UP-%TT%00144" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00145_R-%TT%0014501" RefId="%AID%_UP-%TT%00145" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00146_R-%TT%0014601" RefId="%AID%_UP-%TT%00146" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00147_R-%TT%0014701" RefId="%AID%_UP-%TT%00147" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00148_R-%TT%0014801" RefId="%AID%_UP-%TT%00148" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00149_R-%TT%0014901" RefId="%AID%_UP-%TT%00149" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00150_R-%TT%0015001" RefId="%AID%_UP-%TT%00150" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00151_R-%TT%0015101" RefId="%AID%_UP-%TT%00151" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%00152_R-%TT%0015201" RefId="%AID%_UP-%TT%00152" />
+              <ParameterRef Id="%AID%_UP-%TT%00153_R-%TT%0015301" RefId="%AID%_UP-%TT%00153" />
+              <ParameterRef Id="%AID%_UP-%TT%00154_R-%TT%0015401" RefId="%AID%_UP-%TT%00154" />
+              <ParameterRef Id="%AID%_UP-%TT%00155_R-%TT%0015501" RefId="%AID%_UP-%TT%00155" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00156_R-%TT%0015601" RefId="%AID%_UP-%TT%00156" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00157_R-%TT%0015701" RefId="%AID%_UP-%TT%00157" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00158_R-%TT%0015801" RefId="%AID%_UP-%TT%00158" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00159_R-%TT%0015901" RefId="%AID%_UP-%TT%00159" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00160_R-%TT%0016001" RefId="%AID%_UP-%TT%00160" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00161_R-%TT%0016101" RefId="%AID%_UP-%TT%00161" /> -->
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00162_R-%TT%0016201" RefId="%AID%_UP-%TT%00162" /> -->
+              <!-- <ParameterRef Id="%AID%_P-%TT%00163_R-%TT%0016301" RefId="%AID%_P-%TT%00163" /> -->
+              <ParameterRef Id="%AID%_UP-%TT%00164_R-%TT%0016401" RefId="%AID%_UP-%TT%00164" />
+              <!-- <ParameterRef Id="%AID%_UP-%TT%00165_R-%TT%0016501" RefId="%AID%_UP-%TT%00165" /> -->
+              <ParameterRef Id="%AID%_P-%TT%00166_R-%TT%0016601" RefId="%AID%_P-%TT%00166" />
+              <ParameterRef Id="%AID%_P-%TT%00167_R-%TT%0016701" RefId="%AID%_P-%TT%00167" />
+              <ParameterRef Id="%AID%_P-%TT%00168_R-%TT%0016801" RefId="%AID%_P-%TT%00168" />
+              <ParameterRef Id="%AID%_P-%TT%00169_R-%TT%0016901" RefId="%AID%_P-%TT%00169" />
+              <ParameterRef Id="%AID%_P-%TT%00170_R-%TT%0017001" RefId="%AID%_P-%TT%00170" />
+              <ParameterRef Id="%AID%_P-%TT%00171_R-%TT%0017101" RefId="%AID%_P-%TT%00171" />
+              <ParameterRef Id="%AID%_UP-%TT%00172_R-%TT%0017201" RefId="%AID%_UP-%TT%00172" />
+              <ParameterRef Id="%AID%_UP-%TT%00173_R-%TT%0017301" RefId="%AID%_UP-%TT%00173" />
+              <ParameterRef Id="%AID%_UP-%TT%00174_R-%TT%0017401" RefId="%AID%_UP-%TT%00174" />
+              <!-- Used in Common: <ParameterRef Id="%AID%_UP-%TT%00175_R-%TT%0017501" RefId="%AID%_UP-%TT%00175" /> -->
+              <!-- starts with %TT%00200 -->
+              <op:usePart name="FORMULA" xpath="//Static/ParameterRefs/*" />
+            </ParameterRefs>
+            <ParameterCalculations>
+              <ParameterCalculation Id="%AID%_PC-%TT%00001" Language="JavaScript" Name="ClearFieldContent" LRTransformationFunc="LOG_Nop" RLTransformationFunc="LOG_ClearContent" >
+                <LParameters>
+                  <ParameterRefRef RefId="%AID%_P-%TT%00169_R-%TT%0016901" AliasName="ResultDisplay" />
+                </LParameters>
+                <RParameters>
+                  <ParameterRefRef RefId="%AID%_P-%TT%00171_R-%TT%0017101" AliasName="Formula" />
+                </RParameters>
+              </ParameterCalculation>
+            </ParameterCalculations>
+            <ComObjectTable>
+              <!-- Be careful, KO-Numbers are reordered and not anymore aligned with ID's -->
+              <ComObject Id="%AID%_O-%TT%00004" Name="Vacation" Text="Urlaub" Number="15" FunctionText="Logik: Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
+              <ComObject Id="%AID%_O-%TT%00005" Name="Holiday1" Text="Welcher Feiertag ist heute?" Number="16" FunctionText="Logik: Ausgang" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="%AID%_O-%TT%00006" Name="Holiday2" Text="Welcher Feiertag ist morgen?" Number="17" FunctionText="Logik: Ausgang" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <!-- <ComObject Id="%AID%_O-%TT%00008" Name="LedLock"      Text="Einschalten der LEDs verhindern" Number="18" FunctionText="Logik: Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" /> -->
+              <!-- <ComObject Id="%AID%_O-%TT%00009" Name="BuzzerLock"   Text="Einschalten des Buzzers verhindern" Number="19" FunctionText="Logik: Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" /> -->
+            </ComObjectTable>
+            <ComObjectRefs>
+              <ComObjectRef Id="%AID%_O-%TT%00004_R-%TT%0000401" RefId="%AID%_O-%TT%00004" />
+              <ComObjectRef Id="%AID%_O-%TT%00005_R-%TT%0000501" RefId="%AID%_O-%TT%00005" />
+              <ComObjectRef Id="%AID%_O-%TT%00006_R-%TT%0000601" RefId="%AID%_O-%TT%00006" />
+              <!-- <ComObjectRef Id="%AID%_O-%TT%00007_R-%TT%0000701" RefId="%AID%_O-%TT%00007" /> -->
+              <!-- <ComObjectRef Id="%AID%_O-%TT%00008_R-%TT%0000801" RefId="%AID%_O-%TT%00008" /> -->
+              <!-- <ComObjectRef Id="%AID%_O-%TT%00009_R-%TT%0000901" RefId="%AID%_O-%TT%00009" /> -->
+              <!-- <ComObjectRef Id="%AID%_O-%TT%00010_R-%TT%0001001" RefId="%AID%_O-%TT%00010" /> -->
+            </ComObjectRefs>
+            <Script>
+              <op:include href="Logikmodul.script.js" type="script" />
+            </Script>
+          </Static>
+          <Dynamic>
+            <Channel Id="%AID%_CH-%PREFIX%" Number="%PREFIX%" Name="Logic" Text="Logiken" Icon="blur" HelpContext="LOG-Dokumentation">
+              <!-- Inline ParameterBlock in Channel is invisible, so also all its contents -->
+              <ParameterBlock Id="%AID%_PB-nnn" Name="InitInvisible" Inline="true">
+                <!-- Hope this is enough for activating the following parameter -->
+                <!-- Enable Save? -->
+                <ParameterRefRef RefId="%AID%_P-%TT%00167_R-%TT%0016701" />
+              </ParameterBlock>
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Settings" Text="Allgemein" ShowInComObjectTree="true" Icon="cog-outline" HelpContext="LOG-Dokumentation">
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikmodul" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Version: %ModuleVersion%" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanalauswahl" UIHint="Headline" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00164_R-%TT%0016401" HelpContext="BASE-Verfuegbare-Kanaele" IndentLevel="1" />
+                <ParameterSeparator Id="%AID%_PS-52" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="%AID%_PS-50" Text="Urlaub" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-51" Text="Zeitschaltuhren können auch Urlaubszeiten berücksichtigen. Damit das funktioniert, muss eine Urlaubszeit über das KO 15 dem Gerät mitgeteilt werden." />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00138_R-%TT%0013801" HelpContext="%DOC%" IndentLevel="1" />
+                <choose ParamRefId="%AID%_UP-%TT%00138_R-%TT%0013801">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00140_R-%TT%0014001" HelpContext="%DOC%" IndentLevel="1" />
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00004_R-%TT%0000401" />
+                  </when>
+                </choose>
+                <ParameterSeparator Id="%AID%_PS-52" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="%AID%_PS-53" Text="Feiertage" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-54" Text="Das Gerät kann die berechneten Feiertage auch auf den Bus senden. Über das KO 16 wird mitgeteilt, welcher Feiertag 'Heute' ist, über KO 17 welcher Feiertag 'Morgen' ist. 0 bedeutet 'kein Feiertag'." />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00139_R-%TT%0013901" HelpContext="%DOC%" IndentLevel="1" />
+                <choose ParamRefId="%AID%_UP-%TT%00139_R-%TT%0013901">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00141_R-%TT%0014101" HelpContext="%DOC%" IndentLevel="1" />
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00005_R-%TT%0000501" />
+                    <ComObjectRefRef RefId="%AID%_O-%TT%00006_R-%TT%0000601" />
+                  </when>
+                </choose>
+                <ParameterSeparator Id="%AID%_PS-55" Text="Im folgenden kann bestimmt werden, welche Feiertage berechnet werden sollen. Diese Feiertage werden auch von den Zeitschaltuhren berücksichtigt." />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00152_R-%TT%0015201" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00110_R-%TT%0011001" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00111_R-%TT%0011101" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00112_R-%TT%0011201" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00113_R-%TT%0011301" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00114_R-%TT%0011401" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00153_R-%TT%0015301" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00115_R-%TT%0011501" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00116_R-%TT%0011601" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00117_R-%TT%0011701" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00118_R-%TT%0011801" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00119_R-%TT%0011901" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00120_R-%TT%0012001" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00121_R-%TT%0012101" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00122_R-%TT%0012201" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00123_R-%TT%0012301" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00172_R-%TT%0017201" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00124_R-%TT%0012401" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00125_R-%TT%0012501" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00174_R-%TT%0017401" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00126_R-%TT%0012601" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00154_R-%TT%0015401" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00127_R-%TT%0012701" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00128_R-%TT%0012801" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00129_R-%TT%0012901" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00173_R-%TT%0017301" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00155_R-%TT%0015501" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00130_R-%TT%0013001" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00131_R-%TT%0013101" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00132_R-%TT%0013201" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00133_R-%TT%0013301" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00134_R-%TT%0013401" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00135_R-%TT%0013501" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00136_R-%TT%0013601" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+                <ParameterRefRef RefId="%AID%_UP-%TT%00137_R-%TT%0013701" HelpContext="LOG-Auswahlfelder-fuer-Feiertage" IndentLevel="1" />
+              </ParameterBlock>
+              <ParameterBlock Name="UserFormulas" Text="Benutzerformeln" Id="%AID%_PB-nnn" Icon="calculator-variant-outline" HelpContext="LOG-Benutzerformeln">
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Benutzerformeln" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Jede Formel kann im Ausgangskonverter eines Logikkanals verwendet werden. Falls eine Benutzerformel in der Firmware implementiert wurde UND eine hier eingegeben wurde, gewinnt die hier eingegebene." />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Formeln können die Variablen E1 (für Eingang 1), E2 (für Eingang 2) und A (für Ausgang) enthalten. Sie werden in C-Schreibweise notiert. Alle Funktionen und Variablen werden ohne Berücksichtigung von Groß- und Kleinschreibung interpretiert." />
+                <!-- TODO -->
+                <ParameterBlock Id="%AID%_PB-nnn" Layout="Grid" Inline="true">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Width="1%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Width="44%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Width="5%" />
+                    <Column Id="%AID%_PB-nnn_C-4" Width="51%" />
+                  </Columns>
+                  <ParameterRefRef RefId="%AID%_P-%TT%00170_R-%TT%0017001" HelpContext="LOG-Benutzerformel-testen" Cell="1,3" />
+                  <choose ParamRefId="%AID%_P-%TT%00170_R-%TT%0017001">
+                    <when test="0">
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text=" Benutzerformel testen" Cell="1,2" />
+                    </when>
+                    <when test="1">
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text=" Benutzerformel testen" Cell="1,2" UIHint="Headline" />
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Ergebnis: {{0:noch nicht berechnet}}" TextParameterRefId="%AID%_P-%TT%00169_R-%TT%0016901" Cell="1,4" />
+                      <ParameterRefRef RefId="%AID%_P-%TT%00169_R-%TT%0016901" Cell="1,4" />
+                    </when>
+                  </choose>
+                </ParameterBlock>
+                <choose ParamRefId="%AID%_P-%TT%00170_R-%TT%0017001">
+                  <when test="1">
+                    <ParameterRefRef RefId="%AID%_P-%TT%00171_R-%TT%0017101" HelpContext="LOG-Definition-der-Benutzerformel" IndentLevel="2" />
+                    <ParameterBlock Id="%AID%_PB-nnn" Layout="Grid" Inline="true">
+                      <Rows>
+                        <Row Id="%AID%_PB-nnn_R-1" />
+                      </Rows>
+                      <Columns>
+                        <Column Id="%AID%_PB-nnn_C-1" Width="1%" />
+                        <Column Id="%AID%_PB-nnn_C-2" Width="43%" />
+                        <Column Id="%AID%_PB-nnn_C-3" Width="35%" />
+                        <Column Id="%AID%_PB-nnn_C-4" Width="23%" />
+                      </Columns>
+                      <Button Id="%AID%_B-%TT%00169" Text="Neue Zeilen aus '\n' machen" Cell="1,3" EventHandler="newline" EventHandlerParameters="{ &quot;textbox&quot;:&quot;LOG_TestFormula&quot; }" />
+                      <Button Id="%AID%_B-%TT%00171" Text="Formel rechnen" Cell="1,4" EventHandler="LOG_testUserFormula" EventHandlerOnline="ConnectionOriented" />
+                    </ParameterBlock>
+                  </when>
+                </choose>
+                <ParameterSeparator Id="%AID%_PS-nnn" Text=" " />
+                <op:usePart name="FORMULA" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock/*" />
+              </ParameterBlock>
+              <ParameterBlock Id="%AID%_PB-nnn" Name="KoOverview" Text="Übersicht interne Verknüpfungen" Icon="view-list-outline" HelpContext="Empty" ShowInComObjectTree="false">
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Übersicht aller Verknüpfungen" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Die folgende Liste kann leer sein, falls noch keine Logikkanäle definiert wurden oder noch keine internen Verknüpfungen genutzt werden." />
+                <!-- KO-Overview-Filter -->
+                <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="Empty">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="11%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="42%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="42%" />
+                  </Columns>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Anzeige" Cell="1,1" />
+                  <ParameterRefRef RefId="%AID%_P-%TT%00168_R-%TT%0016801" Cell="1,2" />
+                  <ParameterRefRef RefId="%AID%_P-%TT%00166_R-%TT%0016601" Cell="1,3" />
+                </ParameterBlock>
+                <!-- Table-Header -->
+                <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid" HelpContext="Empty">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    <Row Id="%AID%_PB-nnn_R-2" Name="Row2" />
+                    <Row Id="%AID%_PB-nnn_R-3" Name="Row3" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="11%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="37%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="45%" />
+                    <Column Id="%AID%_PB-nnn_C-4" Name="Col4" Width="37%" />
+                    <Column Id="%AID%_PB-nnn_C-5" Name="Col5" Width="60%" />
+                  </Columns>
+                  <!-- Horizontal ruler -->
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,1" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,2" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,3" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,4" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,5" Text="" UIHint="HorizontalRuler" />
+                  <!-- KO-Overview-Header -->
+                  <choose ParamRefId="%AID%_P-%TT%00168_R-%TT%0016801">
+                    <when test="0">
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Logiktext / Eingang" UIHint="Headline" Cell="2,2" />
+                    </when>
+                    <when test="1">
+                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang" UIHint="Headline" Cell="2,2" />
+                    </when>
+                  </choose>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="KO / Interner Eingang" UIHint="Headline" Cell="2,3" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Ausgang" UIHint="Headline" Cell="2,4" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Kommunikationsobjekt" UIHint="Headline" Cell="2,5" />
+                  <!-- Horizontal ruler -->
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="3,1" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="3,2" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="3,3" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="3,4" Text="" UIHint="HorizontalRuler" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="3,5" Text="" UIHint="HorizontalRuler" />
+                </ParameterBlock>
+                <!-- KO-Overview-Table -->
+                <op:include href="Logikmodul.overview-intko.templ.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Channel-List']/*" type="template" prefix="LOG" IsInner="true" />
+              </ParameterBlock>
+              <!-- followed by all logic channels -->
+              <op:include href="Logikmodul.templ.xml" xpath="//ApplicationProgram/Dynamic/ChannelIndependentBlock/*" type="template" prefix="LOG" IsInner="true" />
+              <choose ParamRefId="%AID%_UP-%TT%00164_R-%TT%0016401">
+                <when test="&lt;%N%">
+                  <ParameterBlock Id="%AID%_PB-nnn" Text="(mehr)" Icon="dots-horizontal" HelpContext="Empty">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanalauswahl" UIHint="Headline" />
+                    <ParameterRefRef RefId="%AID%_UP-%TT%00164_R-%TT%0016401" HelpContext="BASE-Verfuegbare-Kanaele" IndentLevel="1" />
+                  </ParameterBlock>
+                </when>
+              </choose>
+            </Channel>
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="" Name="Help_de.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>
